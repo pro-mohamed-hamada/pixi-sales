@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\GovernoratesController;
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\VisitsController;
+use App\Http\Controllers\Api\ReasonsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,5 @@ Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
     Route::post('logout',      [AuthController::class, 'logout']);
     Route::get('authuser',      [AuthController::class, 'authUser']);
     Route::get('services', [ServicesController::class, 'index']);
+    Route::get('reasons', [ReasonsController::class, 'index']);
 });

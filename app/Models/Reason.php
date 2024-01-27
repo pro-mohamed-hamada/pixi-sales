@@ -10,4 +10,6 @@ use App\Traits\Filterable;
 class Reason extends Model
 {
     use HasFactory, HasTranslations, Filterable;
+
+    public $translatable = ['name'];
 }
