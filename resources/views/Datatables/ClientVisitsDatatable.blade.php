@@ -20,10 +20,10 @@
                         @foreach ($client->visits as $visit)
                         <tr>
                             <td>{{ $visit->id }}</td>
-                            {{-- <td>{{ $visit->client->name }}</td>
+                            <td>{{ $visit->client->name }}</td>
                             <td>{{ $visit->action_type }}</td>
                             <td>{{ $visit->comment }}</td>
-                            <td>{{ $visit->created_at }}</td> --}}
+                            <td>{{ $visit->created_at }}</td>
                         </tr>
                         @endforeach 
                     </tbody>
