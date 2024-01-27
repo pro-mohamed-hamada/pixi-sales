@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\ClientStoreRequest;
 use App\Http\Resources\ClientsResource;
+use App\Http\Resources\ServicesResource;
 use App\Services\ClientService;
+use App\Services\ClientServiceService;
 use Exception;
 
-class ClientsController extends Controller
+class ClientServicesController extends Controller
 {
-    public function __construct(private ClientService $clientService)
+    public function __construct(private ClientServiceService $clientServiceService)
     {
 
     }
@@ -21,8 +23,8 @@ class ClientsController extends Controller
         try{
             $filters = $request->all();
             $withRelations = [];
-            $cities = $this->clientService->getAll(filters: $filters, withRelations: $withRelations);
-            return ClientsResource::collection($cities);
+            $services = $this->clientServiceService->getAll(filters: $filters, withRelations: $withRelations);
+            return ServicesResource::collection($services);
     
         }catch(Exception $e){
             return apiResponse(message: __('lang.something_went_wrong'), code: 442);

@@ -36,12 +36,10 @@ class AuthController extends Controller
     public function authUser(): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         try {
-            $user = Auth::user()->load(['location','attachments']);
-            if ($user->type == User::CENTERADMIN)
-                $user->load(['center.attachments']);
-            return apiResponse(data: new AuthUserResource($user));
+            $user = Auth::user();
+            
+            return apiResponse(data: new AuthUserResource($user), message: __('lang.success_operation'));
         } catch (\Exception $exception) {
-            logger('auth user exception');
             return apiResponse(message: $exception->getMessage(), code: 422);
         }
     }

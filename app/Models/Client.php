@@ -22,4 +22,12 @@ class Client extends Model
     {
         return $this->hasMany(Visit::class,  'client_id');
     }
+    public function statusHistories(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ClientStatusHistory::class,  'client_id');
+    }
+    public function latestStatus(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ClientStatusHistory::class, 'client_id')->latestOfMany();
+    }
 }

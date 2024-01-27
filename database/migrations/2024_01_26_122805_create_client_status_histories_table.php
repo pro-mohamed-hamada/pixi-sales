@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client_statuses', function (Blueprint $table) {
+        Schema::create('client_status_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Client::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->enum('status', [ClientStatusEnum::NEW, ClientStatusEnum::CONTACTED, ClientStatusEnum::INTERESTED, ClientStatusEnum::NOTINTERESTED, ClientStatusEnum::CLOSED, ClientStatusEnum::LOST])->default(ClientStatusEnum::NEW);
+            $table->foreignIdFor(\App\Models\Reason::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
             $table->text('comment');
             $table->timestamps();
         });

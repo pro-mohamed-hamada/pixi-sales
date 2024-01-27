@@ -2,18 +2,17 @@
 
 namespace App\Services;
 
-use App\Enum\ClientStatusEnum;
 use App\Exceptions\NotFoundException;
-use App\Models\Client;
-use App\QueryFilters\ClientsFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\BadRequestHttpException;
+use App\Models\Reason;
+use App\QueryFilters\ReasonsFilter;
 use Illuminate\Database\Eloquent\Model;
 
-class ClientService extends BaseService
+class ReasonService extends BaseService
 {
-    public function __construct(private Client $model){
+    public function __construct(private Reason $model){
 
     }
 
@@ -24,25 +23,23 @@ class ClientService extends BaseService
 
     public function queryGet(array $filters = [] , array $withRelations = []) :builder
     {
-        $clients = $this->getModel()->query()->with($withRelations);
-        return $clients->filter(new ClientsFilter($filters));
+        $reasons = $this->getModel()->query()->with($withRelations);
+        return $reasons->filter(new ReasonsFilter($filters));
     }
 
     public function getAll(array $filters = [] , array $withRelations =[], $perPage = 10 ): \Illuminate\Contracts\Pagination\CursorPaginator
     {
+        $perPage = config('app.perPage');
         return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
-    public function store(array $data = []):Client|Model|bool
-    {
-        $client = $this->getModel()->create($data);
-        $client->statusHistories()->create([
-            "status"=>ClientStatusEnum::NEW
-        ]);
-        if (!$client)
-            return false ;
-        return $client;
-    } //end of store
+    // public function store(array $data = [])
+    // {
+    //     $client = $this->getModel()->create($data);
+    //     if (!$client)
+    //         return false ;
+    //     return $client;
+    // } //end of store
 
     // public function update(int $id, array $data=[])
     // {
@@ -62,33 +59,33 @@ class ClientService extends BaseService
     //     return $doctor;
     // }
 
-    /**
-     * @throws NotFoundException
-     */
-    public function find(int $clientId , array $withRelations = []): Client|Model|bool
-    {
-        $client =  $this->getModel()->with($withRelations)->find($clientId);
-        if (!$client)
-           throw new NotFoundException(trans('lang.not_found'));
-        return $client;
-    }
+    // /**
+    //  * @throws NotFoundException
+    //  */
+    // public function find(int $doctorId , array $withRelations = []): Doctor|Model|bool
+    // {
+    //     $doctor =  Doctor::with($withRelations)->find($doctorId);
+    //     if (!$doctor)
+    //        throw new NotFoundException(trans('lang.doctor_no_found'));
+    //     return $doctor;
+    // }
 
-    /**
-     * @throws NotFoundException
-     */
-    public function delete($id)
-    {
-        $doctor = $this->find($id);
-        $doctor->deleteAttachments();
-        return $doctor->delete();
-    } //end of delete
+    // /**
+    //  * @throws NotFoundException
+    //  */
+    // public function delete($id)
+    // {
+    //     $doctor = $this->find($id);
+    //     $doctor->deleteAttachments();
+    //     return $doctor->delete();
+    // } //end of delete
 
-    public function status($id)
-    {
-        $doctor = $this->find($id);
-        $doctor->is_active = !$doctor->is_active;
-        return $doctor->save();
+    // public function status($id)
+    // {
+    //     $doctor = $this->find($id);
+    //     $doctor->is_active = !$doctor->is_active;
+    //     return $doctor->save();
 
-    }//end of status
+    // }//end of status
 
 }

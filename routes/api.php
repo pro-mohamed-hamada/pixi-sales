@@ -20,10 +20,6 @@ use App\Http\Controllers\Api\VisitsController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
@@ -32,5 +28,6 @@ Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
     Route::resource('clients', ClientsController::class);
     Route::resource('visits',  VisitsController::class);
     Route::post('logout',      [AuthController::class, 'logout']);
+    Route::get('authuser',      [AuthController::class, 'authUser']);
     Route::get('services', [ServicesController::class, 'index']);
 });

@@ -7,14 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use App\Traits\Filterable;
 
-class City extends Model
+class Reason extends Model
 {
     use HasFactory, HasTranslations, Filterable;
-
-    public $translatable = ['name'];
-
-    public function governorate(): \Illuminate\Database\Eloquent\Relations\belongsTo
-    {
-        return $this->belongsTo(Governorate::class);
-    }
 }
