@@ -3,8 +3,8 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
-
-class ClientStoreRequest extends FormRequest
+use App\Enum\ActionTypeEnum;
+class VisitStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +22,9 @@ class ClientStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string',
-            'phone'=>'required|string',
-            'industry'=>'required|string',
-            'company_name'=>'required|string',
-            'city_id'=>'required|integer|exists:cities,id',
-            'other_person_name'=>'required|string',
-            'other_person_phone'=>'required|string',
-            'other_person_position'=>'required|string'
+            'client_id'=>'required|integer|exists:clients,id',
+            'action_type'=>'required|in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::SMS.','.ActionTypeEnum::WHATSAPP,
+            'comment'=>'nullable|string',
         ];
     }
 }

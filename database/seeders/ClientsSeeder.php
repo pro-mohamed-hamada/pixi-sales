@@ -20,7 +20,7 @@ class ClientsSeeder extends Seeder
             'city_id'=>1,
             'other_person_name'=>'person 2',
             'other_person_phone'=>'01034374784',
-            'other_person_city_id'=>1,
+            'other_person_position'=>"employee",
 
         ]);
     }

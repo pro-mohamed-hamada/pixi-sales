@@ -32,12 +32,12 @@ class ClientService extends BaseService
         return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
-    public function store(array $data = [])
+    public function store(array $data = []):Client|Model|bool
     {
-        $client = $this->getModel()->create($data);
-        if (!$client)
+        $visit = $this->getModel()->create($data);
+        if (!$visit)
             return false ;
-        return $client;
+        return $visit;
     } //end of store
 
     public function update(int $id, array $data=[])
@@ -61,12 +61,12 @@ class ClientService extends BaseService
     /**
      * @throws NotFoundException
      */
-    public function find(int $doctorId , array $withRelations = []): Doctor|Model|bool
+    public function find(int $clientId , array $withRelations = []): Client|Model|bool
     {
-        $doctor =  Doctor::with($withRelations)->find($doctorId);
-        if (!$doctor)
-           throw new NotFoundException(trans('lang.doctor_no_found'));
-        return $doctor;
+        $client =  $this->getModel()->with($withRelations)->find($clientId);
+        if (!$client)
+           throw new NotFoundException(trans('lang.not_found'));
+        return $client;
     }
 
     /**

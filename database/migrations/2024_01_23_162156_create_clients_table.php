@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\City::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
             $table->string('other_person_name');
             $table->string('other_person_phone');
-            $table->foreignId('other_person_city_id')->nullable()->references('id')->on('cities')->onUpdate('cascade')->nullOnDelete();
+            $table->string('other_person_position');
             $table->timestamps();
         });
     }

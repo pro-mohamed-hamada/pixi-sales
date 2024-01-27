@@ -52,7 +52,7 @@
                             <td>{{ $client->company_name }}</td>
                             <td>{{ $client->other_person_name }}</td>
                             <td>{{ $client->other_person_phone }}</td>
-                            <td>{{ $client->other_person_city->name }}</td>
+                            <td>{{ $client->other_person_position }}</td>
                             <td>
                                 
                                 <ul class="list-group list-group-horizontal">

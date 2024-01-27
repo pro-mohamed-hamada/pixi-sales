@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CitiesController;
 use App\Http\Controllers\Api\GovernoratesController;
 use App\Http\Controllers\Api\ClientsController;
+use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\VisitsController;
 
 /*
@@ -24,11 +25,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('login', [AuthController::class, 'login']);
-Route::get('governorates', [GovernoratesController::class, 'index']);
-Route::get('cities', [CitiesController::class, 'index']);
 
-Route::group(['middleware'=>'auth:sanctum'], function(){
+Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
+    Route::get('governorates', [GovernoratesController::class, 'index']);
+    Route::get('cities', [CitiesController::class, 'index']);
     Route::resource('clients', ClientsController::class);
     Route::resource('visits',  VisitsController::class);
     Route::post('logout',      [AuthController::class, 'logout']);
+    Route::get('services', [ServicesController::class, 'index']);
 });

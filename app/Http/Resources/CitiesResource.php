@@ -15,8 +15,8 @@ class CitiesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name_ar'=>$this->getTranslation('name', 'ar'),
-            'name_en'=>$this->getTranslation('name', 'en')
+            "id"=>$this->id,
+            "name"=>$this->name,
         ];
     }
 }

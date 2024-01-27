@@ -10,7 +10,7 @@ class Visit extends Model
 {
     use HasFactory, Filterable;
 
-
+    protected $fillable = ['client_id', 'action_type', 'comment'];
 
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {

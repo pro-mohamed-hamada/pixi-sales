@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\ClientsController;
 use App\Http\Controllers\Web\ActivityLogsController;
 use App\Http\Controllers\Web\VisitsController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

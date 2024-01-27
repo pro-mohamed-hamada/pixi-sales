@@ -21,24 +21,24 @@ class VisitService extends BaseService
         return $this->model;
     }
 
-    public function queryGet(array $filters = [] , array $withRelation = []) :builder
+    public function queryGet(array $filters = [] , array $withRelations = []) :builder
     {
-        $visits = $this->getModel()->query()->with($withRelation);
+        $visits = $this->getModel()->query()->with($withRelations);
         return $visits->filter(new VisitsFilter($filters));
     }
 
-    public function getAll(array $filters = [] , array $withRelation =[], $perPage = 10 ): \Illuminate\Contracts\Pagination\CursorPaginator
+    public function getAll(array $filters = [] , array $withRelations =[], $perPage = 10 ): \Illuminate\Contracts\Pagination\CursorPaginator
     {
         $perPage = config('app.perPage');
-        return $this->queryGet(filters: $filters,withRelation: $withRelation)->cursorPaginate($perPage);
+        return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
     public function store(array $data = [])
     {
-        $client = $this->getModel()->create($data);
-        if (!$client)
+        $visit = $this->getModel()->create($data);
+        if (!$visit)
             return false ;
-        return $client;
+        return $visit;
     } //end of store
 
     public function update(int $id, array $data=[])

@@ -11,15 +11,11 @@ class Client extends Model
     use HasFactory, Filterable;
 
 
+    protected $fillable = ['name', 'phone', 'industry', 'company_name', 'city_id', 'other_person_name', 'other_person_phone', 'other_person_position'];
 
     public function city(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
         return $this->belongsTo(City::class);
-    }
-
-    public function other_person_city(): \Illuminate\Database\Eloquent\Relations\belongsTo
-    {
-        return $this->belongsTo(City::class, 'other_person_city_id');
     }
 
     public function visits(): \Illuminate\Database\Eloquent\Relations\HasMany
