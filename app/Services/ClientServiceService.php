@@ -40,7 +40,7 @@ class ClientServiceService extends BaseService
         $service = $client->services()->create($data);
         if (!$service)
             return false ;
-        return $service;
+        return $client;
     } //end of store
 
 

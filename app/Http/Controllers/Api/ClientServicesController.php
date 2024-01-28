@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ClientServiceStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\ClientStoreRequest;
 use App\Http\Resources\ClientsResource;
@@ -32,17 +33,17 @@ class ClientServicesController extends Controller
         
     }//end of index
 
-    public function store(ClientStoreRequest $request)
+    public function store(ClientServiceStoreRequest $request)
     {
-        try{
-            $client = $this->clientService->store(data: $request->Validated());
+        // try{
+            $client = $this->clientServiceService->store(data: $request->Validated());
             if(!$client)
-                return apiResponse(message: __('lang.something_went_wrong'));
+                return apiResponse(message: __('lang.something_went_wrong'), code: 442);
             return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
     
-        }catch(Exception $e){
-            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
-        }
+        // }catch(Exception $e){
+        //     return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        // }
         
     }//end of store
 

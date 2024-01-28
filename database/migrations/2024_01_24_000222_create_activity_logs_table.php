@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
-            $table->dateTime('login_time');
-            $table->dateTime('logout_time')->nullable();
+            $table->dateTime('start_work_time');
+            $table->dateTime('end_work_time')->nullable();
             $table->float('hours')->nullable();
-            $table->string('login_lat');
-            $table->string('login_lng');
-            $table->string('logout_lat')->nullable();
-            $table->string('logout_lng')->nullable();
+            $table->string('start_work_lat');
+            $table->string('start_work_lng');
+            $table->string('end_work_lat')->nullable();
+            $table->string('end_work_lng')->nullable();
             $table->timestamps();
         });
     }

@@ -18,5 +18,6 @@
                 <li><a class="list-group-item" href="{{route('activity-logs.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.activity_log") }}</a></li>
                 <li><a class="list-group-item" href="{{route('services.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.services") }}</a></li>
                 <li><a class="list-group-item" href="{{route('reasons.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.reasons") }}</a></li>
+                <li><a class="list-group-item" href="{{route('reasons.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.targets") }}</a></li>
         </ul>
 </section>

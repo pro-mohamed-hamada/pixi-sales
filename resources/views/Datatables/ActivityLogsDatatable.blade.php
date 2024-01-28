@@ -28,8 +28,8 @@
                     <thead>
                         <th>{{ __('lang.id') }}</th>
                         <th>{{ __('lang.name') }}</th>
-                        <th>{{ __('lang.login_time') }}</th>
-                        <th>{{ __('lang.logout_time') }}</th>
+                        <th>{{ __('lang.start_work_time') }}</th>
+                        <th>{{ __('lang.end_work_time') }}</th>
                         <th>{{ __('lang.hours') }}</th>
                         <th>{{ __('lang.actions') }}</th>
                         
@@ -41,13 +41,13 @@
                             <td>{{ $activityLog->id }}</td>
                             <td>{{ $activityLog->user->name }}</td>
                             <td>
-                                <a href="https://www.google.com/maps/search/?api=1&query={{$activityLog->login_lat}},{{$activityLog->login_lng}}" target="_blank">
-                                    {{ $activityLog->login_time }}
+                                <a href="https://www.google.com/maps/search/?api=1&query={{$activityLog->start_work_lat}},{{$activityLog->start_work_lng}}" target="_blank">
+                                    {{ $activityLog->start_work_time }}
                                 </a>
                             </td>
                             <td>
-                                <a href="https://www.google.com/maps/search/?api=1&query={{$activityLog->logout_lat}},{{$activityLog->logout_lng}}" target="_blank">
-                                    {{ $activityLog->logout_time }}
+                                <a href="https://www.google.com/maps/search/?api=1&query={{$activityLog->end_work_lat}},{{$activityLog->end_work_lng}}" target="_blank">
+                                    {{ $activityLog->end_work_time }}
                                 </a>
                             </td>
                             <td>{{ $activityLog->hours }} hr</td>

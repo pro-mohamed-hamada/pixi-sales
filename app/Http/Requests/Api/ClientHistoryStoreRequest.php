@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Api;
 
+use App\Enum\ClientStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LogoutRequest extends FormRequest
+class ClientHistoryStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +23,9 @@ class LogoutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "logout_lat"=>'required|numeric',
-            "logout_lng"=>"required|numeric",
+            'status'=>'required|integer|in:'.ClientStatusEnum::CONTACTED_INCOMING.','.ClientStatusEnum::CONTACTED_OUTGOING.','.ClientStatusEnum::INTERESTED.','.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::PROPOSAL.','.ClientStatusEnum::MEETING.','.ClientStatusEnum::CLOSED.','.ClientStatusEnum::LOST,
+            'reason_id'=>'nullable|exists:reasons,id',
+            'comment'=>'nullable|string',
         ];
     }
 }

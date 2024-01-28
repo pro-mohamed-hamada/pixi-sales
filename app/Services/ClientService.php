@@ -9,6 +9,7 @@ use App\QueryFilters\ClientsFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\BadRequestHttpException;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 
 class ClientService extends BaseService
@@ -36,13 +37,31 @@ class ClientService extends BaseService
     public function store(array $data = []):Client|Model|bool
     {
         $client = $this->getModel()->create($data);
-        $client->statusHistories()->create([
+        $client->clientHistory()->create([
             "status"=>ClientStatusEnum::NEW
         ]);
         if (!$client)
             return false ;
         return $client;
     } //end of store
+
+    public function changeStatus(int $id, array $data):bool
+    {
+        $client = $this->find($id);
+        // $this->checkClientLatestStatus(client: $client, newStatus: $data['status']);
+        $client->clientHistory()->create($data);
+        if (!$client)
+            return false ;
+        return true;
+    } //end of store
+
+    public function checkClientLatestStatus(Client $client, int $newStatus)
+    {
+        $latestStatus = $client->latestStatus;
+        dd($latestStatus->id);
+        if($latestStatus->status == $newStatus)
+            throw new Exception(message: __('lang.the_status_can_not_be_the_same'), code: 442);
+    }
 
     // public function update(int $id, array $data=[])
     // {

@@ -25,7 +25,7 @@ class ClientsResource extends JsonResource
             "other_person_phone"=>$this->other_person_phone,
             "other_person_position"=>$this->other_person_position,
             "latest_status"=>$this->whenLoaded("latestStatus", $this->latestStatus),
-            "services"=>$this->whenLoaded("services", ServicesResource::collection($this->services)),
+            "services"=>$this->whenLoaded("services", ServicesResource::collection(ServicesResource::collection($this->services))),
             "visits"=>$this->whenLoaded("services", VisitsResource::collection($this->visits)),
             
         ];

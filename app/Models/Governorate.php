@@ -11,5 +11,7 @@ class Governorate extends Model
 {
     use HasFactory, HasTranslations, Filterable;
 
+    protected $fillable = ['name'];
+
     public $translatable = ['name'];
 }

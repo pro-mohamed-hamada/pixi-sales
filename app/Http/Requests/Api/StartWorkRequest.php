@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClientServiceStoreRequest extends FormRequest
+class StartWorkRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,8 @@ class ClientServiceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client_id'=>'required|integer|exists:clients,id',
-            'service_id'=>'required|integer|exists:services,id',
-            'price'=>'required|numeric',
+            'start_work_lat'=>'required|numeric',
+            'start_work_lng'=>'required|numeric',
         ];
     }
 }

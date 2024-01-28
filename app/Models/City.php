@@ -11,6 +11,7 @@ class City extends Model
 {
     use HasFactory, HasTranslations, Filterable;
 
+    protected $fillable = ['name', 'governorate_id'];
     public $translatable = ['name'];
 
     public function governorate(): \Illuminate\Database\Eloquent\Relations\belongsTo

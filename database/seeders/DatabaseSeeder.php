@@ -26,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VisitsSeeder::class);
         $this->call(ServicesSeeder::class);
         $this->call(ReasonsSeeder::class);
+        $this->call(PublicIpsSeeder::class);
+        $this->call(TargetsSeeder::class);
     }
 }

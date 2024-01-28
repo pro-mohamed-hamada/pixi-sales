@@ -9,38 +9,68 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\NotFoundException;
 use App\Enum\UserTypeEnum;
-use App\Models\ActivityLog;
 use Carbon\Carbon;
 
 class AuthService extends BaseService
 {
 
-    public function loginWithEmail(string $email, string $password, string $loginLat, $loginLng, bool $remember = false) :User|Model
+    public function loginWithEmail(string $email, string $password, string $publicIp, bool $remember = false) :User|Model
     {
         $credential = ['email'=>$email,'password'=>$password, 'type'=>UserTypeEnum::EMPLOYEE];
         if (!auth()->attempt(credentials: $credential, remember: $remember))
             return throw new NotFoundException(__('lang.login_failed'));
         $user = User::where('email', $email)->first();
-        $user->activityLogs()->create([
-            'login_time'=> Carbon::now()->setTimezone('Africa/Cairo'),
-            'login_lat'=>$loginLat,
-            'login_lng'=>$loginLng,
-        ]);
+        $userIp = $user->publicIps()->where('ip', $publicIp)->first();
+        if(!$userIp)
+            return throw new NotFoundException(__('lang.unauthorized_device'));
         return $user;
     }
 
-    public function logout(string $logoutLat, $logoutLng): bool
+
+    public function startWork($startWorkLat, $startWorklng) :bool
+    {
+        $user = auth::user();
+        $status = $user->activityLogs()->create([
+            'start_work_time'=> Carbon::now()->setTimezone('Africa/Cairo'),
+            'start_work_lat'=>$startWorkLat,
+            'start_work_lng'=>$startWorklng,
+        ]);
+        if(!$status)
+            return false;
+        return true;
+        
+    }
+    public function endWork($endWorkLat, $endWorklng) :bool
+    {
+        $user = auth::user();
+        $latestActivityLog = $user->activityLogs->last();
+        $startWorkTime = $latestActivityLog->start_work_time;
+        $endWorkTime = Carbon::now()->setTimezone('Africa/Cairo');
+        $status = $latestActivityLog->update([
+            'end_work_time'=> $endWorkTime,
+            'hours'=>$endWorkTime->floatDiffInHours($startWorkTime),
+            'end_work_lat'=>$endWorkLat,
+            'end_work_lng'=>$endWorklng,
+        ]);
+        if(!$status)
+            return false;
+        return true;
+        
+    }
+
+    public function userTarget() //:User|Model|bool
+    {
+        $user = auth::user();
+        if(!$user)
+            return false;
+        return $user->load('targets');
+    }
+
+    
+
+    public function logout(): bool
     {
         $user =  auth::user();
-        $lastActivityLog = $user->activityLogs->last();
-        $loginTime = $lastActivityLog->login_time;
-        $logoutTime = Carbon::now()->setTimezone('Africa/Cairo');
-        $lastActivityLog->update([
-            'logout_time'=> $logoutTime,
-            'hours'=> $logoutTime->floatDiffInHours($loginTime),
-            'logout_lat'=>$logoutLat,
-            'logout_lng'=>$logoutLng,
-        ]);
         Auth::user()->tokens()->delete();
         return true;
     }

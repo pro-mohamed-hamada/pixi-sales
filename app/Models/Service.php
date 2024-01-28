@@ -10,5 +10,7 @@ class Service extends Model
 {
     use HasFactory, HasTranslations, Filterable;
 
+    protected $fillable = ['name', 'is_active'];
+
     public $translatable = ['name'];
 }

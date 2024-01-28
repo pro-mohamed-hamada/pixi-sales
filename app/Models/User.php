@@ -31,6 +31,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type',
+        'is_active',
     ];
 
     /**
@@ -71,4 +73,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(ActivityLog::class,  'user_id', );
     }
+
+    public function publicIps(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(publicIp::class,  'user_id', );
+    }
+
+    public function targets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Target::class, 'user_targets')->withPivot(['target_value', 'meeting_date', 'target_done']);
+    }
+
 }

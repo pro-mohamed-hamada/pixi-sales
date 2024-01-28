@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ClientHistoryStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\ClientStoreRequest;
 use App\Http\Resources\ClientsResource;
@@ -35,7 +36,7 @@ class ClientsController extends Controller
         try{
             $client = $this->clientService->store(data: $request->Validated());
             if(!$client)
-                return apiResponse(message: __('lang.something_went_wrong'));
+                return apiResponse(message: __('lang.something_went_wrong'), code: 442);
             return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
     
         }catch(Exception $e){
@@ -50,6 +51,18 @@ class ClientsController extends Controller
            $withRelations = [];
             $client = $this->clientService->find(clientId: $id, withRelations: $withRelations);
             return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
+        } catch (\Exception $ex) {
+            return apiResponse(message: $ex->getMessage(), code: 422);
+        }
+    }
+
+    public function changeStatus($id, ClientHistoryStoreRequest $request)
+    {
+        try {
+            $status = $this->clientService->changeStatus(id: $id, data: $request->Validated());
+            if(!$status)
+                return apiResponse( message:  __('lang.something_went_wrong'), code: 442);
+            return apiResponse( message: __('lang.success_operation'));
         } catch (\Exception $ex) {
             return apiResponse(message: $ex->getMessage(), code: 422);
         }

@@ -25,8 +25,7 @@ class LoginRequest extends FormRequest
             'email'=>'required|string',
             'password'=>'required',
             'remember' =>'nullable|boolean:in:[0,1]',
-            'login_lat'=>"required|numeric",
-            'login_lng'=>"required|numeric",
+            'public_ip'=>'required|ipv4',
         ];
     }
 }

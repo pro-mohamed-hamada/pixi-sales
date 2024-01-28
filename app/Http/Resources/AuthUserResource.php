@@ -25,6 +25,7 @@ class AuthUserResource extends JsonResource
                 "name"=> $this->name,
                 "email"=> $this->email,
             ],
+            "user_target"=>$this->whenLoaded("targets", UserTargetsResource::collection($this->targets))
        ];
     }
 

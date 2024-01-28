@@ -12,13 +12,13 @@ class ActivityLog extends Model
 
     protected $fillable = [
         'user_id'=>2,
-            'login_time',
-            'logout_time',
-            'hours',
-            'login_lat',
-            'login_lng',
-            'logout_lat',
-            'logout_lng',
+        'start_work_time',
+        'end_work_time',
+        'hours',
+        'start_work_lat',
+        'start_work_lng',
+        'end_work_lat',
+        'end_work_lng',
     ];
     public function user(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
