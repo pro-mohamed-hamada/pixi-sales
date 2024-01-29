@@ -47,7 +47,7 @@ class ClientService extends BaseService
 
     public function changeStatus(int $id, array $data):bool
     {
-        $client = $this->find($id);
+        $client = $this->findById($id);
         // $this->checkClientLatestStatus(client: $client, newStatus: $data['status']);
         $client->clientHistory()->create($data);
         if (!$client)
@@ -84,27 +84,15 @@ class ClientService extends BaseService
     /**
      * @throws NotFoundException
      */
-    public function find(int $clientId , array $withRelations = []): Client|Model|bool
+    public function destroy($id)
     {
-        $client =  $this->getModel()->with($withRelations)->find($clientId);
-        if (!$client)
-           throw new NotFoundException(trans('lang.not_found'));
-        return $client;
-    }
-
-    /**
-     * @throws NotFoundException
-     */
-    public function delete($id)
-    {
-        $doctor = $this->find($id);
-        $doctor->deleteAttachments();
-        return $doctor->delete();
+        $client = $this->findById($id);
+        return $client->delete();
     } //end of delete
 
     public function status($id)
     {
-        $doctor = $this->find($id);
+        $doctor = $this->findById($id);
         $doctor->is_active = !$doctor->is_active;
         return $doctor->save();
 

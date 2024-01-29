@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\ClientsController;
 use App\Http\Controllers\Web\ActivityLogsController;
 use App\Http\Controllers\Web\ReasonsController;
 use App\Http\Controllers\Web\ServicesController;
+use App\Http\Controllers\Web\TargetsController;
 use App\Http\Controllers\Web\VisitsController;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,4 +38,5 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('cities', CitiesController::class);
     Route::resource('services', ServicesController::class);
     Route::resource('reasons', ReasonsController::class);
+    Route::resource('targets', TargetsController::class);
 });

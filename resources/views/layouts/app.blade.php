@@ -23,7 +23,6 @@
 </head>
 <body>
     <div id="app">
-        
         @include('layouts.header')
         <main class="py-4">
         <div class="container-fluid">
@@ -43,10 +42,11 @@
             </div>
         </div>
         {{-- end update section --}}
-        <div id="alert_message" class="alert_message text-center alert alert-warning alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        
-        </div>
+        @if(session('message'))
+            <div class="alert_message alert alert-success" role="alert">
+                {{ session('message') }}
+            </div>
+        @endif
         <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
         <script src="{{asset('js/js.js')}}"></script>
         <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>

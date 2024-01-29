@@ -73,6 +73,15 @@ class VisitService extends BaseService
     /**
      * @throws NotFoundException
      */
+    public function destroy($id)
+    {
+        $visit = $this->findById($id);
+        return $visit->delete();
+    } //end of delete
+
+    /**
+     * @throws NotFoundException
+     */
     public function delete($id)
     {
         $doctor = $this->find($id);

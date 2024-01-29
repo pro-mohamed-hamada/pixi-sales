@@ -4,7 +4,7 @@
 
         <div class="card-body">
             <div class="">
-                {{-- <h5><a role="button" class="btn btn-primary " href="{{route('visits.create')}}"><i class="fa fa-plus-circle"></i> {{__('lang.create_visit')}}</a></h5> --}}
+                <h5><a role="button" class="btn btn-primary " href="{{route('visits.create')}}"><i class="fa fa-plus-circle"></i> {{__('lang.create_visit')}}</a></h5>
             </div>
             <div class="search-box">
                 <div class="row mb-3 g-3">
@@ -42,17 +42,17 @@
                             <td>{{ $visit->action_type }}</td>
                             <td>{{ $visit->comment }}</td>
                             <td>
-                                <div class="row mb-3 g-3">
-                                    <div class="">
-                                        <form method="post" action="{{route('activity-logs.destroy', $visit->id)}}">
+                                <ul class="list-group list-group-horizontal">
+                                    <li class="list-group-item">
+                                        <form method="post" action="{{route('visits.destroy', $visit->id)}}">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class=" btn btn-danger"><i class="fa fa-trash"></i></button>
                                         </form>
-                                        <a href="{{ route('activity-logs.edit', $visit->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                        <a href="{{ route('activity-logs.show', $visit->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </div>
+                                    </li>
+                                    <li class="list-group-item"><a href="{{ route('visits.edit', $visit->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></li>
+                                    <li class="list-group-item"><a href="{{ route('visits.show', $visit->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></li>
+                                </ul>
                             </td>
                         </tr>
                         @endforeach 

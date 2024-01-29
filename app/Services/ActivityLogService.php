@@ -73,11 +73,10 @@ class ActivityLogService extends BaseService
     /**
      * @throws NotFoundException
      */
-    public function delete($id)
+    public function destroy($id)
     {
-        $doctor = $this->find($id);
-        $doctor->deleteAttachments();
-        return $doctor->delete();
+        $activityLog = $this->findById($id);
+        return $activityLog->delete();
     } //end of delete
 
     public function status($id)

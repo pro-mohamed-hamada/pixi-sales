@@ -2,7 +2,7 @@ $(document).ready(function(){
     $(".sideBar-button").click(function(){
         $(".sideBar").toggle(300);
     });
-    $("body").niceScroll();
+    // $("body").niceScroll();
     $(".sideBar").niceScroll();
 
     $(".clientsTable tr").on("dblclick", function(e){
@@ -13,34 +13,35 @@ $(document).ready(function(){
     $(".displayView").on("click", ".close", function(){
         $(".displayView").css("display","none");
     });
-    $("body").on("click", "a[name='delete']",function(e){
-        e.preventDefault();
-        var _token = $("#_token").val();
-        var url = $(this).attr("href");
-        var status = confirm("حذفك لهذا الحقل سيؤدى الى حذف جميع البيانات المتعلقه به");
-        if(status==true){
-            $.ajax({
-                url:url,
-                method:"post",
-                data:{"_token":_token},
-                beforeSend:function(){
-                    $(".load_content").css("display","block");
-                },
-                success:function(responsetext){
-                    $(".load_content").css("display","none");
-                    $("#alert_message").text("تم حذف الحقل بنجاح").fadeIn().delay(2000).fadeOut();
-                    $("#table_body").html(responsetext);
-                },
-                error: function(data_error, exception){
-                    $(".load_content").css("display","none");
-                    if(exception == "error"){
-                        $("#alert_message").text(data_error.responseJSON.message).fadeIn().delay(2000).fadeOut();
-                    }
-                }
-            });
-        }
+    $('.alert_message').delay(2000).fadeOut().hide(0);
+    // $("body").on("click", "a[name='delete']",function(e){
+    //     e.preventDefault();
+    //     var _token = $("#_token").val();
+    //     var url = $(this).attr("href");
+    //     var status = confirm("حذفك لهذا الحقل سيؤدى الى حذف جميع البيانات المتعلقه به");
+    //     if(status==true){
+    //         $.ajax({
+    //             url:url,
+    //             method:"post",
+    //             data:{"_token":_token},
+    //             beforeSend:function(){
+    //                 $(".load_content").css("display","block");
+    //             },
+    //             success:function(responsetext){
+    //                 $(".load_content").css("display","none");
+    //                 $("#alert_message").text("تم حذف الحقل بنجاح").fadeIn().delay(2000).fadeOut();
+    //                 $("#table_body").html(responsetext);
+    //             },
+    //             error: function(data_error, exception){
+    //                 $(".load_content").css("display","none");
+    //                 if(exception == "error"){
+    //                     $("#alert_message").text(data_error.responseJSON.message).fadeIn().delay(2000).fadeOut();
+    //                 }
+    //             }
+    //         });
+    //     }
         
-    });
+    // });
     
 
     $("#search").on("click",function(){

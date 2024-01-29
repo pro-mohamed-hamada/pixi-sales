@@ -51,15 +51,14 @@ body{
 }
 
 .alert_message{
-    position: fixed;
+    position: fixed !important;
     font-size: 20px;
     font-weight: bold;
     top:25px;
-    width:auto;
+    width:400px;
     right:25px;
-    direction: rtl;
-   display: none;
-    z-index: 3;
+    /* direction: rtl; */
+    z-index: 1031;
 }
 
 

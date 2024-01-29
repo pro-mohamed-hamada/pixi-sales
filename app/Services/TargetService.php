@@ -3,19 +3,16 @@
 namespace App\Services;
 
 use App\Exceptions\NotFoundException;
-use App\Models\Client;
-use App\QueryFilters\ClientsFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\BadRequestHttpException;
-use App\Models\City;
-use App\Models\Governorate;
-use App\QueryFilters\CitiesFilter;
+use App\Models\Target;
+use App\QueryFilters\TargetsFilter;
 use Illuminate\Database\Eloquent\Model;
 
-class CityService extends BaseService
+class TargetService extends BaseService
 {
-    public function __construct(private City $model){
+    public function __construct(private Target $model){
 
     }
 
@@ -26,22 +23,23 @@ class CityService extends BaseService
 
     public function queryGet(array $filters = [] , array $withRelations = []) :builder
     {
-        $cities = $this->getModel()->query()->with($withRelations);
-        return $cities->filter(new CitiesFilter($filters));
+        $targets = $this->getModel()->query()->with($withRelations);
+        return $targets->filter(new TargetsFilter($filters));
     }
 
     public function getAll(array $filters = [] , array $withRelations =[], $perPage = 10 ): \Illuminate\Contracts\Pagination\CursorPaginator
     {
+        $perPage = config('app.perPage');
         return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
-    // public function store(array $data = [])
-    // {
-    //     $client = $this->getModel()->create($data);
-    //     if (!$client)
-    //         return false ;
-    //     return $client;
-    // } //end of store
+    public function store(array $data = [])
+    {
+        $target = $this->getModel()->create($data);
+        if (!$target)
+            return false ;
+        return $target;
+    } //end of store
 
     // public function update(int $id, array $data=[])
     // {
@@ -77,8 +75,8 @@ class CityService extends BaseService
      */
     public function destroy($id)
     {
-        $city = $this->findById($id);
-        return $city->delete();
+        $target = $this->findById($id);
+        return $target->delete();
     } //end of delete
 
     // public function status($id)

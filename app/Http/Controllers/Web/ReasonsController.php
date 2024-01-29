@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\ReasonStoreRequest;
 use App\Services\GovernorateService;
 use App\Services\ReasonService;
 
@@ -38,24 +39,20 @@ class ReasonsController extends Controller
     //     return view('dashboard.categories.edit', compact('category'));
     // }//end of edit
 
-    // public function create(Request $request)
-    // {
-    //     userCan(request: $request, permission: 'create_category');
-    //     return view('dashboard.categories.create');
-    // }//end of create
+    public function create(Request $request)
+    {
+        return view('Dashboard.Reasons.create');
+    }//end of create
 
-    // public function store(CategoryRequest $request)
-    // {
-    //     userCan(request: $request, permission: 'create_category');
-    //     try {
-    //         $this->categoryService->store($request->validated());
-    //         $toast = ['type' => 'success', 'title' => 'Success', 'message' => trans('lang.success_operation')];
-    //         return redirect()->route('categories.index')->with('toast', $toast);
-    //     } catch (\Exception $ex) {
-    //         $toast = ['type' => 'error', 'title' => 'error', 'message' => $ex->getMessage(),];
-    //         return redirect()->back()->with('toast', $toast);
-    //     }
-    // }//end of store
+    public function store(ReasonStoreRequest $request)
+    {
+        try {
+            $this->reasonService->store($request->validated());
+            return redirect()->route('reasons.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->route('reasons.index')->with('message', $e->getMessage());
+        }
+    }//end of store
 
     // public function update(CategoryRequest $request, $id)
     // {
@@ -71,18 +68,17 @@ class ReasonsController extends Controller
     //     }
     // } //end of update
 
-    // public function destroy(Request $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'delete_category');
-    //     try {
-    //         $result = $this->categoryService->delete($id);
-    //         if (!$result)
-    //             return apiResponse(message: trans('lang.not_found'), code: 404);
-    //         return apiResponse(message: trans('lang.success'));
-    //     } catch (\Exception $exception) {
-    //         return apiResponse(message: $exception->getMessage(), code: 422);
-    //     }
-    // } //end of destroy
+    public function destroy($id)
+    {
+        try {
+            $result = $this->reasonService->destroy($id);
+            if (!$result)
+                return redirect()->back()->with("message", __('lang.not_found'));
+            return redirect()->back()->with("message", __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+    } //end of destroy
 
     // public function show(Request $request, $id)
     // {

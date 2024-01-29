@@ -33,13 +33,13 @@ class ReasonService extends BaseService
         return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
-    // public function store(array $data = [])
-    // {
-    //     $client = $this->getModel()->create($data);
-    //     if (!$client)
-    //         return false ;
-    //     return $client;
-    // } //end of store
+    public function store(array $data = [])
+    {
+        $reason = $this->getModel()->create($data);
+        if (!$reason)
+            return false ;
+        return $reason;
+    } //end of store
 
     // public function update(int $id, array $data=[])
     // {
@@ -70,15 +70,14 @@ class ReasonService extends BaseService
     //     return $doctor;
     // }
 
-    // /**
-    //  * @throws NotFoundException
-    //  */
-    // public function delete($id)
-    // {
-    //     $doctor = $this->find($id);
-    //     $doctor->deleteAttachments();
-    //     return $doctor->delete();
-    // } //end of delete
+    /**
+     * @throws NotFoundException
+     */
+    public function destroy($id)
+    {
+        $reason = $this->findById($id);
+        return $reason->delete();
+    } //end of delete
 
     // public function status($id)
     // {

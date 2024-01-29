@@ -32,15 +32,21 @@ class ServiceService extends BaseService
         return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
-    // /**
-    //  * @throws NotFoundException
-    //  */
-    // public function find(int $clientId , array $withRelations = []): Client|Model|bool
-    // {
-    //     $client =  $this->getModel()->with($withRelations)->find($clientId);
-    //     if (!$client)
-    //        throw new NotFoundException(trans('lang.not_found'));
-    //     return $client;
-    // }
+    public function store(array $data = [])
+    {
+        $service = $this->getModel()->create($data);
+        if (!$service)
+            return false ;
+        return $service;
+    } //end of store
+
+    /**
+     * @throws NotFoundException
+     */
+    public function destroy($id)
+    {
+        $service = $this->findById($id);
+        return $service->delete();
+    } //end of delete
 
 }

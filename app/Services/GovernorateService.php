@@ -72,15 +72,14 @@ class GovernorateService extends BaseService
     //     return $doctor;
     // }
 
-    // /**
-    //  * @throws NotFoundException
-    //  */
-    // public function delete($id)
-    // {
-    //     $doctor = $this->find($id);
-    //     $doctor->deleteAttachments();
-    //     return $doctor->delete();
-    // } //end of delete
+    /**
+     * @throws NotFoundException
+     */
+    public function destroy($id)
+    {
+        $governorate = $this->findById($id);
+        return $governorate->delete();
+    } //end of delete
 
     // public function status($id)
     // {

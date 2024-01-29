@@ -20,6 +20,7 @@ class UserTargetsResource extends JsonResource
             "target_value"=>$this->pivot->target_value,            
             "meeting_time"=>$this->pivot->meeting_date,            
             "target_done"=>$this->pivot->target_done,            
+            "done_persentage"=>($this->pivot->target_done/$this->pivot->target_value)*100,            
         ];
     }
 }

@@ -69,18 +69,17 @@ class ActivityLogsController extends Controller
     //     }
     // } //end of update
 
-    // public function destroy(Request $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'delete_category');
-    //     try {
-    //         $result = $this->categoryService->delete($id);
-    //         if (!$result)
-    //             return apiResponse(message: trans('lang.not_found'), code: 404);
-    //         return apiResponse(message: trans('lang.success'));
-    //     } catch (\Exception $exception) {
-    //         return apiResponse(message: $exception->getMessage(), code: 422);
-    //     }
-    // } //end of destroy
+    public function destroy($id)
+    {
+        try {
+            $result = $this->activityLogService->destroy($id);
+            if (!$result)
+                return redirect()->back()->with("message", __('lang.not_found'));
+            return redirect()->back()->with("message", __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+    } //end of destroy
 
     // public function show(Request $request, $id)
     // {

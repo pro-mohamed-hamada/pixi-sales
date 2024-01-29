@@ -4,7 +4,7 @@
 
         <div class="card-body">
             <div class="">
-                {{-- <h5><a role="button" class="btn btn-primary " href="{{route('reasons.create')}}"><i class="fa fa-plus-circle"></i> {{__('lang.create_client')}}</a></h5> --}}
+                <h5><a role="button" class="btn btn-primary " href="{{route('reasons.create')}}"><i class="fa fa-plus-circle"></i> {{__('lang.create_reason')}}</a></h5>
             </div>
             <div class="search-box">
                 <div class="row mb-3 g-3">
@@ -28,7 +28,6 @@
                     <thead>
                         <th>{{ __('lang.id') }}</th>
                         <th>{{ __('lang.name') }}</th>
-                        <th>{{ __('lang.is_active') }}</th>
                         <th>{{ __('lang.actions') }}</th>
                         
                     </thead>
@@ -37,7 +36,6 @@
                         <tr>
                             <td>{{ $reason->id }}</td>
                             <td>{{ $reason->name }}</td>
-                            <td>{{ $reason->is_active }}</td>
                             <td>
                                 
                                 <ul class="list-group list-group-horizontal">

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
-use App\Services\ClientService;
 use App\Http\Controllers\Controller;
-use App\Services\GovernorateService;
+use App\Http\Requests\Web\TargetStoreRequest;
+use App\Services\TargetService;
 
-class GovernoratesController extends Controller
+class TargetsController extends Controller
 {
-    public function __construct(private GovernorateService $governorateService)
+    public function __construct(private TargetService $targetService)
     {
 
     }
@@ -21,8 +21,8 @@ class GovernoratesController extends Controller
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = [];
-        $governorates = $this->governorateService->getAll(filters: $filters, withRelations: $withRelations);
-        return View('Dashboard.Governorates.index', compact(['governorates']));
+        $targets = $this->targetService->getAll(filters: $filters, withRelations: $withRelations);
+        return View('Dashboard.Targets.index', compact(['targets']));
     }//end of index
 
     // public function edit(Request $request, $id)
@@ -37,24 +37,20 @@ class GovernoratesController extends Controller
     //     return view('dashboard.categories.edit', compact('category'));
     // }//end of edit
 
-    // public function create(Request $request)
-    // {
-    //     userCan(request: $request, permission: 'create_category');
-    //     return view('dashboard.categories.create');
-    // }//end of create
+    public function create(Request $request)
+    {
+        return view('Dashboard.Targets.create');
+    }//end of create
 
-    // public function store(CategoryRequest $request)
-    // {
-    //     userCan(request: $request, permission: 'create_category');
-    //     try {
-    //         $this->categoryService->store($request->validated());
-    //         $toast = ['type' => 'success', 'title' => 'Success', 'message' => trans('lang.success_operation')];
-    //         return redirect()->route('categories.index')->with('toast', $toast);
-    //     } catch (\Exception $ex) {
-    //         $toast = ['type' => 'error', 'title' => 'error', 'message' => $ex->getMessage(),];
-    //         return redirect()->back()->with('toast', $toast);
-    //     }
-    // }//end of store
+    public function store(TargetStoreRequest $request)
+    {
+        try {
+            $this->targetService->store($request->validated());
+            return redirect()->route('targets.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->route('targets.index')->with('message', $e->getMessage());
+        }
+    }//end of store
 
     // public function update(CategoryRequest $request, $id)
     // {
@@ -73,7 +69,7 @@ class GovernoratesController extends Controller
     public function destroy($id)
     {
         try {
-            $result = $this->governorateService->destroy($id);
+            $result = $this->targetService->destroy($id);
             if (!$result)
                 return redirect()->back()->with("message", __('lang.not_found'));
             return redirect()->back()->with("message", __('lang.success_operation'));
