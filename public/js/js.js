@@ -7,8 +7,8 @@ $(document).ready(function(){
 
     $(".clientsTable tr").on("dblclick", function(e){
         e.preventDefault();
-        
-        $(".displayView").css("display", "block");
+        $(this).next(".displayView").css("display", "block");
+        // $(".displayView").css("display", "block");
     });
     $(".displayView").on("click", ".close", function(){
         $(".displayView").css("display","none");

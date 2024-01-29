@@ -35,13 +35,13 @@ class GovernorateService extends BaseService
         return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
-    // public function store(array $data = [])
-    // {
-    //     $client = $this->getModel()->create($data);
-    //     if (!$client)
-    //         return false ;
-    //     return $client;
-    // } //end of store
+    public function store(array $data = [])
+    {
+        $governorate = $this->getModel()->create($data);
+        if (!$governorate)
+            return false ;
+        return $governorate;
+    } //end of store
 
     // public function update(int $id, array $data=[])
     // {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\GovernorateStoreRequest;
 use App\Services\GovernorateService;
 
 class GovernoratesController extends Controller
@@ -37,25 +38,20 @@ class GovernoratesController extends Controller
     //     return view('dashboard.categories.edit', compact('category'));
     // }//end of edit
 
-    // public function create(Request $request)
-    // {
-    //     userCan(request: $request, permission: 'create_category');
-    //     return view('dashboard.categories.create');
-    // }//end of create
+    public function create(Request $request)
+    {
+        return view('Dashboard.Governorates.create');
+    }//end of create
 
-    // public function store(CategoryRequest $request)
-    // {
-    //     userCan(request: $request, permission: 'create_category');
-    //     try {
-    //         $this->categoryService->store($request->validated());
-    //         $toast = ['type' => 'success', 'title' => 'Success', 'message' => trans('lang.success_operation')];
-    //         return redirect()->route('categories.index')->with('toast', $toast);
-    //     } catch (\Exception $ex) {
-    //         $toast = ['type' => 'error', 'title' => 'error', 'message' => $ex->getMessage(),];
-    //         return redirect()->back()->with('toast', $toast);
-    //     }
-    // }//end of store
-
+    public function store(GovernorateStoreRequest $request)
+    {
+        try {
+            $this->governorateService->store($request->validated());
+            return redirect()->route('governorates.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->route('governorates.index')->with('message', $e->getMessage());
+        }
+    }//end of store
     // public function update(CategoryRequest $request, $id)
     // {
     //     userCan(request: $request, permission: 'edit_category');

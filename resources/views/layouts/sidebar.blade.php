@@ -11,6 +11,7 @@
                                 <a class="text-center list-group-item active" href="{{url("/settings")}}"><span>{{ __("lang.profile") }}</span></a>
                         </a>
                 </li>
+                <li><a class="sidebare-button list-group-item" href="{{route('users.index')}}"><span class="fa fa-product-hunt"></span> <span>{{ __("lang.users") }}</span></a></li>
                 <li><a class="sidebare-button list-group-item" href="{{route('governorates.index')}}"><span class="fa fa-product-hunt"></span> <span>{{ __("lang.governorates") }}</span></a></li>
                 <li><a class="sidebare-button list-group-item" href="{{route('cities.index')}}"><span class="fa fa-product-hunt"></span> <span>{{ __("lang.cities") }}</span></a></li>
                 <li><a class="sidebare-button list-group-item" href="{{route('clients.index')}}"><span class="fa fa-product-hunt"></span> <span>{{ __("lang.clients") }}</span></a></li>
