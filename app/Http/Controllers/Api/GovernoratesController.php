@@ -21,7 +21,7 @@ class GovernoratesController extends Controller
             $filters = $request->all();
             $withRelations = [];
             $governorates = $this->governorateService->getAll(filters: $filters, withRelations: $withRelations);
-            return GovernoratesResource::collection($governorates);
+            return apiResponse(data: GovernoratesResource::collection($governorates), message: __('lang.success_operation'));
     
         }catch(Exception $e){
             return apiResponse(message: __('lang.something_went_wrong'), code: 442);

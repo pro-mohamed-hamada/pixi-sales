@@ -1,10 +1,10 @@
 <div class="mb-3">
     <div class="card">
-        <div class="card-header">{{ __('lang.clients') }}</div>
+        <div class="card-header">{{ __('lang.calls') }}</div>
 
         <div class="card-body">
             <div class="">
-                <h5><a role="button" class="btn btn-primary " href="{{route('clients.create')}}"><i class="fa fa-plus-circle"></i> {{__('lang.create_client')}}</a></h5>
+                <h5><a role="button" class="btn btn-primary " href="{{route('calls.create')}}"><i class="fa fa-plus-circle"></i> {{__('lang.create_call')}}</a></h5>
             </div>
             <div class="search-box">
                 <div class="row mb-3 g-3">
@@ -24,53 +24,49 @@
 
             <div class="datatable table-responsive">
                 
-                <table class="clientsTable  table text-center table-bordered  table-hover">
+                <table class="callsTable  table text-center table-bordered  table-hover">
                     <thead>
                         <th>{{ __('lang.id') }}</th>
-                        <th>{{ __('lang.name') }}</th>
-                        <th>{{ __('lang.phone') }}</th>
-                        <th>{{ __('lang.city') }}</th>
-                        <th>{{ __('lang.industry') }}</th>
-                        <th>{{ __('lang.company_name') }}</th>
-                        <th>{{ __('lang.other_person_name') }}</th>
-                        <th>{{ __('lang.other_person_phone') }}</th>
-                        <th>{{ __('lang.other_person_city') }}</th>
+                        <th>{{ __('lang.client_name') }}</th>
+                        <th>{{ __('lang.type') }}</th>
+                        <th>{{ __('lang.date') }}</th>
                         <th>{{ __('lang.status') }}</th>
+                        <th>{{ __('lang.comment') }}</th>
+                        <th>{{ __('lang.next_action_date') }}</th>
+                        <th>{{ __('lang.next_action_note') }}</th>
                         <th>{{ __('lang.actions') }}</th>
                         
                     </thead>
                     <tbody>
-                        @foreach ($clients as $client)
+                        @foreach ($calls as $call)
                         <tr>
-                            <td>{{ $client->id }}</td>
-                            <td>{{ $client->name }}</td>
-                            <td>{{ $client->phone }}</td>
-                            <td>{{ $client->city->name }}</td>
-                            <td>{{ $client->industry }}</td>
-                            <td>{{ $client->company_name }}</td>
-                            <td>{{ $client->other_person_name }}</td>
-                            <td>{{ $client->other_person_phone }}</td>
-                            <td>{{ $client->other_person_position }}</td>
-                            <td>{{ $client->latestStatus?->status }}</td>
+                            <td>{{ $call->id }}</td>
+                            <td>{{ $call->client->name }}</td>
+                            <td>{{ $call->type }}</td>
+                            <td>{{ $call->date }}</td>
+                            <td>{{ $call->status }}</td>
+                            <td>{{ $call->comment }}</td>
+                            <td>{{ $call->next_action_date }}</td>
+                            <td>{{ $call->next_action_note }}</td>
                             <td>
                                 
                                 <ul class="list-group list-group-horizontal">
                                     <li class="list-group-item">
-                                        <form method="post" action="{{route('clients.destroy', $client->id)}}">
+                                        <form method="post" action="{{route('calls.destroy', $call->id)}}">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class=" btn btn-danger"><i class="fa fa-trash"></i></button>
                                         </form>
                                     </li>
-                                    <li class="list-group-item"><a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></li>
-                                    <li class="list-group-item"><a href="{{ route('clients.show', $client->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></li>
+                                    <li class="list-group-item"><a href="{{ route('calls.edit', $call->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></li>
+                                    <li class="list-group-item"><a href="{{ route('calls.show', $call->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></li>
                                 </ul>
                             </td>
                         </tr>
                         <tr class=" displayView">
                             <td colspan="10">
                                 <div class="displayViewContent">
-                                    @include('Datatables.ClientVisitsDatatable')
+                                    {{-- @include('Datatables.CallVisitsDatatable') --}}
                                 </div>
                                 <button class="close btn btn-danger">X</button>     
                             </td>
@@ -80,7 +76,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="10">
-                                {{ $clients->links() }}                 
+                                {{ $calls->links() }}                 
                             </td>
                         </tr>
                     </tfoot>

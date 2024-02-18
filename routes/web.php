@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\GovernoratesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\ClientsController;
 use App\Http\Controllers\Web\ActivityLogsController;
+use App\Http\Controllers\Web\CallsController;
 use App\Http\Controllers\Web\ReasonsController;
 use App\Http\Controllers\Web\ServicesController;
 use App\Http\Controllers\Web\TargetsController;
@@ -33,6 +34,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('clients', ClientsController::class);
+    Route::resource('calls', CallsController::class);
+    Route::post('clients/change-status/{id}', [ClientsController::class, 'changeStatus'])->name("clients.changeStatus");
+    Route::post('clients/services/{id}', [ClientsController::class, 'clientServices'])->name("clients.clientServices");
     Route::resource('visits', VisitsController::class);
     Route::resource('activity-logs', ActivityLogsController::class);
     Route::resource('governorates', GovernoratesController::class);

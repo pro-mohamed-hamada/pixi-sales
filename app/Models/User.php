@@ -7,17 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
-
 use App\Traits\EscapeUnicodeJson;
 use App\Traits\Filterable;
-use App\Traits\HasAttachment;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Builder;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Filterable, EscapeUnicodeJson;
@@ -82,6 +73,11 @@ class User extends Authenticatable
     public function targets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Target::class, 'user_targets')->withPivot(['target_value', 'meeting_date', 'target_done']);
+    }
+
+    public function getISActiveAttribute()
+    {
+        return $this->getRawOriginal('is_active') ? __('lang.active'):__('lang.not_active');
     }
 
 }

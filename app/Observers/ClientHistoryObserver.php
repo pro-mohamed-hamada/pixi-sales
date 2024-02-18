@@ -12,6 +12,7 @@ class ClientHistoryObserver
     public function created(ClientHistory $clientHistory): void
     {
         $user = auth("sanctum")->user();
+        // $user->targets->
         
     }
 

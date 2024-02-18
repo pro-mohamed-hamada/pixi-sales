@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Web;
 
 use App\Enum\ClientStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClientHistoryStoreRequest extends FormRequest
+class ClientHistoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('status', [ClientStatusEnum::NEW, ClientStatusEnum::CONTACTED_INCOMING, ClientStatusEnum::CONTACTED_OUTGOING, ClientStatusEnum::INTERESTED, ClientStatusEnum::NOT_INTERESTED, ClientStatusEnum::PROPOSAL, ClientStatusEnum::MEETING, ClientStatusEnum::CLOSED, ClientStatusEnum::LOST])->default(ClientStatusEnum::NEW);
             $table->foreignIdFor(\App\Models\Reason::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
             $table->text('comment')->nullable();
+            $table->dateTime('date_time')->nullable();
             $table->timestamps();
         });
     }

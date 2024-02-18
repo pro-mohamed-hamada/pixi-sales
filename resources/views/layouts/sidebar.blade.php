@@ -20,5 +20,6 @@
                 <li><a class="list-group-item" href="{{route('services.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.services") }}</a></li>
                 <li><a class="list-group-item" href="{{route('reasons.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.reasons") }}</a></li>
                 <li><a class="list-group-item" href="{{route('targets.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.targets") }}</a></li>
+                <li><a class="list-group-item" href="{{route('calls.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.calls") }}</a></li>
         </ul>
 </section>

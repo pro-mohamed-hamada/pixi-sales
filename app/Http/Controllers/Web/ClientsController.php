@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enum\ActivationStatusEnum;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ClientStoreRequest;
+use App\Http\Requests\Web\ClientHistoryRequest;
+use App\Http\Requests\Web\ClientUpdateRequest;
+use App\Services\ClientServiceService;
 use App\Services\GovernorateService;
+use App\Services\ReasonService;
+use App\Services\ServiceService;
 
 class ClientsController extends Controller
 {
-    public function __construct(private ClientService $clientService, private GovernorateService $governorateService)
+    public function __construct(private ClientService $clientService,
+    private GovernorateService $governorateService,
+    private ReasonService $reasonService,
+    private ServiceService $serviceService,
+    private ClientServiceService $clientServiceService)
     {
 
     }
@@ -21,22 +31,24 @@ class ClientsController extends Controller
         $filters = array_filter($request->get('filters', []), function ($value) {
             return ($value !== null && $value !== false && $value !== '');
         });
-        $withRelations = [];
+        $withRelations = ['latestStatus'];
         $clients = $this->clientService->getAll(['filters'=>$filters, 'withRelations'=>$withRelations, 'perPage'=>1]);
         return View('Dashboard.Clients.index', compact(['clients']));
     }//end of index
 
-    // public function edit(Request $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     $category = $this->categoryService->find($id);
-    //     if (!$category)
-    //     {
-    //         $toast = ['type' => 'error', 'title' => trans('lang.error'), 'message' => trans('lang.category_not_found')];
-    //         return back()->with('toast', $toast);
-    //     }
-    //     return view('dashboard.categories.edit', compact('category'));
-    // }//end of edit
+    public function edit(Request $request, $id)
+    {
+
+        $client = $this->clientService->findById(id: $id, withRelations:['city', 'services']);
+        if (!$client)
+        {
+            return redirect()->back()->with("message", __('lang.not_found'));
+        }
+        $governorates = $this->governorateService->getAll();//TODO: get only the active governorates
+        $reasons = $this->reasonService->getAll();
+        $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
+        return view('Dashboard.Clients.edit', compact('governorates', 'client', 'reasons', 'services'));
+    }//end of create
 
     public function create(Request $request)
     {
@@ -54,19 +66,34 @@ class ClientsController extends Controller
         }
     }//end of store
 
-    // public function update(CategoryRequest $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     try {
-    //         $this->categoryService->update($id, $request->validated());
-    //         $toast = ['title' => 'Success', 'message' => trans('lang.success_operation')];
-    //         return redirect(route('categories.index'))->with('toast', $toast);
-    //     } catch (\Exception $ex) {
+    public function update(ClientUpdateRequest $request, $id)
+    {
+        try {
+            $this->clientService->update($id, $request->validated());
+            return redirect()->route('clients.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+    } //end of update
+    public function changeStatus(ClientHistoryRequest $request, $id)
+    {
+        try {
+            $this->clientService->changeStatus($id, $request->validated());
+            return redirect()->route('clients.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+    } //end of change the client status
 
-    //         $toast = ['type' => 'error', 'title' => 'error', 'message' => $ex->getMessage(),];
-    //         return redirect()->back()->with('toast', $toast);
-    //     }
-    // } //end of update
+    public function clientServices(ClientHistoryRequest $request, $id)
+    {
+        try {
+            $this->clientServiceService->store($id, $request->validated());
+            return redirect()->route('clients.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+    } //end of cleint services
 
     public function destroy($id)
     {

@@ -13,4 +13,9 @@ class Service extends Model
     protected $fillable = ['name', 'is_active'];
 
     public $translatable = ['name'];
+
+    public function getISActiveAttribute()
+    {
+        return $this->getRawOriginal('is_active') ? __('lang.active'):__('lang.not_active');
+    }
 }

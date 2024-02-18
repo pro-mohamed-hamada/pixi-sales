@@ -36,4 +36,9 @@ class Client extends Model
         return $this->hasMany(ClientService::class,  'client_id');
     }
 
+    public function calls(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Call::class,  'client_id');
+    }
+
 }
