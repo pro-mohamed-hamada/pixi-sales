@@ -4,13 +4,13 @@ namespace App\Services;
 
 use App\Exceptions\NotFoundException;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Call;
-use App\QueryFilters\CallsFilter;
+use App\Models\Meeting;
+use App\QueryFilters\MeetingsFilter;
 use Illuminate\Database\Eloquent\Model;
 
-class CallService extends BaseService
+class MeetingService extends BaseService
 {
-    public function __construct(private Call $model){
+    public function __construct(private Meeting $model){
 
     }
 
@@ -21,29 +21,29 @@ class CallService extends BaseService
 
     public function queryGet(array $filters = [] , array $withRelations = []) :builder
     {
-        $calls = $this->getModel()->query()->with($withRelations);
-        return $calls->filter(new CallsFilter($filters));
+        $meetings = $this->getModel()->query()->with($withRelations);
+        return $meetings->filter(new MeetingsFilter($filters));
     }
 
     public function getAll(array $filters = [] , array $withRelations =[], $perPage = 10 ): \Illuminate\Contracts\Pagination\CursorPaginator
     {
-        $perPage = config('app.perPage');
         return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
-    public function store(array $data = [])
+    public function store(array $data = []):Meeting|bool
     {
-        $call = $this->getModel()->create($data);
-        if (!$call)
+        $meeting = $this->getModel()->create($data);
+        if (!$meeting)
             return false ;
-        return $call;
+        //TODO: send whatsapp message for the client
+        return $meeting;
     } //end of store
 
-    public function update(int $id, array $data=[])
+    public function update(int $id, array $data=[]):Meeting
     {
-        $call = $this->findById(id: $id);
-        $call->update($data);
-        return $call;
+        $meeting = $this->findById(id: $id);
+        $meeting->update($data);
+        return $meeting;
     }
 
     /**
@@ -51,8 +51,8 @@ class CallService extends BaseService
      */
     public function destroy($id)
     {
-        $call = $this->findById($id);
-        return $call->delete();
+        $meeting = $this->findById($id);
+        return $meeting->delete();
     } //end of delete
 
 }

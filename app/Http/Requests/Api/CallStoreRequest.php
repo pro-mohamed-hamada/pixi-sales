@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Web;
+namespace App\Http\Requests\Api;
 
 use App\Enum\CallStatusEnum;
 use App\Enum\CallTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CallUpdateRequest extends FormRequest
+class CallStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\ClientsController;
 use App\Http\Controllers\Web\ActivityLogsController;
 use App\Http\Controllers\Web\CallsController;
+use App\Http\Controllers\Web\MeetingsController;
 use App\Http\Controllers\Web\ReasonsController;
 use App\Http\Controllers\Web\ServicesController;
 use App\Http\Controllers\Web\TargetsController;
@@ -24,17 +25,14 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes(['register' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('clients', ClientsController::class);
-    Route::resource('calls', CallsController::class);
+    Route::resource('calls', CallsController::class)->except('show');
+    Route::resource('meetings', MeetingsController::class)->except('show');
     Route::post('clients/change-status/{id}', [ClientsController::class, 'changeStatus'])->name("clients.changeStatus");
     Route::post('clients/services/{id}', [ClientsController::class, 'clientServices'])->name("clients.clientServices");
     Route::resource('visits', VisitsController::class);

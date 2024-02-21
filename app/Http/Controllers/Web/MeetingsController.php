@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ClientService;
-use App\Enum\ActivationStatusEnum;
-use App\Http\Requests\Web\CallStoreRequest;
-use App\Http\Requests\Web\CallUpdateRequest;
-use App\Services\CallService;
+use App\Http\Requests\Web\MeetingStoreRequest;
+use App\Http\Requests\Web\MeetingUpdateRequest;
+use App\Services\MeetingService;
 use Exception;
 
-class CallsController extends Controller
+class MeetingsController extends Controller
 {
-    public function __construct(private CallService $callService, private ClientService $clientService)
+    public function __construct(private MeetingService $meetingService, private ClientService $clientService)
     {
         
     }
@@ -23,8 +22,8 @@ class CallsController extends Controller
     public function index(Request $request)
     {
         $filters = $request->all();
-        $calls = $this->callService->getAll(filters: $filters, perPage: 10);
-        return View('Dashboard.Calls.index', compact(['calls']));
+        $meetings = $this->meetingService->getAll(filters: $filters, perPage: 10);
+        return View('Dashboard.Meetings.index', compact(['meetings']));
     }
 
     /**
@@ -32,18 +31,18 @@ class CallsController extends Controller
      */
     public function create()
     {
-        $clients = $this->clientService->getAll(/*filters: ['is_active'=> ActivationStatusEnum::ACTIVE]*/);
-        return view('Dashboard.Calls.create', compact('clients'));
+        $clients = $this->clientService->getAll();
+        return view('Dashboard.Meetings.create', compact('clients'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CallStoreRequest $request)
+    public function store(MeetingStoreRequest $request)
     {
         try {
-            $this->callService->store($request->validated());
-            return redirect()->route('calls.index')->with('message', __('lang.success_operation'));
+            $this->meetingService->store($request->validated());
+            return redirect()->route('meetings.index')->with('message', __('lang.success_operation'));
         } catch (\Exception $e) {
             return redirect()->back()->with('message', $e->getMessage());
         }
@@ -55,9 +54,9 @@ class CallsController extends Controller
     public function edit(Request $request, string $id)
     {
         try{
-            $call = $this->callService->findById(id: $id);
+            $meeting = $this->meetingService->findById(id: $id);
             $clients = $this->clientService->getAll();
-            return view('Dashboard.Calls.edit', compact('clients', 'call'));
+            return view('Dashboard.Meetings.edit', compact('clients', 'meeting'));
         }catch(Exception $e){
             return redirect()->back()->with("message", $e->getMessage());
         }
@@ -67,11 +66,11 @@ class CallsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CallUpdateRequest $request, string $id)
+    public function update(MeetingUpdateRequest $request, string $id)
     {
         try {
-            $this->callService->update($id, $request->validated());
-            return redirect()->route('calls.index')->with('message', __('lang.success_operation'));
+            $this->meetingService->update($id, $request->validated());
+            return redirect()->route('meetings.index')->with('message', __('lang.success_operation'));
         } catch (\Exception $e) {
             return redirect()->back()->with("message", $e->getMessage());
         }
@@ -83,7 +82,7 @@ class CallsController extends Controller
     public function destroy(string $id)
     {
         try {
-            $result = $this->callService->destroy($id);
+            $result = $this->meetingService->destroy($id);
             if (!$result)
                 return redirect()->back()->with("message", __('lang.not_found'));
             return redirect()->back()->with("message", __('lang.success_operation'));

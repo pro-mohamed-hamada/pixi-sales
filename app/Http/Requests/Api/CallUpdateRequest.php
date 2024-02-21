@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Web;
+namespace App\Http\Requests\Api;
 
 use App\Enum\CallStatusEnum;
 use App\Enum\CallTypeEnum;

@@ -3,11 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CallsController;
 use App\Http\Controllers\Api\CitiesController;
 use App\Http\Controllers\Api\ClientHistoriesController;
 use App\Http\Controllers\Api\GovernoratesController;
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\ClientServicesController;
+use App\Http\Controllers\Api\MeetingsController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\VisitsController;
 use App\Http\Controllers\Api\ReasonsController;
@@ -39,4 +41,6 @@ Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
     Route::get('user/target',  [AuthController::class, 'userTarget']);
     Route::get('services', [ServicesController::class, 'index']);
     Route::get('reasons', [ReasonsController::class, 'index']);
+    Route::resource('calls', CallsController::class)->except('edit', 'show');
+    Route::resource('meetings', MeetingsController::class)->except('edit', 'show');
 });

@@ -5,11 +5,11 @@
         <div class="content col-md-9 col-lg-10 offset-md-3 offset-lg-2">
             <div class="mb-3">
                 <div class="card">
-                    <div class="card-header">{{ __('lang.create_client') }}</div>
+                    <div class="card-header">{{ __('lang.create_call') }}</div>
 
                     <div class="card-body">
                         {{-- start create form --}}
-                        <form method="POST" action="{{ route('clients.store') }}">
+                        <form method="POST" action="{{ route('calls.store') }}">
                             @csrf
                             <div class="row mb-3 g-3">
                                 <div class="col-lg-4">
@@ -20,57 +20,60 @@
                                             <option value="{{ $client->id }}">{{ $client->name }}</option>
                                         @endforeach
                                     <select>
-                                </div>
-                                <div class="col-lg-4">
-                                    @livewire("City", ['selected_city' => old('city_id'), 'governorate_id'=>old("governorate_id")])
-                                    
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>{{ __('lang.name') }} *</label>
-                                    <input type="text" name="name" class="form-control">
-                                    @error('name')
+                                    @error('client_id')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>{{ __('lang.phone') }} *</label>
-                                    <input type="tel" name="phone" class="form-control">
-                                    @error('phone')
+                                    <label>{{ __('lang.type') }} *</label>
+                                    <select name="type" class="form-control">
+                                        <option selected disabled>{{ __("lang.choose") }}</option>
+                                        @foreach ($clients as $client)
+                                            <option value="{{ \App\Enum\CallTypeEnum::INCOMING }}">{{ __('lang.incoming') }}</option>
+                                            <option value="{{ \App\Enum\CallTypeEnum::OUTGOING }}">{{ __('lang.outgoing') }}</option>
+                                        @endforeach
+                                    <select>
+                                    @error('type')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>{{ __('lang.industry') }} *</label>
-                                    <input type="text" name="industry" class="form-control">
-                                    @error('industry')
+                                    <label>{{ __('lang.date') }} *</label>
+                                    <input type="datetime-local" name="date" class="form-control">
+                                    @error('date')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>{{ __('lang.company_name') }} *</label>
-                                    <input type="text" name="company_name" class="form-control">
-                                    @error('company_name')
+                                    <label>{{ __('lang.status') }} *</label>
+                                    <select name="status" class="form-control">
+                                        <option selected disabled>{{ __("lang.choose") }}</option>
+                                        @foreach ($clients as $client)
+                                            <option value="{{ \App\Enum\CallStatusEnum::ANSWERED }}">{{ __('lang.answered') }}</option>
+                                        @endforeach
+                                    <select>
+                                    @error('status')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>{{ __('lang.other_person_name') }} *</label>
-                                    <input type="text" name="other_person_name" class="form-control">
-                                    @error('other_person_name')
+                                    <label>{{ __('lang.next_action_date') }} *</label>
+                                    <input type="datetime-local" name="next_action_date" class="form-control">
+                                    @error('next_action_date')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4">
-                                    <label>{{ __('lang.other_person_phone') }} *</label>
-                                    <input type="text" name="other_person_phone" class="form-control">
-                                    @error('other_person_phone')
+                                <div class="col-lg-6">
+                                    <label>{{ __('lang.next_action_note') }} *</label>
+                                    <textarea name="next_action_note" class="form-control"></textarea>
+                                    @error('next_action_note')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-lg-4">
-                                    <label>{{ __('lang.other_person_position') }} *</label>
-                                    <input type="text" name="other_person_position" class="form-control">
-                                    @error('other_person_position')
+                                <div class="col-lg-6">
+                                    <label>{{ __('lang.comment') }} *</label>
+                                    <textarea name="comment" class="form-control"></textarea>
+                                    @error('comment')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
