@@ -59,6 +59,11 @@
                                         </form>
                                     </li>
                                     <li class="list-group-item"><a href="{{ route('calls.edit', $call->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></li>
+                                    <li class="list-group-item">
+                                        <a target="_blank" class="btn btn-success" href="https://wa.me/{{ $call->client->phone }}?text=Hi"> 
+                                            <i class="fa fa-whatsapp"></i>
+                                        <a />
+                                    </li>
                                 </ul>
                             </td>
                         </tr>

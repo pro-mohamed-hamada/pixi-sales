@@ -18,6 +18,7 @@ class MeetingsResource extends JsonResource
             "id"=>$this->id,
             'date'=>$this->date,
             'comment'=>$this->comment,
+            'whatsapp_url'=>"https://wa.me/".$this->client->phone."?text=Hi"
         ];
     }
 }

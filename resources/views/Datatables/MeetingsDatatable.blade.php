@@ -51,6 +51,11 @@
                                         </form>
                                     </li>
                                     <li class="list-group-item"><a href="{{ route('meetings.edit', $meeting->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></li>
+                                    <li class="list-group-item">
+                                        <a target="_blank" class="btn btn-success" href="https://wa.me/{{ $meeting->client->phone }}?text=Hi"> 
+                                            <i class="fa fa-whatsapp"></i>
+                                        <a />
+                                    </li>
                                 </ul>
                             </td>
                         </tr>

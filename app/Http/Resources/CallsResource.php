@@ -22,6 +22,7 @@ class CallsResource extends JsonResource
             'comment'=>$this->comment,
             'next_action_date'=>$this->next_action_date,
             'next_action_note'=>$this->next_action_note,
+            'whatsapp_url'=>"https://wa.me/".$this->client->phone."?text=Hi"
         ];
     }
 }
