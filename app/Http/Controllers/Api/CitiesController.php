@@ -22,7 +22,7 @@ class CitiesController extends Controller
             $filters = $request->all();
             $withRelations = [];
             $cities = $this->cityService->getAll(filters: $filters, withRelations: $withRelations);
-            return apiResponse(data: CitiesResource::collection($cities), message: __('lang.success_operation'));
+            return CitiesResource::collection($cities);
     
         }catch(Exception $e){
             return apiResponse(message: __('lang.something_went_wrong'), code: 442);

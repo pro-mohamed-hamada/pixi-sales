@@ -25,7 +25,7 @@ class MeetingsController extends Controller
             $filters = $request->all();
             $withRelations = [];
             $meetings = $this->meetingService->getAll(filters: $filters, withRelations: $withRelations);
-            return apiResponse(data: MeetingsResource::collection($meetings), message: __('lang.success_operation'));
+            return MeetingsResource::collection($meetings);
     
         }catch(Exception $e){
             return apiResponse(message: $e->getMessage(), code: 442);

@@ -25,7 +25,7 @@ class CallsController extends Controller
             $filters = $request->all();
             $withRelations = [];
             $calls = $this->callService->getAll(filters: $filters, withRelations: $withRelations);
-            return apiResponse(data: CallsResource::collection($calls), message: __('lang.success_operation'));
+            return CallsResource::collection($calls);
     
         }catch(Exception $e){
             return apiResponse(message: __('lang.something_went_wrong'), code: 442);
