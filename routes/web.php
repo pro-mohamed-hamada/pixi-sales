@@ -13,6 +13,7 @@ use App\Http\Controllers\Web\TargetsController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Web\VisitsController;
 use App\Http\Controllers\Web\WhatsappTemplatesController;
+use App\Http\Controllers\Web\WhatsappMessagesController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -45,4 +46,5 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('targets', TargetsController::class);
     Route::resource('users', UsersController::class);
     Route::resource('whatsapp-templates', WhatsappTemplatesController::class);
+    Route::resource('whatsapp-messages', WhatsappMessagesController::class)->except(['update', 'edit', 'show']);
 });

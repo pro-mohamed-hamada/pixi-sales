@@ -23,5 +23,6 @@
                 <li><a class="list-group-item" href="{{route('calls.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.calls") }}</a></li>
                 <li><a class="list-group-item" href="{{route('meetings.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.meetings") }}</a></li>
                 <li><a class="list-group-item" href="{{route('whatsapp-templates.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.whatsapp_templates") }}</a></li>
+                <li><a class="list-group-item" href="{{route('whatsapp-messages.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.whatsapp_messages") }}</a></li>
         </ul>
 </section>

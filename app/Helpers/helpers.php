@@ -65,54 +65,18 @@ if (!function_exists('setLanguage')) {
     }
 }
 
+if (!function_exists('replaceFlags')) {
 
-if (!function_exists('changePointsToPounds')) {
-
-    function changePointsToPounds(float $points): float
+    function replaceFlags($content,$values =[])
     {
-        if(!Auth::check())
-            return 0;
-        else{
-
-            if(Auth::user()->center_id)
-
-                return setting('points','center_points_per_pound') ? round($points / setting('points','center_points_per_pound'),2):0;
-            else
-                return setting('points','patient_points_per_pound') ? round($points / setting('points','patient_points_per_pound'),2):0;
+        if (count($values)){
+            foreach (\App\Enum\WhatsappEventsNames::$WHATSAPP_TEMPLATES_FLAGS as $FLAG)
+            {
+                if (isset($values[$FLAG]))
+                    $content = str_replace($FLAG,$values[$FLAG],$content);
+            }
         }
+        return $content;
+
     }
 }
-
-
-if (!function_exists('changePoundsToPoints')) {
-
-    function changePoundsToPoints(float $money): float
-    {
-        if(!Auth::check())
-            return $money * setting('points','patient_points_per_pound');
-        else{
-
-            if(Auth::user()->center_id)
-                return $money * setting('points','center_points_per_pound');
-            else
-                return $money * setting('points','patient_points_per_pound');
-        }
-    }
-}
-
-// if (!function_exists('changeCenterPointsToPounds')) {
-
-//     function changeCenterPointsToPounds(float $points): float
-//     {
-//         return $points / setting('points','center_points_per_pound');
-//     }
-// }
-
-
-// if (!function_exists('changeCenterPoundsToPoints')) {
-
-//     function changeCenterPoundsToPoints(float $pounds): float
-//     {
-//         return $pounds * setting('points','center_points_per_pound');
-//     }
-// }
