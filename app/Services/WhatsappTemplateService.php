@@ -29,7 +29,6 @@ class WhatsappTemplateService extends BaseService
 
     public function getAll(array $filters = [] , array $withRelations =[], $perPage = 10 ): \Illuminate\Contracts\Pagination\CursorPaginator
     {
-        $perPage = config('app.perPage');
         return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 

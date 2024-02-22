@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\MeetingsController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\VisitsController;
 use App\Http\Controllers\Api\ReasonsController;
+use App\Http\Controllers\Api\WhatsappTemplatesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +44,5 @@ Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
     Route::get('reasons', [ReasonsController::class, 'index']);
     Route::resource('calls', CallsController::class)->except('edit', 'show');
     Route::resource('meetings', MeetingsController::class)->except('edit', 'show');
+    Route::get('whatsapp-templates', WhatsappTemplatesController::class);
 });

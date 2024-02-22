@@ -17,7 +17,6 @@ class WhatsappTemplatesResource extends JsonResource
         return [
             'id'=>$this->id,
             'title'=>$this->title,
-            'content'=>$this->content,
         ];
     }
 }
