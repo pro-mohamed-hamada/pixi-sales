@@ -5,5 +5,5 @@ namespace App\Enum;
 class ActivationStatusEnum
 {
     const ACTIVE   = 1;
-    const NOTACTIVE = 0;
+    const NOT_ACTIVE = 0;
 }

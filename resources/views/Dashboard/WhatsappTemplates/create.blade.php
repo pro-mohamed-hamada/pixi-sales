@@ -1,0 +1,98 @@
+@extends('layouts.app')
+
+
+        @section('content')
+        <div class="content col-md-9 col-lg-10 offset-md-3 offset-lg-2">
+            <div class="mb-3">
+                <div class="card">
+                    <div class="card-header">{{ __('lang.create_whatsapp_template') }}</div>
+
+                    <div class="card-body">
+                        {{-- start create form --}}
+                        <form method="POST" action="{{ route('whatsapp-templates.store') }}">
+                            @csrf
+                            <div class="row mb-3 g-3">
+                                <div class="col-lg-6">
+                                    <label>{{ __('lang.client_status') }} *</label>
+                                    <select name="client_status" class="form-control">
+                                        <option selected disabled>{{ __("lang.choose") }}</option>
+                                        <option value="{{ \App\Enum\ClientStatusEnum::NEW }}">{{ __('lang.new') }}</option>
+                                        <option value="{{ \App\Enum\ClientStatusEnum::INTERESTED }}">{{ __('lang.interested') }}</option>
+                                        <option value="{{ \App\Enum\ClientStatusEnum::NOT_INTERESTED }}">{{ __('lang.not_interested') }}</option>
+                                        <option value="{{ \App\Enum\ClientStatusEnum::CONTACTED_INCOMING }}">{{ __('lang.contacted_incoming') }}</option>
+                                        <option value="{{ \App\Enum\ClientStatusEnum::CONTACTED_OUTGOING }}">{{ __('lang.contacted_outgoing') }}</option>
+                                        <option value="{{ \App\Enum\ClientStatusEnum::PROPOSAL }}">{{ __('lang.proposal') }}</option>
+                                        <option value="{{ \App\Enum\ClientStatusEnum::MEETING }}">{{ __('lang.meeting') }}</option>
+                                        <option value="{{ \App\Enum\ClientStatusEnum::CLOSED }}">{{ __('lang.closed') }}</option>
+                                        <option value="{{ \App\Enum\ClientStatusEnum::LOST }}">{{ __('lang.lost') }}</option>
+                                    <select>
+                                    @error('client_status')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.title') }} *</label>
+                                    <input type="text" name="title" class="form-control">
+                                    @error('title')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>{{ __('lang.content') }} *</label>
+                                    <textarea name="content" class="form-control"></textarea>
+                                    @error('content')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12">
+                                    <label>{{ __('lang.flags') }} *</label>
+                                    <div class="row  bg-light-dark">
+                                        @foreach(\App\Enum\WhatsappEventsNames::$WHATSAPP_TEMPLATES_FLAGS as $key=>$flag)
+                                            <div class="col-md-4 col-lg-4" style="cursor: pointer;padding: 10px;color: black" onclick="copyToClipboard('{{$flag}}')">{{$flag}}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-12">
+                                    <label>{{ __('lang.comment') }} *</label>
+                                    <textarea name="comment" class="form-control"></textarea>
+                                    @error('comment')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-check form-switch">
+                                        <input name="is_active" class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">{{ __('lang.is_active') }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3 g-3">
+                                <div class="">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.create')}}</button>
+                                    <a href="{{ url()->previous() }}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> {{__('lang.go_back')}}</a>
+                                </div>
+                            </div>
+                        </form>
+                        {{-- end create form --}}
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        @endsection
+        @section('script')
+        @section('script')
+        <script>
+            function copyToClipboard(text) {
+                var sampleTextarea = document.createElement("textarea");
+                document.body.appendChild(sampleTextarea);
+                sampleTextarea.value = text; //save main text in it
+                sampleTextarea.select(); //select textarea contenrs
+                document.execCommand("copy");
+                document.body.removeChild(sampleTextarea);
+                toastr.info('Copy to Clipboard')
+            }
+        </script>
+        @endsection

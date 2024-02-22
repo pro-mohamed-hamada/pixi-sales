@@ -32,7 +32,7 @@
                                     <select name="is_active" class="form-control">
                                         <option selected disabled>{{ __("lang.choose") }}</option>
                                         <option value="{{ \App\Enum\ActivationStatusEnum::ACTIVE }}">{{ __('lang.active') }}</option>
-                                        <option value="{{ \App\Enum\ActivationStatusEnum::NOTACTIVE }}">{{ __('lang.not_active') }}</option>
+                                        <option value="{{ \App\Enum\ActivationStatusEnum::NOT_ACTIVE }}">{{ __('lang.not_active') }}</option>
                                     <select>
                                     @error('is_active')
                                         <span class="error">{{ $message }}</span>

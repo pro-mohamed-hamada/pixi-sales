@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enum\ActivationStatusEnum;
 
 return new class extends Migration
 {
@@ -12,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('whatsapp_templates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->enum('is_active', [ActivationStatusEnum::ACTIVE, ActivationStatusEnum::NOT_ACTIVE])->default(ActivationStatusEnum::ACTIVE);
+            $table->string('title');
+            $table->string('content');
+            $table->string('client_status')->unique();
+            $table->text('comment')->nullable();
+            $table->tinyInteger('is_active')->default(true);
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('fcm_messages');
     }
 };

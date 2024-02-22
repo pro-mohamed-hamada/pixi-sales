@@ -51,4 +51,5 @@
         <script src="{{asset('js/js.js')}}"></script>
         <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
 </body>
+@yield('script')
 </html>

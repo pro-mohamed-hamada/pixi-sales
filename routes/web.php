@@ -12,6 +12,7 @@ use App\Http\Controllers\Web\ServicesController;
 use App\Http\Controllers\Web\TargetsController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Web\VisitsController;
+use App\Http\Controllers\Web\WhatsappTemplatesController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -43,4 +44,5 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('reasons', ReasonsController::class);
     Route::resource('targets', TargetsController::class);
     Route::resource('users', UsersController::class);
+    Route::resource('whatsapp-templates', WhatsappTemplatesController::class);
 });
