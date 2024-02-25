@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api;
 
 use App\Enum\CallStatusEnum;
 use App\Enum\CallTypeEnum;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MeetingUpdateRequest extends FormRequest
@@ -25,6 +26,7 @@ class MeetingUpdateRequest extends FormRequest
     {
         return [
             'date'=>'required|date',
+            'next_action_date'=>'nullable|date|after:'.Carbon::now(),
             'client_id'=>'required|integer|exists:clients,id',
             'comment'=>'nullable|string',
         ];

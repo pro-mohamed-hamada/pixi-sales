@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Client::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('date');
+            $table->dateTime('next_action_date')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
         });

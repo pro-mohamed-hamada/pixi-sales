@@ -29,6 +29,7 @@
                         <th>{{ __('lang.id') }}</th>
                         <th>{{ __('lang.client_name') }}</th>
                         <th>{{ __('lang.date') }}</th>
+                        <th>{{ __('lang.next_action_date') }}</th>
                         <th>{{ __('lang.comment') }}</th>
                         <th>{{ __('lang.actions') }}</th>
                         
@@ -39,6 +40,7 @@
                             <td>{{ $meeting->id }}</td>
                             <td>{{ $meeting->client->name }}</td>
                             <td>{{ $meeting->date }}</td>
+                            <td>{{ $meeting->next_action_date }}</td>
                             <td>{{ $meeting->comment }}</td>
                             <td>
                                 

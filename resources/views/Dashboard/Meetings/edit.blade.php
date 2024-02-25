@@ -32,6 +32,13 @@
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.next_action_date') }} *</label>
+                                    <input type="datetime-local" name="next_action_date" class="form-control">
+                                    @error('next_action_date')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 <div class="col-lg-6">
                                     <label>{{ __('lang.comment') }} *</label>
                                     <textarea name="comment" class="form-control">{{ $meeting->comment }}</textarea>

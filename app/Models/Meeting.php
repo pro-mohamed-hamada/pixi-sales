@@ -15,6 +15,7 @@ class Meeting extends Model
     protected $fillable = [
         'client_id',
         'date',
+        'next_action_date',
         'comment',
     ];
 
