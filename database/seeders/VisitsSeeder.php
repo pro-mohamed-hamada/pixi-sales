@@ -15,7 +15,7 @@ class VisitsSeeder extends Seeder
         for($i=0; $i<=50;$i++){
             Visit::create([
                 'client_id'=>1,
-                'action_type'=> "call",
+                'action_type'=> 1,
                 'comment'=>"this is the comment",
             ]);
         }

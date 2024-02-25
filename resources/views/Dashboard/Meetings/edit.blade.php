@@ -33,8 +33,21 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
+                                    <label>{{ __('lang.next_action') }} *</label>
+                                    <select name="next_action" class="form-control">
+                                        <option selected disabled>{{ __("lang.choose") }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::CALL }}" {{ \App\Enum\ActionTypeEnum::CALL == $meeting->getRawOriginal('next_action') ? "selected":"" }}>{{ __('lang.call') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::MEETING }}" {{ \App\Enum\ActionTypeEnum::MEETING == $meeting->getRawOriginal('next_action') ? "selected":"" }}>{{ __('lang.meeting') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::WHATSAPP }}" {{ \App\Enum\ActionTypeEnum::WHATSAPP == $meeting->getRawOriginal('next_action') ? "selected":"" }}>{{ __('lang.whatsapp') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::VISIT }}" {{ \App\Enum\ActionTypeEnum::VISIT == $meeting->getRawOriginal('next_action') ? "selected":"" }}>{{ __('lang.visit') }}</option>
+                                        <select>
+                                            @error('next_action')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-4">
                                     <label>{{ __('lang.next_action_date') }} *</label>
-                                    <input type="datetime-local" name="next_action_date" class="form-control">
+                                    <input type="datetime-local" name="next_action_date" value="{{ $meeting->next_action_date }}" class="form-control">
                                     @error('next_action_date')
                                         <span class="error">{{ $message }}</span>
                                     @enderror

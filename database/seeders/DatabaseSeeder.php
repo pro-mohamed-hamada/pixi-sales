@@ -10,7 +10,6 @@ use Database\Seeders\UsersSeeder;
 use Database\Seeders\ActivityLogsSeeder;
 use Database\Seeders\VisitsSeeder;
 use Database\Seeders\ServicesSeeder;
-use Database\Seeders\StatusesSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**

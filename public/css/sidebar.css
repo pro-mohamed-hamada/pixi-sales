@@ -21,10 +21,9 @@
     font-size: 17px;
 }
 .sideBar a:hover{
-    background-color:#F00;
+    font-weight: bold;
     
 }
-
 
 .sideBar .user-img{
     width:50%;

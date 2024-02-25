@@ -32,6 +32,13 @@ body{
     top:12%;
     right: 20px;
 }
+.card-header, .card, .form-control, .table, thead, tbody, tfoot, tr, td, th {
+    background-color:#FFF !important;
+}
+
+.nav-link, .navbar-toggler{
+    color: #FFF !important;
+}
 .load_content, #show_photo{
     position: fixed;
     top:0;

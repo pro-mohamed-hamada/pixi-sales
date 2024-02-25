@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Web;
 
+use App\Enum\ActionTypeEnum;
 use App\Enum\CallStatusEnum;
 use App\Enum\CallTypeEnum;
 use Carbon\Carbon;
@@ -26,7 +27,8 @@ class MeetingStoreRequest extends FormRequest
     {
         return [
             'date'=>'required|date',
-            'next_action_date'=>'nullable|date|after:'.Carbon::now(),
+            'next_action'=>'nullable|required_with:next_action_date|integer|in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::MEETING.','.ActionTypeEnum::WHATSAPP.','.ActionTypeEnum::VISIT,
+            'next_action_date'=>'nullable|required_with:next_action|date|after:'.Carbon::now(),
             'client_id'=>'required|integer|exists:clients,id',
             'comment'=>'nullable|string',
         ];

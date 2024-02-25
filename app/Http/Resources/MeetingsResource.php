@@ -17,6 +17,7 @@ class MeetingsResource extends JsonResource
         return [
             "id"=>$this->id,
             'date'=>$this->date,
+            'next_action'=>$this->next_action,
             'next_action_date'=>$this->next_action_date,
             'comment'=>$this->comment,
         ];
