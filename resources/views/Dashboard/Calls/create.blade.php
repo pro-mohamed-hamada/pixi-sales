@@ -57,20 +57,26 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
+                                    <label>{{ __('lang.next_action') }} *</label>
+                                    <select name="next_action" class="form-control">
+                                        <option selected disabled>{{ __("lang.choose") }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::CALL }}">{{ __('lang.call') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::MEETING }}">{{ __('lang.meeting') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::WHATSAPP }}">{{ __('lang.whatsapp') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::VISIT }}">{{ __('lang.visit') }}</option>
+                                        <select>
+                                            @error('next_action')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-4">
                                     <label>{{ __('lang.next_action_date') }} *</label>
                                     <input type="datetime-local" name="next_action_date" class="form-control">
                                     @error('next_action_date')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-lg-6">
-                                    <label>{{ __('lang.next_action_note') }} *</label>
-                                    <textarea name="next_action_note" class="form-control"></textarea>
-                                    @error('next_action_note')
-                                        <span class="error">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <label>{{ __('lang.comment') }} *</label>
                                     <textarea name="comment" class="form-control"></textarea>
                                     @error('comment')

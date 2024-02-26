@@ -32,8 +32,8 @@
                         <th>{{ __('lang.date') }}</th>
                         <th>{{ __('lang.status') }}</th>
                         <th>{{ __('lang.comment') }}</th>
+                        <th>{{ __('lang.next_action') }}</th>
                         <th>{{ __('lang.next_action_date') }}</th>
-                        <th>{{ __('lang.next_action_note') }}</th>
                         <th>{{ __('lang.actions') }}</th>
                         
                     </thead>
@@ -46,8 +46,8 @@
                             <td>{{ $call->date }}</td>
                             <td>{{ $call->status }}</td>
                             <td>{{ $call->comment }}</td>
+                            <td>{{ $call->next_action }}</td>
                             <td>{{ $call->next_action_date }}</td>
-                            <td>{{ $call->next_action_note }}</td>
                             <td>
                                 
                                 <ul class="list-group list-group-horizontal">
