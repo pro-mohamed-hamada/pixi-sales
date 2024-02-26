@@ -28,7 +28,7 @@ class WhatsappTemplateUpdateRequest extends FormRequest
         return [
             'title'=>'required|string',
             'content'=>'required|string',
-            'client_status'=>'required|integer|in:'.ClientStatusEnum::NEW.','.ClientStatusEnum::INTERESTED.','.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::CONTACTED_INCOMING.','.ClientStatusEnum::CONTACTED_OUTGOING.','.ClientStatusEnum::MEETING.','.ClientStatusEnum::PROPOSAL.','.ClientStatusEnum::CLOSED.','.ClientStatusEnum::LOST,
+            'action'=>'required|string',
             'comment'=>'nullable|string',
             'is_active'=>'nullable|string',
         ];

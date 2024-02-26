@@ -12,21 +12,15 @@
                         <form method="POST" action="{{ route('whatsapp-templates.store') }}">
                             @csrf
                             <div class="row mb-3 g-3">
-                                <div class="col-lg-6">
-                                    <label>{{ __('lang.client_status') }} *</label>
-                                    <select name="client_status" class="form-control">
-                                        <option selected disabled>{{ __("lang.choose") }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::NEW }}">{{ __('lang.new') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::INTERESTED }}">{{ __('lang.interested') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::NOT_INTERESTED }}">{{ __('lang.not_interested') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::CONTACTED_INCOMING }}">{{ __('lang.contacted_incoming') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::CONTACTED_OUTGOING }}">{{ __('lang.contacted_outgoing') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::PROPOSAL }}">{{ __('lang.proposal') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::MEETING }}">{{ __('lang.meeting') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::CLOSED }}">{{ __('lang.closed') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::LOST }}">{{ __('lang.lost') }}</option>
-                                    <select>
-                                    @error('client_status')
+                                <div class="col-md-4">
+                                    <label>{{ __('lang.action') }} *</label>
+                                    <select name="action" class="form-control">
+                                        <option>{{ __('lang.choose') }}</option>
+                                        @foreach(\App\Enum\WhatsappEventsNames::$ACTIONS as $key=>$action)
+                                            <option value="{{ $key }}">{{ __('lang.'.$action) }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('action')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>

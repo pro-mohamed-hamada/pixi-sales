@@ -29,8 +29,9 @@
                         <th>{{ __('lang.id') }}</th>
                         <th>{{ __('lang.title') }}</th>
                         <th>{{ __('lang.content') }}</th>
-                        <th>{{ __('lang.client_status') }}</th>
+                        <th>{{ __('lang.action') }}</th>
                         <th>{{ __('lang.comment') }}</th>
+                        <th>{{ __('lang.is_active') }}</th>
                         <th>{{ __('lang.actions') }}</th>
                         
                     </thead>
@@ -40,8 +41,9 @@
                             <td>{{ $whatsappTemplate->id }}</td>
                             <td>{{ $whatsappTemplate->title }}</td>
                             <td>{{ $whatsappTemplate->content }}</td>
-                            <td>{{ $whatsappTemplate->client_status }}</td>
+                            <td>{{ $whatsappTemplate->action }}</td>
                             <td>{{ $whatsappTemplate->comment }}</td>
+                            <td>{{ $whatsappTemplate->is_active }}</td>
                             <td>
                                 
                                 <ul class="list-group list-group-horizontal">

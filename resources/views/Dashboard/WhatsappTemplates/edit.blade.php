@@ -5,29 +5,23 @@
         <div class="content col-md-9 col-lg-10 offset-md-3 offset-lg-2">
             <div class="mb-3">
                 <div class="card">
-                    <div class="card-header">{{ __('lang.create_whatsapp_template') }}</div>
+                    <div class="card-header">{{ __('lang.edit_whatsapp_template') }}</div>
 
                     <div class="card-body">
-                        {{-- start create form --}}
+                        {{-- start edit form --}}
                         <form method="POST" action="{{ route('whatsapp-templates.update', $whatsappTemplate->id) }}">
                             @method('put')
                             @csrf
                             <div class="row mb-3 g-3">
-                                <div class="col-lg-6">
-                                    <label>{{ __('lang.client_status') }} *</label>
-                                    <select name="client_status" class="form-control">
-                                        <option selected disabled>{{ __("lang.choose") }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::NEW }}" {{ \App\Enum\ClientStatusEnum::NEW == $whatsappTemplate->getRawOriginal('client_status') ? "selected":""}}>{{ __('lang.new') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::INTERESTED }}" {{ \App\Enum\ClientStatusEnum::INTERESTED == $whatsappTemplate->getRawOriginal('client_status') ? "selected":""}}>{{ __('lang.interested') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::NOT_INTERESTED }}" {{ \App\Enum\ClientStatusEnum::NOT_INTERESTED == $whatsappTemplate->getRawOriginal('client_status') ? "selected":""}}>{{ __('lang.not_interested') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::CONTACTED_INCOMING }}" {{ \App\Enum\ClientStatusEnum::CONTACTED_INCOMING == $whatsappTemplate->getRawOriginal('client_status') ? "selected":""}}>{{ __('lang.contacted_incoming') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::CONTACTED_OUTGOING }}" {{ \App\Enum\ClientStatusEnum::CONTACTED_OUTGOING == $whatsappTemplate->getRawOriginal('client_status') ? "selected":""}}>{{ __('lang.contacted_outgoing') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::PROPOSAL }}" {{ \App\Enum\ClientStatusEnum::PROPOSAL == $whatsappTemplate->getRawOriginal('client_status') ? "selected":""}}>{{ __('lang.proposal') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::MEETING }}" {{ \App\Enum\ClientStatusEnum::MEETING == $whatsappTemplate->getRawOriginal('client_status') ? "selected":""}}>{{ __('lang.meeting') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::CLOSED }}" {{ \App\Enum\ClientStatusEnum::CLOSED == $whatsappTemplate->getRawOriginal('client_status') ? "selected":""}}>{{ __('lang.closed') }}</option>
-                                        <option value="{{ \App\Enum\ClientStatusEnum::LOST }}" {{ \App\Enum\ClientStatusEnum::LOST == $whatsappTemplate->getRawOriginal('client_status') ? "selected":""}}>{{ __('lang.lost') }}</option>
-                                    <select>
-                                    @error('client_status')
+                                <div class="col-md-4">
+                                    <label>{{ __('lang.action') }} *</label>
+                                    <select name="action" class="form-control">
+                                        <option>{{ __('lang.choose') }}</option>
+                                        @foreach(\App\Enum\WhatsappEventsNames::$ACTIONS as $key=>$action)
+                                            <option value="{{ $key }}" {{ $key == $whatsappTemplate->action ? "selected":"" }}>{{ __('lang.'.$action) }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('action')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -71,12 +65,12 @@
                             
                             <div class="row mb-3 g-3">
                                 <div class="">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.create')}}</button>
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.edit')}}</button>
                                     <a href="{{ url()->previous() }}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> {{__('lang.go_back')}}</a>
                                 </div>
                             </div>
                         </form>
-                        {{-- end create form --}}
+                        {{-- end edit form --}}
                     </div>
                 </div>
             </div>
