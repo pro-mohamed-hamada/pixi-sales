@@ -42,15 +42,14 @@ class WhatsappMessageService extends BaseService
                 return false;
             $data['title'] = $whatsappTemplate->title;
             $data['content'] = $whatsappTemplate->content;
-        }else{
-            $data['content'] = $data['content'];
+            $replaced_values = [
+                '@USER_NAME@'=>$client->name,
+            ];
+            $data['content'] = replaceFlags($data['content'],$replaced_values);
         }
         
         $data['phone'] = $client->phone;
-        $replaced_values = [
-            '@USER_NAME@'=>$client->name,
-        ];
-        $data['content'] = replaceFlags($data['content'],$replaced_values);
+        
         $whatsappMessage = $this->getModel()->create($data);
         if (!$whatsappMessage)
             return false ;

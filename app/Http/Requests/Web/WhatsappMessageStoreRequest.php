@@ -24,8 +24,7 @@ class WhatsappMessageStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'whatsapp_template_id'=>'nullable|required_without:content|integer|exists:whatsapp_templates,id',
-            'content'=>'nullable|required_without:whatsapp_template_id',
+            'whatsapp_template_id'=>'nullable|integer|exists:whatsapp_templates,id',
             'client_id'=>'required|integer|exists:clients,id',
         ];
     }

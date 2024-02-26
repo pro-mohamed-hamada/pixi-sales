@@ -20,8 +20,8 @@ return new class extends Migration
             $table->dateTime('date');
             $table->string('comment')->nullable();
             $table->enum('status', [CallStatusEnum::ANSWERED, CallStatusEnum::NOT_ANSWERED, CallStatusEnum::NOT_AVAILABLE, CallStatusEnum::PHONE_CLOSED, CallStatusEnum::ERROR_NUMBER])->default(CallStatusEnum::ANSWERED);
+            $table->integer('next_action')->nullable();
             $table->dateTime('next_action_date')->nullable();
-            $table->string('next_action_note')->nullable();
             $table->timestamps();
         });
     }

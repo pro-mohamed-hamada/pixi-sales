@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('content');
-            $table->string('action')->unique();
+            $table->string('action');
             $table->text('comment')->nullable();
             $table->tinyInteger('is_active')->default(true);
             $table->timestamps();

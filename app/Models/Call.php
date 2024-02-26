@@ -18,8 +18,8 @@ class Call extends Model
         'date',
         'comment',
         'status',
+        'next_action',
         'next_action_date',
-        'next_action_note',
     ];
 
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo

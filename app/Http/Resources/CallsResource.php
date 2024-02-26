@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\WhatsappTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,9 +21,9 @@ class CallsResource extends JsonResource
             'status'=>$this->status,
             'date'=>$this->date,
             'comment'=>$this->comment,
+            'next_action'=>$this->next_action,
             'next_action_date'=>$this->next_action_date,
-            'next_action_note'=>$this->next_action_note,
-            'whatsapp_url'=>"https://wa.me/".$this->client->phone."?text=Hi"
+            'whatsapp_templates'=>WhatsappTemplate::where('action', 'CALL')->select('id', 'title', 'content')->get(),
         ];
     }
 }

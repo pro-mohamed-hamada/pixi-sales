@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\WhatsappTemplate::class)->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Client::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('title')->nullable();
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->string('phone');
             $table->timestamps();
         });
