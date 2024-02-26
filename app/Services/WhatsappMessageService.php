@@ -35,11 +35,17 @@ class WhatsappMessageService extends BaseService
     public function store(array $data = [])
     {
         $client = Client::find($data['client_id']);
-        $whatsappTemplate = WhatsappTemplate::find($data['whatsapp_template_id']);
-        if(!$client || !$whatsappTemplate)
-            return false;
-        $data['title'] = $whatsappTemplate->title;
-        $data['content'] = $whatsappTemplate->content;
+        if(isset($data['whatsapp_template_id']))
+        {
+            $whatsappTemplate = WhatsappTemplate::find($data['whatsapp_template_id']);
+            if(!$client || !$whatsappTemplate)
+                return false;
+            $data['title'] = $whatsappTemplate->title;
+            $data['content'] = $whatsappTemplate->content;
+        }else{
+            $data['content'] = $data['content'];
+        }
+        
         $data['phone'] = $client->phone;
         $replaced_values = [
             '@USER_NAME@'=>$client->name,
