@@ -8,6 +8,7 @@ use App\Services\VisitService;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\VisitStoreRequest;
+use App\Http\Requests\Api\VisitUpdateRequest;
 
 class VisitsController extends Controller
 {
@@ -43,4 +44,17 @@ class VisitsController extends Controller
         }
         
     }//end of store
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(VisitUpdateRequest $request, string $id)
+    {
+        try {
+            $visit = $this->visitService->update($id, $request->validated());
+            return apiResponse(data: new VisitsResource($visit), message: __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return apiResponse(message: $e->getMessage(), code: 442);
+        }
+    }
 }

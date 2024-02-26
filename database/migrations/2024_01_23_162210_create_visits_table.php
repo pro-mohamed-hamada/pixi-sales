@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Client::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
-            $table->enum('action_type', [ActionTypeEnum::CALL, ActionTypeEnum::MEETING, ActionTypeEnum::WHATSAPP, ActionTypeEnum::VISIT]);
+            $table->date('date');
+            $table->foreignIdFor(\App\Models\City::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('next_action')->nullable();
+            $table->dateTime('next_action_date')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
         });

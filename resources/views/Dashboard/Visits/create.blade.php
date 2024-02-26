@@ -12,7 +12,7 @@
                         <form method="POST" action="{{ route('visits.store') }}">
                             @csrf
                             <div class="row mb-3 g-3">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <label>{{ __('lang.client') }} *</label>
                                     <select name="client_id" class="form-control">
                                         <option selected disabled>{{ __("lang.choose") }}</option>
@@ -24,15 +24,40 @@
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-lg-6">
-                                    <label>{{ __('lang.action_type') }} *</label>
-                                    <select name="action_type" class="form-control">
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.governorate') }} *</label>
+                                    <select name="governorate" class="form-control">
+                                        <option selected disabled>{{ __("lang.choose") }}</option>
+                                    <select>
+                                    @error('governorate')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.date') }} *</label>
+                                    <input type="date" name="date" class="form-control">
+                                    @error('date')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.next_action') }} *</label>
+                                    <select name="next_action" class="form-control">
                                         <option selected disabled>{{ __("lang.choose") }}</option>
                                         <option value="{{ \App\Enum\ActionTypeEnum::CALL }}">{{ __('lang.call') }}</option>
-                                        <option value="{{ \App\Enum\ActionTypeEnum::SMS }}">{{ __('lang.sms') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::MEETING }}">{{ __('lang.meeting') }}</option>
                                         <option value="{{ \App\Enum\ActionTypeEnum::WHATSAPP }}">{{ __('lang.whatsapp') }}</option>
-                                    <select>
-                                    @error('action_type')
+                                        <option value="{{ \App\Enum\ActionTypeEnum::VISIT }}">{{ __('lang.visit') }}</option>
+                                        <select>
+                                            @error('next_action')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.next_action_date') }} *</label>
+                                    <input type="datetime-local" name="next_action_date" class="form-control">
+                                    @error('next_action_date')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>

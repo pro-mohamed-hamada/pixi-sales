@@ -7,10 +7,11 @@ use App\Enum\CallTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Filterable;
+use App\Traits\NextActionTrait;
 
 class Call extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, Filterable, NextActionTrait;
 
     protected $fillable = [
         'client_id',

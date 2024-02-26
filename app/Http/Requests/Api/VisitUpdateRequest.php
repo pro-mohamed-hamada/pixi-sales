@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Enum\ActionTypeEnum;
 use Carbon\Carbon;
 
-class VisitStoreRequest extends FormRequest
+class VisitUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

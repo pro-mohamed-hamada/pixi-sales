@@ -28,7 +28,10 @@
                     <thead>
                         <th>{{ __('lang.id') }}</th>
                         <th>{{ __('lang.client_name') }}</th>
-                        <th>{{ __('lang.action_type') }}</th>
+                        <th>{{ __('lang.date') }}</th>
+                        <th>{{ __('lang.city') }}</th>
+                        <th>{{ __('lang.next_action') }}</th>
+                        <th>{{ __('lang.next_action_date') }}</th>
                         <th>{{ __('lang.comment') }}</th>
                         <th>{{ __('lang.actions') }}</th>
                         
@@ -39,7 +42,10 @@
                         <tr>
                             <td>{{ $visit->id }}</td>
                             <td>{{ $visit->client->name }}</td>
-                            <td>{{ $visit->action_type }}</td>
+                            <td>{{ $visit->date }}</td>
+                            <td>{{ $visit->city->name }}</td>
+                            <td>{{ $visit->next_action }}</td>
+                            <td>{{ $visit->next_action_date }}</td>
                             <td>{{ $visit->comment }}</td>
                             <td>
                                 <ul class="list-group list-group-horizontal">

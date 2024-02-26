@@ -8,6 +8,7 @@ use App\Services\VisitService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\VisitStoreRequest;
 use App\Services\ClientService;
+use Exception;
 
 class VisitsController extends Controller
 {
@@ -27,17 +28,16 @@ class VisitsController extends Controller
         return View('Dashboard.Visits.index', compact(['visits']));
     }//end of index
 
-    // public function edit(Request $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     $category = $this->categoryService->find($id);
-    //     if (!$category)
-    //     {
-    //         $toast = ['type' => 'error', 'title' => trans('lang.error'), 'message' => trans('lang.category_not_found')];
-    //         return back()->with('toast', $toast);
-    //     }
-    //     return view('dashboard.categories.edit', compact('category'));
-    // }//end of edit
+    public function edit(Request $request, $id)
+    {
+        try{
+            $visit = $this->visitService->findById(id: $id);
+            $clients = $this->clientService->getAll();
+            return view('Dashboard.Visits.edit', compact('visit', 'clients'));
+        }catch(Exception $e){
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+    }//end of edit
 
     public function create(Request $request)
     {

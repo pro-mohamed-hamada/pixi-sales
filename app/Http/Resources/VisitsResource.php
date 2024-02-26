@@ -16,6 +16,10 @@ class VisitsResource extends JsonResource
     {
         return [
             "id"=>$this->id,
+            "date"=>$this->date,
+            "city"=>$this->whenLoaded('city', new CitiesResource($this->city), null),
+            "next_action"=>$this->next_action,
+            "next_action_date"=>$this->next_action_date,
             "comment"=>$this->comment,
         ];
     }

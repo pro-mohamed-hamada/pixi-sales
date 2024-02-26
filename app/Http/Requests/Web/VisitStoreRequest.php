@@ -4,6 +4,8 @@ namespace App\Http\Requests\Web;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Enum\ActionTypeEnum;
+use Carbon\Carbon;
+
 class VisitStoreRequest extends FormRequest
 {
     /**
@@ -23,7 +25,10 @@ class VisitStoreRequest extends FormRequest
     {
         return [
             'client_id'=>'required|integer|exists:clients,id',
-            'action_type'=>'required|in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::SMS.','.ActionTypeEnum::WHATSAPP,
+            'date'=>'required|date',
+            'city_id'=>'required|integer|exists:cities,id',
+            'next_action'=>'nullable|required_with:next_action_date|integer|in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::MEETING.','.ActionTypeEnum::WHATSAPP.','.ActionTypeEnum::VISIT,
+            'next_action_date'=>'nullable|required_with:next_action|date|after:'.Carbon::now(),
             'comment'=>'nullable|string',
         ];
     }

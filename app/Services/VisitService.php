@@ -41,6 +41,12 @@ class VisitService extends BaseService
         return $visit;
     } //end of store
 
+    public function update(int $id, array $data=[])
+    {
+        $visit = $this->findById(id: $id);
+        $visit->update($data);
+        return $visit;
+    }
 
     /**
      * @throws NotFoundException
