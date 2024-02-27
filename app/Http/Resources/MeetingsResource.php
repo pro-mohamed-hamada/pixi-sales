@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\WhatsappTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,6 +21,7 @@ class MeetingsResource extends JsonResource
             'next_action'=>$this->next_action,
             'next_action_date'=>$this->next_action_date,
             'comment'=>$this->comment,
+            'whatsapp_templates'=>WhatsappTemplate::where('action', 'MEETING')->select('id', 'title', 'content')->get(),
         ];
     }
 }
