@@ -5,7 +5,7 @@ $(document).ready(function(){
     // $("body").niceScroll();
     $(".sideBar").niceScroll();
 
-    $(".clientsTable tr").on("dblclick", function(e){
+    $(".with-related-data tr").on("dblclick", function(e){
         e.preventDefault();
         $(this).next(".displayView").css("display", "block");
         // $(".displayView").css("display", "block");

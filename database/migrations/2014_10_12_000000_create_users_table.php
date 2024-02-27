@@ -1,10 +1,10 @@
 <?php
 
+use App\Enum\ActivationStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Enum\UserTypeEnum;
-use App\Enum\UserActiveEnum;
 return new class extends Migration
 {
     /**
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('type',[UserTypeEnum::SUPERADMIN, UserTypeEnum::EMPLOYEE])->default(UserTypeEnum::EMPLOYEE);
-            $table->enum('is_active',[UserActiveEnum::ACTIVE, UserActiveEnum::NONACTIVE])->default(UserActiveEnum::ACTIVE);
+            $table->enum('is_active',[ActivationStatusEnum::ACTIVE, ActivationStatusEnum::NOT_ACTIVE])->default(ActivationStatusEnum::ACTIVE);
             $table->rememberToken();
             $table->timestamps();
         });

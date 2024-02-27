@@ -24,7 +24,7 @@
 
             <div class="datatable table-responsive">
                 
-                <table class="usersTable  table text-center table-bordered  table-hover">
+                <table class="usersTable with-related-data  table text-center table-bordered  table-hover">
                     <thead>
                         <th>{{ __('lang.id') }}</th>
                         <th>{{ __('lang.name') }}</th>
@@ -41,7 +41,6 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->is_active }}</td>
                             <td>
-                                
                                 <ul class="list-group list-group-horizontal">
                                     <li class="list-group-item">
                                         <form method="post" action="{{route('users.destroy', $user->id)}}">
@@ -53,6 +52,14 @@
                                     <li class="list-group-item"><a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></li>
                                     <li class="list-group-item"><a href="{{ route('users.show', $user->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></li>
                                 </ul>
+                            </td>
+                        </tr>
+                        <tr class=" displayView">
+                            <td colspan="10">
+                                <div class="displayViewContent">
+                                    @include('Datatables.UserTargetsDatatable')
+                                </div>
+                                <button class="close btn btn-danger">X</button>     
                             </td>
                         </tr>
                         @endforeach 

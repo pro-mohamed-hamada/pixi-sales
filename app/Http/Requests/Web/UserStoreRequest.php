@@ -26,7 +26,13 @@ class UserStoreRequest extends FormRequest
             'name'=>'required|string',
             'email'=>'required|email',
             'password'=>'required|string|min:8|confirmed',
-            'is_active'=>'required|in:'.ActivationStatusEnum::ACTIVE.','.ActivationStatusEnum::NOTACTIVE,
+            'is_active'=>'nullable|string',
+            'userTargets_target'=>'nullable|array',
+            'userTargets_target.*'=>'required|integer|exists:targets,id',
+            'userTargets_target_value'=>'nullable|array',
+            'userTargets_target_value.*'=>'required|integer',
+            'userTargets_target_done'=>'nullable|array',
+            'userTargets_target_done.*'=>'required|integer',
         ];
     }
 }

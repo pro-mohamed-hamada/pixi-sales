@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function targets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Target::class, 'user_targets')->withPivot(['target_value', 'meeting_date', 'target_done']);
+        return $this->belongsToMany(Target::class, 'user_targets')->withPivot(['target_value', 'target_done']);
     }
 
     public function getISActiveAttribute()

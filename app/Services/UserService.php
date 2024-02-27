@@ -2,17 +2,20 @@
 
 namespace App\Services;
 
+use App\Enum\ActivationStatusEnum;
 use App\Enum\ImageTypeEnum;
 use App\Enum\PaymentStatusEnum;
 use App\Enum\UserTypeEnum;
 use App\Exceptions\NotFoundException;
 use App\Models\User;
 use App\Models\UserPackage;
+use App\Models\UserTarget;
 use App\QueryFilters\UsersFilter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class UserService extends BaseService
 {
@@ -40,11 +43,32 @@ class UserService extends BaseService
     }
     public function store(array $data = [])
     {
+        DB::beginTransaction();
+        $data['is_active'] = isset($data['is_active']) ? ActivationStatusEnum::ACTIVE:ActivationStatusEnum::NOT_ACTIVE;
         $user = $this->getModel()->create($data);
+        if (!$user)
+            return false ;
+        $userTargetsData = $this->prepareTargetsData($data);
+        
+        $user->targets()->attach($userTargetsData);
+        DB::commit();
         if (!$user)
             return false ;
         return $user;
     } //end of store
+
+    private function prepareTargetsData(array $data): array
+    {
+        $userTargetsData = [];
+        if(isset($data['userTargets_target']))
+            for($i = 0; $i< count($data['userTargets_target']); $i++)
+            {
+                $userTargetsData[$i]['target_id'] = $data['userTargets_target'][$i];
+                $userTargetsData[$i]['target_value'] = $data['userTargets_target_value'][$i];
+                $userTargetsData[$i]['target_done'] = $data['userTargets_target_done'][$i];
+            }
+        return $userTargetsData;
+    }
 
 
     public function changeStatus($id)

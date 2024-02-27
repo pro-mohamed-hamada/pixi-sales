@@ -46,6 +46,7 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('reasons', ReasonsController::class);
     Route::resource('targets', TargetsController::class);
     Route::resource('users', UsersController::class);
+    Route::post('user-targets', [UsersController::class, 'userTargets'])->name('users.target');
     Route::resource('whatsapp-templates', WhatsappTemplatesController::class);
     Route::resource('whatsapp-messages', WhatsappMessagesController::class)->except(['update', 'edit', 'show']);
 });

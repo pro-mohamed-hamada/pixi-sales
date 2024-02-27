@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enum\ActivationStatusEnum;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ClientStoreRequest;
 use App\Http\Requests\Web\UserStoreRequest;
 use App\Services\GovernorateService;
+use App\Services\TargetService;
 use App\Services\UserService;
 
 class UsersController extends Controller
 {
-    public function __construct(private UserService $userService)
+    public function __construct(private UserService $userService, private TargetService $targetService)
     {
 
     }
@@ -23,8 +25,8 @@ class UsersController extends Controller
         $filters = array_filter($request->get('filters', []), function ($value) {
             return ($value !== null && $value !== false && $value !== '');
         });
-        $withRelations = [];
-        $users = $this->userService->getAll(['filters'=>$filters, 'withRelations'=>$withRelations, 'perPage'=>1]);
+        $withRelations = ['targets'];
+        $users = $this->userService->getAll(filters: $filters, withRelations: $withRelations);
         return View('Dashboard.Users.index', compact(['users']));
     }//end of index
 
@@ -42,16 +44,17 @@ class UsersController extends Controller
 
     public function create(Request $request)
     {
-        return view('Dashboard.Users.create');
+        $targets = $this->targetService->getAll();
+        return view('Dashboard.Users.create', compact('targets'));
     }//end of create
 
     public function store(UserStoreRequest $request)
     {
         try {
-            $this->userService->store($request->validated());
+            $status = $this->userService->store($request->validated());
             return redirect()->route('users.index')->with('message', __('lang.success_operation'));
         } catch (\Exception $e) {
-            return redirect()->route('users.index')->with('message', $e->getMessage());
+            return redirect()->back()->with('message', $e->getMessage());
         }
     }//end of store
 

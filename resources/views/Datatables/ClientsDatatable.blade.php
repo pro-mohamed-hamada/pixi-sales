@@ -24,7 +24,7 @@
 
             <div class="datatable table-responsive">
                 
-                <table class="clientsTable  table text-center table-bordered  table-hover">
+                <table class="clientsTable with-related-data  table text-center table-bordered  table-hover">
                     <thead>
                         <th>{{ __('lang.id') }}</th>
                         <th>{{ __('lang.name') }}</th>
