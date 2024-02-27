@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Services\VisitService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\VisitStoreRequest;
+use App\Http\Requests\Web\VisitUpdateRequest;
 use App\Services\ClientService;
+use App\Services\GovernorateService;
 use Exception;
 
 class VisitsController extends Controller
 {
-    public function __construct(private VisitService $visitService, private ClientService $clientService)
+    public function __construct(private VisitService $visitService, private ClientService $clientService, private GovernorateService $governorateService)
     {
 
     }
@@ -33,7 +35,8 @@ class VisitsController extends Controller
         try{
             $visit = $this->visitService->findById(id: $id);
             $clients = $this->clientService->getAll();
-            return view('Dashboard.Visits.edit', compact('visit', 'clients'));
+            $governorates = $this->governorateService->getAll();
+            return view('Dashboard.Visits.edit', compact('visit', 'clients', 'governorates'));
         }catch(Exception $e){
             return redirect()->back()->with("message", $e->getMessage());
         }
@@ -42,7 +45,8 @@ class VisitsController extends Controller
     public function create(Request $request)
     {
         $clients = $this->clientService->getAll();//TODO: get only the active clients
-        return view('Dashboard.Visits.create', compact('clients'));
+        $governorates = $this->governorateService->getAll();
+        return view('Dashboard.Visits.create', compact('clients', 'governorates'));
     }//end of create
 
     public function store(VisitStoreRequest $request)
@@ -55,19 +59,18 @@ class VisitsController extends Controller
         }
     }//end of store
 
-    // public function update(CategoryRequest $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     try {
-    //         $this->categoryService->update($id, $request->validated());
-    //         $toast = ['title' => 'Success', 'message' => trans('lang.success_operation')];
-    //         return redirect(route('categories.index'))->with('toast', $toast);
-    //     } catch (\Exception $ex) {
-
-    //         $toast = ['type' => 'error', 'title' => 'error', 'message' => $ex->getMessage(),];
-    //         return redirect()->back()->with('toast', $toast);
-    //     }
-    // } //end of update
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(VisitUpdateRequest $request, string $id)
+    {
+        try {
+            $this->visitService->update($id, $request->validated());
+            return redirect()->route('visits.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+    }
 
     public function destroy($id)
     {

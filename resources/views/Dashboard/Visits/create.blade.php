@@ -26,12 +26,18 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label>{{ __('lang.governorate') }} *</label>
-                                    <select name="governorate" class="form-control">
+                                    <select id="governorates" name="governorate_id" class="form-control">
                                         <option selected disabled>{{ __("lang.choose") }}</option>
+                                        @foreach ($governorates as $governorate)
+                                            <option value="{{ $governorate->id }}">{{ $governorate->name }}</option>
+                                        @endforeach
                                     <select>
-                                    @error('governorate')
-                                        <span class="error">{{ $message }}</span>
-                                    @enderror
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.city') }} *</label>
+                                    <select id="governorate_cities" name="city_id" class="form-control">
+                                        
+                                    <select>
                                 </div>
                                 <div class="col-lg-4">
                                     <label>{{ __('lang.date') }} *</label>
@@ -80,4 +86,32 @@
             
         </div>
         @endsection
-   
+@section('script')
+    <script>
+        $(document).ready(function () {
+    $("#governorates").change(function () {
+        alert('done');  
+         var governorate_id = $(this).val();
+         $('#governorate_cities').html('');
+        $.ajax({
+            url: '{{ route("cities.ajax") }}',
+            type: 'get',
+            data:{'governorate_id': governorate_id},
+            success: function (res) {
+                if (res.data != null)
+                {
+                    $('#governorate_cities').html('<option>please select</option>');
+                    $.each(res.data, function (key, value) {
+                        $('#governorate_cities').append('<option value="' + value
+                            .id + '">' + value.name + '</option>');
+                    });
+                }else
+                $('#governorate_cities').html('<option>please select</option>');
+
+            }
+        });
+    });
+})
+
+    </script>
+@endsection

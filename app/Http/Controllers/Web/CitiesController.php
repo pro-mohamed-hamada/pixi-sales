@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\CityStoreRequest;
+use App\Http\Resources\CitiesResource;
 use App\Services\CityService;
 use App\Services\GovernorateService;
+use Exception;
 
 class CitiesController extends Controller
 {
@@ -26,6 +28,20 @@ class CitiesController extends Controller
         $withRelations = [];
         $cities = $this->cityService->getAll(filters: $filters, withRelations: $withRelations);
         return View('Dashboard.Cities.index', compact(['cities']));
+    }//end of index
+
+    public function citiesAjax(Request $request)
+    {
+        try{
+            $filters = $request->all();
+            $withRelations = [];
+            $cities = $this->cityService->getAll(filters: $filters, withRelations: $withRelations);
+            return CitiesResource::collection($cities);
+    
+        }catch(Exception $e){
+            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        }
+        
     }//end of index
 
     // public function edit(Request $request, $id)

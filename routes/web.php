@@ -41,6 +41,7 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('activity-logs', ActivityLogsController::class);
     Route::resource('governorates', GovernoratesController::class);
     Route::resource('cities', CitiesController::class);
+    Route::get('cities-ajax', [CitiesController::class, 'citiesAjax'])->name('cities.ajax');
     Route::resource('services', ServicesController::class);
     Route::resource('reasons', ReasonsController::class);
     Route::resource('targets', TargetsController::class);

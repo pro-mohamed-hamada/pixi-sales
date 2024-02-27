@@ -45,12 +45,8 @@ class VisitsFilter extends QueryFilter
     public function governorate_id($term)
     {
         if (isset($term))
-            return $this->builder->whereHas('center', function ($query) use ($term) {
-                $query->whereHas('user', function($query) use ($term){
-                    $query->whereHas('location', function ($query) use ($term) {
-                        $query->where('parent_id', $term);
-                    });
-                });
+            return $this->whereHas('governorate', function ($query) use ($term) {
+                $query->where('governorate_id', $term);
             });
     }
 

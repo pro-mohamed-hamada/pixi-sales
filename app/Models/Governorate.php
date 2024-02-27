@@ -14,4 +14,9 @@ class Governorate extends Model
     protected $fillable = ['name'];
 
     public $translatable = ['name'];
+
+    public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(City::class,  'governorate_id');
+    }
 }

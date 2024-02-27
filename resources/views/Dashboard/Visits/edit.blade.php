@@ -5,11 +5,12 @@
         <div class="content col-md-9 col-lg-10 offset-md-3 offset-lg-2">
             <div class="mb-3">
                 <div class="card">
-                    <div class="card-header">{{ __('lang.create_visit') }}</div>
+                    <div class="card-header">{{ __('lang.edit_visit') }}</div>
 
                     <div class="card-body">
-                        {{-- start create form --}}
-                        <form method="POST" action="{{ route('visits.store') }}">
+                        {{-- start edit form --}}
+                        <form method="POST" action="{{ route('visits.update', $visit->id) }}">
+                            @method('put')
                             @csrf
                             <div class="row mb-3 g-3">
                                 <div class="col-lg-4">
@@ -17,7 +18,7 @@
                                     <select name="client_id" class="form-control">
                                         <option selected disabled>{{ __("lang.choose") }}</option>
                                         @foreach ($clients as $client)
-                                            <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                            <option value="{{ $client->id }}" {{$client->id == $visit->client_id ? "selected":""}}>{{ $client->name }}</option>
                                         @endforeach
                                     <select>
                                     @error('client_id')
@@ -25,20 +26,38 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
+                                    <label>{{ __('lang.governorate') }} *</label>
+                                    <select id="governorates" name="governorate_id" class="form-control">
+                                        <option selected disabled>{{ __("lang.choose") }}</option>
+                                        @foreach ($governorates as $governorate)
+                                            <option value="{{ $governorate->id }}" {{$governorate->id == $visit->city->governorate_id ? "selected":""}}>{{ $governorate->name }}</option>
+                                        @endforeach
+                                    <select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.city') }} *</label>
+                                    <select id="governorate_cities" name="city_id" class="form-control">
+                                        @foreach($visit->city->governorate->cities as $city)
+                                        <option value="{{ $city->id }}" {{ $city->id == $visit->city_id ? "selected":"" }}>{{$city->name}}</option>
+                                        @endforeach
+                                    <select>
+                                </div>
+                                <div class="col-lg-4">
                                     <label>{{ __('lang.date') }} *</label>
-                                    <input type="date" name="date" class="form-control">
+                                    <input type="date" name="date" value="{{$visit->date}}" class="form-control">
                                     @error('date')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                
                                 <div class="col-lg-4">
                                     <label>{{ __('lang.next_action') }} *</label>
                                     <select name="next_action" class="form-control">
                                         <option selected disabled>{{ __("lang.choose") }}</option>
-                                        <option value="{{ \App\Enum\ActionTypeEnum::CALL }}">{{ __('lang.call') }}</option>
-                                        <option value="{{ \App\Enum\ActionTypeEnum::MEETING }}">{{ __('lang.meeting') }}</option>
-                                        <option value="{{ \App\Enum\ActionTypeEnum::WHATSAPP }}">{{ __('lang.whatsapp') }}</option>
-                                        <option value="{{ \App\Enum\ActionTypeEnum::VISIT }}">{{ __('lang.visit') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::CALL }}" {{ \App\Enum\ActionTypeEnum::CALL == $visit->getRawOriginal('next_action') ? "selected":"" }}>{{ __('lang.call') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::MEETING }}" {{ \App\Enum\ActionTypeEnum::MEETING == $visit->getRawOriginal('next_action') ? "selected":"" }}>{{ __('lang.meeting') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::WHATSAPP }}" {{ \App\Enum\ActionTypeEnum::WHATSAPP == $visit->getRawOriginal('next_action') ? "selected":"" }}>{{ __('lang.whatsapp') }}</option>
+                                        <option value="{{ \App\Enum\ActionTypeEnum::VISIT }}" {{ \App\Enum\ActionTypeEnum::VISIT == $visit->getRawOriginal('next_action') ? "selected":"" }}>{{ __('lang.visit') }}</option>
                                         <select>
                                             @error('next_action')
                                         <span class="error">{{ $message }}</span>
@@ -46,28 +65,56 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label>{{ __('lang.next_action_date') }} *</label>
-                                    <input type="datetime-local" name="next_action_date" class="form-control">
+                                    <input type="datetime-local" name="next_action_date" value="{{ $visit->next_action_date }}" class="form-control">
                                     @error('next_action_date')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-lg-12">
                                     <label>{{ __("lang.comment") }}</label>
-                                    <textarea name="comment" class="form-control" placeholder="{{ __("lang.comment") }}"></textarea>
+                                    <textarea name="comment" class="form-control" placeholder="{{ __("lang.comment") }}">{{ $visit->comment }}</textarea>
                                 </div>
                             </div>
                             <div class="row mb-3 g-3">
                                 <div class="">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.create')}}</button>
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.edit')}}</button>
                                     <a href="{{ url()->previous() }}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> {{__('lang.go_back')}}</a>
                                 </div>
                             </div>
                         </form>
-                        {{-- end create form --}}
+                        {{-- end edit form --}}
                     </div>
                 </div>
             </div>
             
         </div>
         @endsection
-   
+@section('script')
+    <script>
+        $(document).ready(function () {
+    $("#governorates").change(function () {
+        alert('done');  
+         var governorate_id = $(this).val();
+         $('#governorate_cities').html('');
+        $.ajax({
+            url: '{{ route("cities.ajax") }}',
+            type: 'get',
+            data:{'governorate_id': governorate_id},
+            success: function (res) {
+                if (res.data != null)
+                {
+                    $('#governorate_cities').html('<option>please select</option>');
+                    $.each(res.data, function (key, value) {
+                        $('#governorate_cities').append('<option value="' + value
+                            .id + '">' + value.name + '</option>');
+                    });
+                }else
+                $('#governorate_cities').html('<option>please select</option>');
+
+            }
+        });
+    });
+})
+
+    </script>
+@endsection

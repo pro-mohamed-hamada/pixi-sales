@@ -29,10 +29,12 @@ class GovernorateService extends BaseService
         return $governorates->filter(new GovernoratesFilter($filters));
     }
 
-    public function getAll(array $filters = [] , array $withRelations =[], $perPage = 10 ): \Illuminate\Contracts\Pagination\CursorPaginator
+    public function getAll(array $filters = [] , array $withRelations =[], $perPage = null ): \Illuminate\Contracts\Pagination\CursorPaginator|\Illuminate\Database\Eloquent\Collection
     {
-        $perPage = config('app.perPage');
-        return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
+        if($perPage)
+            return $this->queryGet(filters: $filters, withRelations: $withRelations)->cursorPaginate($perPage);
+        else
+            return $this->queryGet(filters: $filters, withRelations: $withRelations)->get();
     }
 
     public function store(array $data = [])
