@@ -32,7 +32,7 @@ class UsersSeeder extends Seeder
             'email'=>'emp2@gmail.com',
             'password'=>'123456',
             'type'=>2,
-            'is_active'=>ActivationStatusEnum::NOT_ACTIVE,
+            'is_active'=>ActivationStatusEnum::ACTIVE,
         ]);
     }
 }
