@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('client_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Client::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('status', [ClientStatusEnum::NEW, ClientStatusEnum::CONTACTED_INCOMING, ClientStatusEnum::CONTACTED_OUTGOING, ClientStatusEnum::INTERESTED, ClientStatusEnum::NOT_INTERESTED, ClientStatusEnum::PROPOSAL, ClientStatusEnum::MEETING, ClientStatusEnum::CLOSED, ClientStatusEnum::LOST])->default(ClientStatusEnum::NEW);
+            $table->enum('status', [ClientStatusEnum::NEW, ClientStatusEnum::CONTACTED, ClientStatusEnum::INTERESTED, ClientStatusEnum::NOT_INTERESTED, ClientStatusEnum::PROPOSAL, ClientStatusEnum::MEETING, ClientStatusEnum::CLOSED, ClientStatusEnum::LOST])->default(ClientStatusEnum::NEW);
             $table->foreignIdFor(\App\Models\Reason::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
             $table->text('comment')->nullable();
             $table->dateTime('date_time')->nullable();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('client_statuses');
+        Schema::dropIfExists('client_histories');
     }
 };

@@ -5,12 +5,11 @@ namespace App\Enum;
 class ClientStatusEnum
 {
     const NEW = 1;
-    const CONTACTED_INCOMING = 2;
-    const CONTACTED_OUTGOING = 3;
-    const INTERESTED = 4;
-    const NOT_INTERESTED = 5;
-    const PROPOSAL = 6;
-    const MEETING = 7;
-    const CLOSED = 8;
-    const LOST = 9;
+    const CONTACTED = 2;
+    const INTERESTED = 3;
+    const NOT_INTERESTED = 4;
+    const PROPOSAL = 5;
+    const MEETING = 6;
+    const CLOSED = 7;
+    const LOST = 8;
 }

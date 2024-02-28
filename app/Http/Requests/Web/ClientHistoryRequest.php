@@ -23,10 +23,10 @@ class ClientHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status'=>'required|integer|in:'.ClientStatusEnum::NEW.','.ClientStatusEnum::CONTACTED_INCOMING.','.ClientStatusEnum::CONTACTED_OUTGOING.','.ClientStatusEnum::INTERESTED.','.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::PROPOSAL.','.ClientStatusEnum::MEETING.','.ClientStatusEnum::CLOSED.','.ClientStatusEnum::LOST,
+            'status'=>'required|integer|in:'.ClientStatusEnum::NEW.','.ClientStatusEnum::CONTACTED.','.ClientStatusEnum::INTERESTED.','.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::PROPOSAL.','.ClientStatusEnum::MEETING.','.ClientStatusEnum::CLOSED.','.ClientStatusEnum::LOST,
             'reason_id'=>'nullable|exists:reasons,id|required_if:status,'.ClientStatusEnum::NOT_INTERESTED,
             'comment'=>'nullable|string|required_if:status,'.ClientStatusEnum::NOT_INTERESTED,
-            'date_time'=>'nullable|date|required_if:status,'.ClientStatusEnum::CONTACTED_INCOMING.'|'.'required_if:status,'.ClientStatusEnum::CONTACTED_OUTGOING.'|'.'required_if:status,'.ClientStatusEnum::MEETING,
+            'date_time'=>'nullable|date|required_if:status,'.ClientStatusEnum::CONTACTED.'|'.'required_if:status,'.ClientStatusEnum::MEETING,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ActivationStatusEnum;
 use App\Exceptions\NotFoundException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ class ServiceService extends BaseService
 
     public function store(array $data = [])
     {
+        $data['is_active'] = isset($data['is_active']) ? ActivationStatusEnum::ACTIVE:ActivationStatusEnum::NOT_ACTIVE;
         $service = $this->getModel()->create($data);
         if (!$service)
             return false ;

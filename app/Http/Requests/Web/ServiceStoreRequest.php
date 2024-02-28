@@ -25,7 +25,7 @@ class ServiceStoreRequest extends FormRequest
         return [
             'name'=>'required|array',
             'name.*'=>'required|string',
-            'is_active'=>'required|in:'.ActivationStatusEnum::ACTIVE.','.ActivationStatusEnum::NOTACTIVE,
+            'is_active'=>'nullable|string',
         ];
     }
 }

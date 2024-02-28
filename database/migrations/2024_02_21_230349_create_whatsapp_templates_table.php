@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\ActivationStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->string('content');
             $table->string('action');
             $table->text('comment')->nullable();
-            $table->tinyInteger('is_active')->default(true);
+            $table->boolean('is_active')->default(ActivationStatusEnum::ACTIVE);
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fcm_messages');
+        Schema::dropIfExists('whatsapp_templates');
     }
 };
