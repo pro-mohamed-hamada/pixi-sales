@@ -14,6 +14,11 @@ class Service extends Model
 
     public $translatable = ['name'];
 
+    public function clients(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Client::class, ClientService::class)->withPivot('price');
+    }
+
     public function getISActiveAttribute()
     {
         return $this->getRawOriginal('is_active') ? __('lang.active'):__('lang.not_active');

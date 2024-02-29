@@ -86,32 +86,3 @@
             
         </div>
         @endsection
-@section('script')
-    <script>
-        $(document).ready(function () {
-    $("#governorates").change(function () {
-        alert('done');  
-         var governorate_id = $(this).val();
-         $('#governorate_cities').html('');
-        $.ajax({
-            url: '{{ route("cities.ajax") }}',
-            type: 'get',
-            data:{'governorate_id': governorate_id},
-            success: function (res) {
-                if (res.data != null)
-                {
-                    $('#governorate_cities').html('<option>please select</option>');
-                    $.each(res.data, function (key, value) {
-                        $('#governorate_cities').append('<option value="' + value
-                            .id + '">' + value.name + '</option>');
-                    });
-                }else
-                $('#governorate_cities').html('<option>please select</option>');
-
-            }
-        });
-    });
-})
-
-    </script>
-@endsection

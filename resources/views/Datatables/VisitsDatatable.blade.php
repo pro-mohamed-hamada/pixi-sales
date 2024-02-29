@@ -41,9 +41,9 @@
                          
                         <tr>
                             <td>{{ $visit->id }}</td>
-                            <td>{{ $visit->client->name }}</td>
+                            <td>{{ $visit->client?->name }}</td>
                             <td>{{ $visit->date }}</td>
-                            <td>{{ $visit->city->name }}</td>
+                            <td>{{ $visit->city?->name }}</td>
                             <td>{{ $visit->next_action }}</td>
                             <td>{{ $visit->next_action_date }}</td>
                             <td>{{ $visit->comment }}</td>

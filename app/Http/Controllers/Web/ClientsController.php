@@ -6,7 +6,7 @@ use App\Enum\ActivationStatusEnum;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\ClientStoreRequest;
+use App\Http\Requests\Web\ClientStoreRequest;
 use App\Http\Requests\Web\ClientHistoryRequest;
 use App\Http\Requests\Web\ClientUpdateRequest;
 use App\Services\ClientServiceService;
@@ -53,7 +53,9 @@ class ClientsController extends Controller
     public function create(Request $request)
     {
         $governorates = $this->governorateService->getAll();//TODO: get only the active governorates
-        return view('Dashboard.Clients.create', compact('governorates'));
+        $reasons = $this->reasonService->getAll();
+        $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
+        return view('Dashboard.Clients.create', compact('governorates', 'reasons', 'services'));
     }//end of create
 
     public function store(ClientStoreRequest $request)

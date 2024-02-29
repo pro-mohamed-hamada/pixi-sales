@@ -24,11 +24,8 @@ class ClientHistory extends Model
             case ClientStatusEnum::NEW:
                 return __('lang.new');
                 break;
-            case ClientStatusEnum::CONTACTED_INCOMING:
-                return __('lang.contacted_incoming');
-                break;
-            case ClientStatusEnum::CONTACTED_OUTGOING:
-                return __('lang.contacted_outcoming');
+            case ClientStatusEnum::CONTACTED:
+                return __('lang.contacted');
                 break;
             case ClientStatusEnum::INTERESTED:
                 return __('lang.interested');

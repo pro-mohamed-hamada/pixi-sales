@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\ClientStatusEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Client;
@@ -12,7 +13,7 @@ class ClientsSeeder extends Seeder
      */
     public function run(): void
     {
-        Client::create([
+        $client = Client::create([
             'name'=>'client 1',
             'phone'=>'+201101865213',
             'industry'=>'industry 1',
@@ -22,6 +23,10 @@ class ClientsSeeder extends Seeder
             'other_person_phone'=>'01034374784',
             'other_person_position'=>"employee",
 
+        ]);
+
+        $client->history()->create([
+            'status'=>ClientStatusEnum::NEW
         ]);
     }
 }

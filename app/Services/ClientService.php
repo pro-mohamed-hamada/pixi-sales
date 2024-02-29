@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Exceptions\BadRequestHttpException;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ClientService extends BaseService
 {
@@ -36,15 +38,53 @@ class ClientService extends BaseService
 
     public function store(array $data = []):Client|Model|bool
     {
+        DB::beginTransaction();
+        // create the client
         $client = $this->getModel()->create($data);
-        $client->clientHistory()->create([
-            "status"=>ClientStatusEnum::NEW
-        ]);
+        
+        //start add the client status
+        $statusData = $this->prepareStatusData(data: $data);
+        $client->history()->create($statusData);
+        //end add the client status
+        
+        // start add the client services
+        $servicesData = $this->prepareServicesData(data: $data);
+        $client->services()->sync($servicesData);
+        // end add the client services
+        DB::commit();
         if (!$client)
             return false ;
         return $client;
     } //end of store
 
+    private function pepareClientData(array $data): array
+    {
+        $clientData = [];
+        return $clientData;
+    }
+
+    private function prepareStatusData(array $data): array
+    {
+        $statusData = [];
+        $statusData['status']    = Arr::get(array: $data, key: 'status', default: ClientStatusEnum::NEW);
+        $statusData['reason_id'] = Arr::get(array: $data, key: 'reason_id', default: null);
+        $statusData['comment']   = Arr::get(array: $data, key: 'comment', default: null);
+        $statusData['date_time'] = Arr::get(array: $data, key: 'date_time', default: null);
+        return $statusData;
+    }
+
+    private function prepareServicesData(array $data): array
+    {
+        $servicesData = [];
+        if(Arr::has(array: $data, keys: 'services'))
+        {
+            for($i=0; $i<count($data['services']); $i++)
+            {
+                $servicesData[$data['services'][$i]] = ['price'=> $data['prices'][$i] ];
+            }
+        }
+        return $servicesData;
+    }
     public function changeStatus(int $id, array $data):bool
     {
         $client = $this->findById($id);
@@ -68,7 +108,21 @@ class ClientService extends BaseService
         $client = $this->findById($id);
         if (!$client)
             return false;
+        DB::beginTransaction();
         $client->update($data);
+        //start add the client status
+        $statusData = $this->prepareStatusData(data: $data);
+        if($statusData)
+            $client->history()->create($statusData);
+        //end add the client status
+        
+        // start add the client services
+        $servicesData = $this->prepareServicesData(data: $data);
+        $client->services()->sync($servicesData);
+        // end add the client services
+        DB::commit();
+        if (!$client)
+            return false;
         return $client;
     }
 
