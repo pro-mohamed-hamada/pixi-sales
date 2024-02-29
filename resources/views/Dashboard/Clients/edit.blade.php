@@ -105,7 +105,7 @@
                                     <div class="col-lg-4">
                                         <label>{{ __('lang.status') }} *</label>
                                         <select name="status" class="form-control">
-                                            <option selected disabled>{{ __("lang.choose") }}</option>
+                                            <option disabled>{{ __("lang.choose") }}</option>
                                             <option value="{{ \App\Enum\ClientStatusEnum::NEW }}" {{ $client->latestStatus?->status == \App\Enum\ClientStatusEnum::NEW? "selected":""}}>{{ __('lang.new') }}</option>
                                             <option value="{{ \App\Enum\ClientStatusEnum::CONTACTED }}" {{ $client->latestStatus?->getRawOriginal('status') == \App\Enum\ClientStatusEnum::CONTACTED? "selected":""}}>{{ __('lang.contacted') }}</option>
                                             <option value="{{ \App\Enum\ClientStatusEnum::INTERESTED }}" {{ $client->latestStatus?->getRawOriginal('status') == \App\Enum\ClientStatusEnum::INTERESTED? "selected":""}}>{{ __('lang.interested') }}</option>

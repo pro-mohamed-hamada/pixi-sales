@@ -36,7 +36,6 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('calls', CallsController::class)->except('show');
     Route::resource('meetings', MeetingsController::class)->except('show');
     Route::post('clients/change-status/{id}', [ClientsController::class, 'changeStatus'])->name("clients.changeStatus");
-    Route::post('clients/services/{id}', [ClientsController::class, 'clientServices'])->name("clients.clientServices");
     Route::resource('visits', VisitsController::class);
     Route::resource('activity-logs', ActivityLogsController::class);
     Route::resource('governorates', GovernoratesController::class);

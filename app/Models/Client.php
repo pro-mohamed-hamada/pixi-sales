@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Enum\ClientStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Filterable;
+use Exception;
 
 class Client extends Model
 {
@@ -39,6 +41,76 @@ class Client extends Model
     public function calls(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Call::class,  'client_id');
+    }
+
+    public function meetings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Meeting::class,  'client_id');
+    }
+
+    public function checkStatus(int $status)
+    {
+        // switch($status)
+        // {
+        //     case ClientStatusEnum::NEW:
+        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
+        //         if($currentStatus == $status);
+        //         {
+        //             throw new Exception(__('lang.the_current_status_is_new'));
+        //         }
+        //         break;
+        //     case ClientStatusEnum::INTERESTED:
+        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
+        //         if($currentStatus == $status || $status == ClientStatusEnum::NEW);
+        //         {
+        //             throw new Exception(__('lang.the_current_status_is_interested'));
+        //         }
+        //         break;
+        //     case ClientStatusEnum::NOT_INTERESTED:
+        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
+        //         if($currentStatus == $status || $status == ClientStatusEnum::NEW);
+        //         {
+        //             throw new Exception(__('lang.the_current_status_is_interested'));
+        //         }
+        //         break;
+        //     case ClientStatusEnum::CONTACTED:
+        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
+        //         if($currentStatus == $status || $status == );
+        //         {
+        //             throw new Exception(__('lang.the_current_status_is_interested'));
+        //         }
+        //         break;
+        //     case ClientStatusEnum::MEETING:
+        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
+        //         if($currentStatus == $status || $status == );
+        //         {
+        //             throw new Exception(__('lang.the_current_status_is_interested'));
+        //         }
+        //         break;
+        //     case ClientStatusEnum::PROPOSAL:
+        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
+        //         if($currentStatus == $status || $status == );
+        //         {
+        //             throw new Exception(__('lang.the_current_status_is_interested'));
+        //         }
+        //         break;
+        //     case ClientStatusEnum::CLOSED:
+        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
+        //         if($currentStatus == $status || $status == );
+        //         {
+        //             throw new Exception(__('lang.the_current_status_is_interested'));
+        //         }
+        //         break;
+        //     case ClientStatusEnum::LOST:
+        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
+        //         if($currentStatus == $status || $status == );
+        //         {
+        //             throw new Exception(__('lang.the_current_status_is_interested'));
+        //         }
+        //         break;
+        //     default:
+        //         return true;
+        // }
     }
 
 }

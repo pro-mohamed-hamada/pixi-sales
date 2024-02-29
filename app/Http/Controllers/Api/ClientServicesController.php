@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ClientServiceStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\ClientStoreRequest;
+use App\Http\Resources\ClientServicesResource;
 use App\Http\Resources\ClientsResource;
 use App\Http\Resources\ServicesResource;
 use App\Services\ClientService;
@@ -23,9 +24,8 @@ class ClientServicesController extends Controller
     {
         try{
             $filters = $request->all();
-            $withRelations = [];
-            $services = $this->clientServiceService->getAll(filters: $filters, withRelations: $withRelations);
-            return ServicesResource::collection($services);
+            $services = $this->clientServiceService->getAll(filters: $filters);
+            return apiResponse(data: ClientServicesResource::collection($services), message: __('lang.success_operation'));
     
         }catch(Exception $e){
             return apiResponse(message: __('lang.something_went_wrong'), code: 442);
@@ -35,24 +35,25 @@ class ClientServicesController extends Controller
 
     public function store(ClientServiceStoreRequest $request)
     {
-        // try{
+        try{
             $client = $this->clientServiceService->store(data: $request->Validated());
             if(!$client)
                 return apiResponse(message: __('lang.something_went_wrong'), code: 442);
             return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
     
-        // }catch(Exception $e){
-        //     return apiResponse(message: __('lang.something_went_wrong'), code: 442);
-        // }
+        }catch(Exception $e){
+            return apiResponse(message: $e->getMessage(), code: 442);
+        }
         
     }//end of store
 
-    public function show($id)
+    public function destroy($id)
     {
         try {
-           $withRelations = [];
-            $client = $this->clientService->find(clientId: $id, withRelations: $withRelations);
-            return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
+            $status = $this->clientServiceService->destroy(id: $id);
+            if(!$status)
+                return apiResponse(message: __('lang.something_ent_wrong'));
+            return apiResponse(message: __('lang.success_operation'));
         } catch (\Exception $ex) {
             return apiResponse(message: $ex->getMessage(), code: 422);
         }

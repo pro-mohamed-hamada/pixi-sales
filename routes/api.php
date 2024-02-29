@@ -34,14 +34,18 @@ Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
     Route::get('cities', [CitiesController::class, 'index']);
     Route::resource('clients', ClientsController::class);
     Route::post('clients/change-status/{id}', [ClientsController::class, 'changeStatus']);
-    Route::post('client/services/', [ClientServicesController::class, 'store']);
+
+    Route::get('services', [ServicesController::class, 'index']);
+    Route::post('client/services', [ClientServicesController::class, 'store']);
+    Route::delete('client/services/{id}', [ClientServicesController::class, 'destroy']);
+    Route::get('client/services/getall', [ClientServicesController::class, 'index']);
+
     Route::resource('visits',  VisitsController::class);
     Route::post('logout',      [AuthController::class, 'logout']);
     Route::post('start-work',      [AuthController::class, 'startWork']);
     Route::post('end-work',      [AuthController::class, 'endWork']);
     Route::get('authuser',      [AuthController::class, 'authUser']);
     Route::get('user/target',  [AuthController::class, 'userTarget']);
-    Route::get('services', [ServicesController::class, 'index']);
     Route::get('reasons', [ReasonsController::class, 'index']);
     Route::resource('calls', CallsController::class)->except('edit', 'show');
     Route::resource('meetings', MeetingsController::class)->except('edit', 'show');

@@ -49,7 +49,7 @@ class ClientsController extends Controller
     {
         try {
            $withRelations = [];
-            $client = $this->clientService->find(clientId: $id, withRelations: $withRelations);
+            $client = $this->clientService->findById(id: $id, withRelations: $withRelations);
             return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
         } catch (\Exception $ex) {
             return apiResponse(message: $ex->getMessage(), code: 422);
