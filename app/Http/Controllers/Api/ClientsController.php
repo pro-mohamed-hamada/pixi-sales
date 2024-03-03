@@ -33,15 +33,15 @@ class ClientsController extends Controller
 
     public function store(ClientStoreRequest $request)
     {
-        try{
+        // try{
             $client = $this->clientService->store(data: $request->Validated());
             if(!$client)
                 return apiResponse(message: __('lang.something_went_wrong'), code: 442);
             return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
     
-        }catch(Exception $e){
-            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
-        }
+        // }catch(Exception $e){
+        //     return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        // }
         
     }//end of store
 

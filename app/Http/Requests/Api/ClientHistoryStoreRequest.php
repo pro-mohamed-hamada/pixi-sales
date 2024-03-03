@@ -24,9 +24,8 @@ class ClientHistoryStoreRequest extends FormRequest
     {
         return [
             'status'=>'required|integer|in:'.ClientStatusEnum::NEW.','.ClientStatusEnum::CONTACTED.','.ClientStatusEnum::INTERESTED.','.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::PROPOSAL.','.ClientStatusEnum::MEETING.','.ClientStatusEnum::CLOSED.','.ClientStatusEnum::LOST,
-            'reason_id'=>'nullable|exists:reasons,id|required_if:status,'.ClientStatusEnum::NOT_INTERESTED,
+            'reason_id'=>'nullable|exists:reasons,id|required_if:status,'.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::LOST,
             'comment'=>'nullable|string|required_if:status,'.ClientStatusEnum::NOT_INTERESTED,
-            'date_time'=>'nullable|date|required_if:status,'.ClientStatusEnum::CONTACTED.'|'.'required_if:status,'.ClientStatusEnum::MEETING,
         ];
     }
 }

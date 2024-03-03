@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\ClientSourceEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +22,8 @@ return new class extends Migration
             $table->string('other_person_name');
             $table->string('other_person_phone');
             $table->string('other_person_position');
+            $table->string('facebook_url')->nullable();
+            $table->foreignIdFor(\App\Models\Source::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
             $table->timestamps();
         });
     }

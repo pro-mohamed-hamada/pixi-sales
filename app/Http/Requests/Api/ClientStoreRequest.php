@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Api;
 
+use App\Enum\ClientSourceEnum;
+use App\Enum\ClientStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClientStoreRequest extends FormRequest
@@ -23,13 +25,20 @@ class ClientStoreRequest extends FormRequest
     {
         return [
             'name'=>'required|string',
-            'phone'=>'required|string',
+            'phone'=>['required', 'string', 'unique:clients,phone', 'unique:clients,other_person_phone'],
             'industry'=>'required|string',
             'company_name'=>'required|string',
             'city_id'=>'required|integer|exists:cities,id',
             'other_person_name'=>'required|string',
-            'other_person_phone'=>'required|string',
-            'other_person_position'=>'required|string'
+            'other_person_phone'=>['required', 'string', 'unique:clients,phone', 'unique:clients,other_person_phone'],
+            'other_person_position'=>'required|string',
+            'facebook_url'=>'nullable|url',
+            'source_id'=>'required|integer|exists:sources,id',
+
+            'status'=>'required|integer|in:'.ClientStatusEnum::NEW.','.ClientStatusEnum::CONTACTED.','.ClientStatusEnum::INTERESTED.','.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::PROPOSAL.','.ClientStatusEnum::MEETING.','.ClientStatusEnum::CLOSED.','.ClientStatusEnum::LOST,
+            'reason_id'=>'nullable|exists:reasons,id|required_if:status,'.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::LOST,
+            'comment'=>'nullable|string|required_if:status,'.ClientStatusEnum::NOT_INTERESTED,
+
         ];
     }
 }

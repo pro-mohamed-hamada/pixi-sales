@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\ClientSourceEnum;
 use App\Enum\ClientStatusEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,13 +16,15 @@ class ClientsSeeder extends Seeder
     {
         $client = Client::create([
             'name'=>'client 1',
-            'phone'=>'+201101865213',
+            'phone'=>'01101865213',
             'industry'=>'industry 1',
             'company_name'=>'company 1',
             'city_id'=>1,
             'other_person_name'=>'person 2',
             'other_person_phone'=>'01034374784',
             'other_person_position'=>"employee",
+            'facebook_url'=>"http://ww.facebook.com",
+            'source_id'=>1,
 
         ]);
 

@@ -10,7 +10,7 @@ class ClientHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['client_id', 'status', 'reason_id', 'comment', 'date_time'];
+    protected $fillable = ['client_id', 'status', 'reason_id', 'comment'];
 
     public function reason(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
