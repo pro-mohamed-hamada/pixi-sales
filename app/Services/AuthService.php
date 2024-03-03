@@ -102,10 +102,6 @@ class AuthService extends BaseService
     {
         $user = Auth::user();
         if (isset($data['logo'])) {
-            $user->deleteAttachmentsLogo();
-            $fileData = FileService::saveImage(file: $data['logo'], path: 'uploads/users', field_name: 'logo');
-            $fileData['type'] = ImageTypeEnum::LOGO;
-            $user->storeAttachment($fileData);
         }
         return $user;
 
