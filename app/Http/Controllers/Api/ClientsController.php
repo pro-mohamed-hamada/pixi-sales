@@ -7,6 +7,7 @@ use App\Http\Requests\Api\ClientHistoryStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\ClientStoreRequest;
 use App\Http\Requests\Api\ClientUpdateRequest;
+use App\Http\Resources\ClientOnCallResource;
 use App\Http\Resources\ClientsResource;
 use App\Services\ClientService;
 use Exception;
@@ -22,7 +23,7 @@ class ClientsController extends Controller
     {
         try{
             $filters = $request->all();
-            $withRelations = ['whatsappMessages'];
+            $withRelations = ['visits', 'calls', 'meetings', 'whatsappMessages'];
             $cities = $this->clientService->getAll(filters: $filters, withRelations: $withRelations);
             return ClientsResource::collection($cities);
     
@@ -31,6 +32,20 @@ class ClientsController extends Controller
         }
         
     }//end of index
+
+    public function getClientOnCall(Request $request)
+    {
+        // try{
+            $filters = $request->all();
+            $withRelations = ['visits', 'calls', 'meetings', 'whatsappMessages'];
+            $cities = $this->clientService->getAll(filters: $filters, withRelations: $withRelations);
+            return apiResponse(data: ClientOnCallResource::collection($cities), message: __('lang.success_operation'));
+    
+        // }catch(Exception $e){
+        //     return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        // }
+        
+    }//end of getClientOnCall
 
     public function store(ClientStoreRequest $request)
     {

@@ -34,6 +34,7 @@ Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
     Route::get('governorates', [GovernoratesController::class, 'index']);
     Route::get('cities', [CitiesController::class, 'index']);
     Route::resource('clients', ClientsController::class);
+    Route::get('clients-on-call', [ClientsController::class, 'getClientOnCall']);
     Route::post('clients/change-status/{id}', [ClientsController::class, 'changeStatus']);
 
     Route::get('services', [ServicesController::class, 'index']);
