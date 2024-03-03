@@ -21,7 +21,7 @@ class ClientsController extends Controller
     {
         try{
             $filters = $request->all();
-            $withRelations = [];
+            $withRelations = ['whatsappMessages'];
             $cities = $this->clientService->getAll(filters: $filters, withRelations: $withRelations);
             return ClientsResource::collection($cities);
     

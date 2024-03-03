@@ -24,6 +24,7 @@ class ClientsResource extends JsonResource
             "other_person_name"=>$this->other_person_name,
             "other_person_phone"=>$this->other_person_phone,
             "other_person_position"=>$this->other_person_position,
+            "whatsapp_messages_count"=>$this->whenLoaded('whatsappMessages', $this->whatsappMessages->count()),
             "latest_status"=>$this->whenLoaded("latestStatus", $this->latestStatus),
             "services"=>$this->whenLoaded("services", ClientServicesResource::collection($this->services), null),
             "visits"=>$this->whenLoaded("visits", VisitsResource::collection($this->visits), null),

@@ -43,6 +43,11 @@ class Client extends Model
         return $this->hasMany(Call::class,  'client_id');
     }
 
+    public function whatsappMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(WhatsappMessage::class,  'client_id');
+    }
+
     public function meetings(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Meeting::class,  'client_id');
