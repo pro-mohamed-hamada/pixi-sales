@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
-use App\Http\Resources\Sourcesresource;
+use App\Http\Resources\SourcesResource;
 use App\Services\SourceService;
 
 class SourcesController extends Controller
