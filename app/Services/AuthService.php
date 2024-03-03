@@ -20,9 +20,9 @@ class AuthService extends BaseService
         if (!auth()->attempt(credentials: $credential, remember: $remember))
             return throw new NotFoundException(__('lang.login_failed'));
         $user = User::where('email', $email)->first();
-        $userIp = $user->publicIps()->where('ip', $publicIp)->first();
-        if(!$userIp)
-            return throw new NotFoundException(__('lang.unauthorized_device'));
+        // $userIp = $user->publicIps()->where('ip', $publicIp)->first();
+        // if(!$userIp)
+        //     return throw new NotFoundException(__('lang.unauthorized_device'));
         return $user;
     }
 
