@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ClientHistoryStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\ClientStoreRequest;
+use App\Http\Requests\Api\ClientUpdateRequest;
 use App\Http\Resources\ClientsResource;
 use App\Services\ClientService;
 use Exception;
@@ -33,17 +34,31 @@ class ClientsController extends Controller
 
     public function store(ClientStoreRequest $request)
     {
-        // try{
+        try{
             $client = $this->clientService->store(data: $request->Validated());
             if(!$client)
                 return apiResponse(message: __('lang.something_went_wrong'), code: 442);
             return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
     
-        // }catch(Exception $e){
-        //     return apiResponse(message: __('lang.something_went_wrong'), code: 442);
-        // }
+        }catch(Exception $e){
+            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        }
         
     }//end of store
+
+    public function update(ClientUpdateRequest $request, string $id)
+    {
+        try{
+            $client = $this->clientService->update(id: $id, data: $request->Validated());
+            if(!$client)
+                return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+            return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
+    
+        }catch(Exception $e){
+            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        }
+        
+    }//end of update
 
     public function show($id)
     {

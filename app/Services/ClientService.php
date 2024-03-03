@@ -118,7 +118,8 @@ class ClientService extends BaseService
         
         // start add the client services
         $servicesData = $this->prepareServicesData(data: $data);
-        $client->services()->sync($servicesData);
+        if($servicesData)
+            $client->services()->sync($servicesData);
         // end add the client services
         DB::commit();
         if (!$client)
