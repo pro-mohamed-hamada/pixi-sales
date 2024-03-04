@@ -90,10 +90,10 @@ class User extends Authenticatable
         }
     }
 
-    public function decreaseUserTarget(int $target)
+    public function decreaseUserTarget(string $target)
     {
 
-        $target = $this->targets->where('target', $target)->first();
+        $target = $this->targets()->where('target', $target)->first();
         if($target)
         {
             $target->target_done = $target->target_done - 1;
