@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
             'email'=>'required|string',
             'password'=>'required',
             'remember' =>'nullable|boolean:in:[0,1]',
-            'public_ip'=>'required|ipv4',
+            'device_serial'=>'required|string',
         ];
     }
 }

@@ -51,13 +51,22 @@
                             </div>
                             <hr>
                             <div class="row mb-3 g-3">
-                                {{-- start the client targets --}}
-                                <div class="mb-3  client-targets">
+                                {{-- start the user targets --}}
+                                <div class="mb-3  user-targets">
                                     <div class="mb-3">
                                         <button id="add-target" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('lang.add_target')}}</button>
                                     </div>
                                 </div>
-                                {{-- end the client targets --}}
+                                {{-- end the user targets --}}
+                            </div>
+                            <div class="row mb-3 g-3">
+                                {{-- start the user device serials --}}
+                                <div class="mb-3  user-device-serials">
+                                    <div class="mb-3">
+                                        <button id="add-device-serial" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('lang.add_device_serial')}}</button>
+                                    </div>
+                                </div>
+                                {{-- end the user device serial --}}
                             </div>
                             <div class="row mb-3 g-3">
                                 <div class="">
@@ -120,15 +129,50 @@
                 </div>
             </div>
         </div>
+        {{-- start device serial --}}
+        <div id="device-serial" style="display: none !important">
+            <div class="mb-3 device-serial">
+                <div class="card">
+                    <div class="card-body">
+                        {{-- start update form --}}
+                        <div class="row mb-3 g-3">
+                            <div class="col-lg-12">
+                                <label>{{ __('lang.device_serial') }} *</label>
+                                <input type="text" name="userDevices_device_serial[]" class="form-control">
+                                @error("userDevices_device_serial[]")
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3 g-3">
+                            <div class="device-serial-buttons">
+                                <button type="button" class="btn btn-danger remove-device-serial"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                        {{-- end update form --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- end device serial --}}
         @section('script')
         <script>
             $(document).ready(function(){
                 $('#add-target').click(function(){
                     var element = $('#target').html();
-                    $('.client-targets').append(element);
+                    $('.user-targets').append(element);
                 });
-                $('.client-targets').on('click', '.remove-target', function(){
+                $('.user-targets').on('click', '.remove-target', function(){
                     var element = $(this).parents('.target')
+                    element.remove();
+                });
+
+                $('#add-device-serial').click(function(){
+                    var element = $('#device-serial').html();
+                    $('.user-device-serials').append(element);
+                });
+                $('.user-device-serials').on('click', '.remove-device-serial', function(){
+                    var element = $(this).parents('.device-serial')
                     element.remove();
                 });
             });

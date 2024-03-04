@@ -51,6 +51,8 @@ class UserService extends BaseService
         $userTargetsData = $this->prepareTargetsData($data);
         
         $user->targets()->createMany($userTargetsData);
+        $userDeviceSerialsData = $this->prepareDeviceSerialsData($data);
+        $user->deviceSerials()->createMany($userDeviceSerialsData);
         DB::commit();
         if (!$user)
             return false ;
@@ -68,6 +70,17 @@ class UserService extends BaseService
                 $userTargetsData[$i]['target_done'] = $data['userTargets_target_done'][$i];
             }
         return $userTargetsData;
+    }
+
+    private function prepareDeviceSerialsData(array $data): array
+    {
+        $userDeviceSerialsData = [];
+        if(isset($data['userDevices_device_serial']))
+            for($i = 0; $i< count($data['userDevices_device_serial']); $i++)
+            {
+                $userDeviceSerialsData[$i]['device_serial'] = $data['userDevices_device_serial'][$i];
+            }
+        return $userDeviceSerialsData;
     }
 
 

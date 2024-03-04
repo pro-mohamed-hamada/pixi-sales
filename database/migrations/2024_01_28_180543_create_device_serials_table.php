@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('public_ips', function (Blueprint $table) {
+        Schema::create('device_serials', function (Blueprint $table) {
             $table->id();
-            $table->string('ip');
+            $table->string('device_serial');
             $table->foreignIdFor(\App\Models\User::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('public_ips');
+        Schema::dropIfExists('device_serials');
     }
 };

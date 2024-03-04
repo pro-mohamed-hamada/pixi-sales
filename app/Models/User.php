@@ -65,9 +65,9 @@ class User extends Authenticatable
         return $this->hasMany(ActivityLog::class,  'user_id', );
     }
 
-    public function publicIps(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function deviceSerials(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(publicIp::class,  'user_id', );
+        return $this->hasMany(DeviceSerial::class,  'user_id', );
     }
 
     public function targets(): \Illuminate\Database\Eloquent\Relations\HasMany

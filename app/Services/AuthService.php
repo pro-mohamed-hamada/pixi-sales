@@ -14,15 +14,15 @@ use Carbon\Carbon;
 class AuthService extends BaseService
 {
 
-    public function loginWithEmail(string $email, string $password, string $publicIp, bool $remember = false) :User|Model
+    public function loginWithEmail(string $email, string $password, string $deviceSerial, bool $remember = false) :User|Model
     {
         $credential = ['email'=>$email,'password'=>$password, 'type'=>UserTypeEnum::EMPLOYEE];
         if (!auth()->attempt(credentials: $credential, remember: $remember))
             return throw new NotFoundException(__('lang.login_failed'));
         $user = User::where('email', $email)->first();
-        // $userIp = $user->publicIps()->where('ip', $publicIp)->first();
-        // if(!$userIp)
-        //     return throw new NotFoundException(__('lang.unauthorized_device'));
+        $userDeviceSerial = $user->deviceSerials()->where('device_serial', $deviceSerial)->first();
+        if(!$userDeviceSerial)
+            return throw new NotFoundException(__('lang.unauthorized_device'));
         return $user;
     }
 
