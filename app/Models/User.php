@@ -80,7 +80,7 @@ class User extends Authenticatable
         return $this->getRawOriginal('is_active') ? __('lang.active'):__('lang.not_active');
     }
 
-    public function increaseUserTarget(int $target)
+    public function increaseUserTarget(string $target)
     {
         $target = $this->targets()->where('target', $target)->first();
         if($target)
