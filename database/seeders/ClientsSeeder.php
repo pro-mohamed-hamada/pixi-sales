@@ -25,7 +25,7 @@ class ClientsSeeder extends Seeder
             'other_person_position'=>"employee",
             'facebook_url'=>"http://ww.facebook.com",
             'source_id'=>1,
-
+            'added_by'=>1,
         ]);
 
         $client->history()->create([

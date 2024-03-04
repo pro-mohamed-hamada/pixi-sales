@@ -22,6 +22,7 @@ class VisitsSeeder extends Seeder
                 'next_action'=>1,
                 'next_action_date'=> Carbon::now()->addDays(10),
                 'comment'=>"this is the comment",
+                'added_by'=>1,
             ]);
         }
     }

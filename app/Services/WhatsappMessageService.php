@@ -9,6 +9,7 @@ use App\Models\WhatsappMessage;
 use App\Models\WhatsappTemplate;
 use App\QueryFilters\WhatsappMessagesFilter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class WhatsappMessageService extends BaseService
 {
@@ -34,6 +35,7 @@ class WhatsappMessageService extends BaseService
 
     public function store(array $data = [])
     {
+        $data['added_by'] = Auth::user()->id;
         $client = Client::find($data['client_id']);
         if(isset($data['whatsapp_template_id']))
         {

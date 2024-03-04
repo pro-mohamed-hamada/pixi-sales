@@ -18,6 +18,7 @@ class WhatsappMessage extends Model
         'title',
         'content',
         'phone',
+        'added_by',
     ];
 
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo

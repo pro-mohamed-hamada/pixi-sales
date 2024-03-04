@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('other_person_position');
             $table->string('facebook_url')->nullable();
             $table->foreignIdFor(\App\Models\Source::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
+            $table->foreignId('added_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

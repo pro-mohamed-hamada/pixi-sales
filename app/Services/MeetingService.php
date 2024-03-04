@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\Meeting;
 use App\QueryFilters\MeetingsFilter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class MeetingService extends BaseService
 {
@@ -32,6 +33,7 @@ class MeetingService extends BaseService
 
     public function store(array $data = []):Meeting|bool
     {
+        $data['added_by'] = Auth::user()->id;
         $meeting = $this->getModel()->create($data);
         if (!$meeting)
             return false ;

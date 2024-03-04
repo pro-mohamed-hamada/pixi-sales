@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('next_action')->nullable();
             $table->dateTime('next_action_date')->nullable();
             $table->text('comment')->nullable();
+            $table->foreignId('added_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -21,6 +21,7 @@ class Call extends Model
         'status',
         'next_action',
         'next_action_date',
+        'added_by',
     ];
 
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo

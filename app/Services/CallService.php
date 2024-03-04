@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\Call;
 use App\QueryFilters\CallsFilter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CallService extends BaseService
 {
@@ -33,7 +35,11 @@ class CallService extends BaseService
 
     public function store(array $data = [])
     {
+        $user = Auth::user();
+        $data['added_by'] = $user->id;
+        DB::beginTransaction();
         $call = $this->getModel()->create($data);
+        DB::commit();
         if (!$call)
             return false ;
         return $call;

@@ -19,6 +19,7 @@ class Meeting extends Model
         'next_action',
         'next_action_date',
         'comment',
+        'added_by',
     ];
 
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo

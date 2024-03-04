@@ -39,6 +39,7 @@ class ClientService extends BaseService
     public function store(array $data = []):Client|Model|bool
     {
         DB::beginTransaction();
+        $data['added_by'] = Auth::user()->id;
         // create the client
         $client = $this->getModel()->create($data);
         

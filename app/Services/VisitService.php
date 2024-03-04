@@ -35,6 +35,7 @@ class VisitService extends BaseService
 
     public function store(array $data = [])
     {
+        $data['added_by'] = Auth::user()->id;
         $visit = $this->getModel()->create($data);
         if (!$visit)
             return false ;
