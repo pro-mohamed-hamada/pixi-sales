@@ -82,7 +82,7 @@ class User extends Authenticatable
 
     public function increaseUserTarget(int $target)
     {
-        $target = $this->targets->where('target', $target)->first();
+        $target = $this->targets()->where('target', $target)->first();
         if($target)
         {
             $target->target_done = $target->target_done + 1;

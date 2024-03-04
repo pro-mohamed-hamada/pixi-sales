@@ -16,11 +16,10 @@ class UserTargetsResource extends JsonResource
     {
         return [
             "id"=>$this->id,            
-            "name"=>$this->name,
-            "target_value"=>$this->pivot->target_value,            
-            "meeting_time"=>$this->pivot->meeting_date,            
-            "target_done"=>$this->pivot->target_done,            
-            "done_persentage"=>($this->pivot->target_done/$this->pivot->target_value)*100,            
+            "target"=>$this->target,
+            "target_value"=>$this->target_value,            
+            "target_done"=>$this->target_done,            
+            "done_persentage"=>($this->target_done/$this->target_value)*100,            
         ];
     }
 }

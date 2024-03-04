@@ -41,7 +41,7 @@ class VisitService extends BaseService
         $data['added_by'] = $user->id;
         DB::beginTransaction();
         $visit = $this->getModel()->create($data);
-        $user->increaseUserTarget(TargetsEnum::CALL);
+        $user->increaseUserTarget(TargetsEnum::VISIT);
         DB::commit();
         if (!$visit)
             return false ;
