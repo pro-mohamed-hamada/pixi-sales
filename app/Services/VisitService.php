@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\TargetsEnum;
 use App\Exceptions\NotFoundException;
 use App\Models\Visit;
 use App\QueryFilters\VisitsFilter;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\BadRequestHttpException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class VisitService extends BaseService
 {
@@ -35,8 +37,12 @@ class VisitService extends BaseService
 
     public function store(array $data = [])
     {
-        $data['added_by'] = Auth::user()->id;
+        $user = Auth::user();
+        $data['added_by'] = $user->id;
+        DB::beginTransaction();
         $visit = $this->getModel()->create($data);
+        $user->increaseUserTarget(TargetsEnum::CALL);
+        DB::commit();
         if (!$visit)
             return false ;
         return $visit;

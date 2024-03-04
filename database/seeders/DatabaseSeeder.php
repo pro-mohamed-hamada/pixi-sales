@@ -27,7 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ServicesSeeder::class);
         $this->call(ReasonsSeeder::class);
         $this->call(PublicIpsSeeder::class);
-        $this->call(TargetsSeeder::class);
         $this->call(WhatsappTemplatesSeeder::class);
     }
 }

@@ -9,12 +9,7 @@ class UserTarget extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['target_id', 'user_id', 'target_value', 'target_done'];
-
-    public function target(): \Illuminate\Database\Eloquent\Relations\belongsTo
-    {
-        return $this->belongsTo(Target::class);
-    }
+    protected $fillable = ['target', 'user_id', 'target_value', 'target_done'];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {

@@ -70,14 +70,35 @@ class User extends Authenticatable
         return $this->hasMany(publicIp::class,  'user_id', );
     }
 
-    public function targets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function targets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(Target::class, 'user_targets')->withPivot(['target_value', 'target_done']);
+        return $this->hasMany(UserTarget::class, 'user_id');
     }
 
     public function getISActiveAttribute()
     {
         return $this->getRawOriginal('is_active') ? __('lang.active'):__('lang.not_active');
+    }
+
+    public function increaseUserTarget(int $target)
+    {
+        $target = $this->targets->where('target', $target)->first();
+        if($target)
+        {
+            $target->target_done = $target->target_done + 1;
+            $target->save();
+        }
+    }
+
+    public function decreaseUserTarget(int $target)
+    {
+
+        $target = $this->targets->where('target', $target)->first();
+        if($target)
+        {
+            $target->target_done = $target->target_done - 1;
+            $target->save();
+        }
     }
 
 }

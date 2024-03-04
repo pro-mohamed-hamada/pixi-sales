@@ -19,14 +19,14 @@
                         @foreach ($user->targets as $target)
                         <tr>
                             <td>{{ $target->id }}</td>
-                            <td>{{ $target->name }}</td>
-                            <td>{{ $target->pivot->target_value }}</td>
-                            <td>{{ $target->pivot->target_done }}</td>
+                            <td>{{ $target->target }}</td>
+                            <td>{{ $target->target_value }}</td>
+                            <td>{{ $target->target_done }}</td>
                             <td>
                                 
                                 <ul class="list-group list-group-horizontal">
                                     
-                                    <li class="list-group-item"><a href="{{ route('users.edit', $target->pivot->user_id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></li>
+                                    <li class="list-group-item"><a href="{{ route('users.edit', $target->user_id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></li>
                                 </ul>
                             </td>
                         </tr>

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enum\ClientStatusEnum;
+use App\Enum\TargetsEnum;
 use App\Exceptions\NotFoundException;
 use App\Models\Client;
 use App\QueryFilters\ClientsFilter;
@@ -39,10 +40,11 @@ class ClientService extends BaseService
     public function store(array $data = []):Client|Model|bool
     {
         DB::beginTransaction();
-        $data['added_by'] = Auth::user()->id;
+        $user = Auth::user();
+        $data['added_by'] = $user->id;
         // create the client
         $client = $this->getModel()->create($data);
-        
+        $user->increaseUserTarget(TargetsEnum::CLIENT);
         //start add the client status
         $statusData = $this->prepareStatusData(data: $data);
         $client->history()->create($statusData);

@@ -50,7 +50,7 @@ class UserService extends BaseService
             return false ;
         $userTargetsData = $this->prepareTargetsData($data);
         
-        $user->targets()->attach($userTargetsData);
+        $user->targets()->createMany($userTargetsData);
         DB::commit();
         if (!$user)
             return false ;
@@ -63,7 +63,7 @@ class UserService extends BaseService
         if(isset($data['userTargets_target']))
             for($i = 0; $i< count($data['userTargets_target']); $i++)
             {
-                $userTargetsData[$i]['target_id'] = $data['userTargets_target'][$i];
+                $userTargetsData[$i]['target'] = $data['userTargets_target'][$i];
                 $userTargetsData[$i]['target_value'] = $data['userTargets_target_value'][$i];
                 $userTargetsData[$i]['target_done'] = $data['userTargets_target_done'][$i];
             }

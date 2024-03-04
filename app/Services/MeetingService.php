@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use App\Enum\TargetsEnum;
 use App\Exceptions\NotFoundException;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Meeting;
 use App\QueryFilters\MeetingsFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MeetingService extends BaseService
 {
@@ -33,8 +35,12 @@ class MeetingService extends BaseService
 
     public function store(array $data = []):Meeting|bool
     {
-        $data['added_by'] = Auth::user()->id;
+        $user = Auth::user();
+        $data['added_by'] = $user->id;
+        DB::beginTransaction();
         $meeting = $this->getModel()->create($data);
+        $user->increaseUserTarget(TargetsEnum::MEETING);
+        DB::commit();
         if (!$meeting)
             return false ;
         //TODO: send whatsapp message for the client

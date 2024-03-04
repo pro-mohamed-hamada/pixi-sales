@@ -9,7 +9,6 @@ use App\Http\Controllers\Web\CallsController;
 use App\Http\Controllers\Web\MeetingsController;
 use App\Http\Controllers\Web\ReasonsController;
 use App\Http\Controllers\Web\ServicesController;
-use App\Http\Controllers\Web\TargetsController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Web\VisitsController;
 use App\Http\Controllers\Web\WhatsappTemplatesController;
@@ -43,7 +42,6 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::get('cities-ajax', [CitiesController::class, 'citiesAjax'])->name('cities.ajax');
     Route::resource('services', ServicesController::class);
     Route::resource('reasons', ReasonsController::class);
-    Route::resource('targets', TargetsController::class);
     Route::resource('users', UsersController::class);
     Route::post('user-targets', [UsersController::class, 'userTargets'])->name('users.target');
     Route::resource('whatsapp-templates', WhatsappTemplatesController::class);

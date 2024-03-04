@@ -14,7 +14,7 @@ use App\Services\UserService;
 
 class UsersController extends Controller
 {
-    public function __construct(private UserService $userService, private TargetService $targetService)
+    public function __construct(private UserService $userService)
     {
 
     }
@@ -44,8 +44,7 @@ class UsersController extends Controller
 
     public function create(Request $request)
     {
-        $targets = $this->targetService->getAll();
-        return view('Dashboard.Users.create', compact('targets'));
+        return view('Dashboard.Users.create');
     }//end of create
 
     public function store(UserStoreRequest $request)

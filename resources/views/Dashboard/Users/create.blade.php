@@ -84,9 +84,12 @@
                                 <label>{{ __('lang.target') }} *</label>
                                 <select name="userTargets_target[]" class="form-control">
                                     <option>{{ __('lang.choose_one') }}</option>
-                                    @foreach ($targets as $target)
-                                        <option value="{{ $target->id }}">{{ $target->name }}</option>
-                                    @endforeach
+                                    <option value="{{ \App\Enum\TargetsEnum::VISIT }}">{{ __('lang.visit') }}</option>
+                                    <option value="{{ \App\Enum\TargetsEnum::PROPOSAL }}">{{ __('lang.proposal') }}</option>
+                                    <option value="{{ \App\Enum\TargetsEnum::MEETING }}">{{ __('lang.meeting') }}</option>
+                                    <option value="{{ \App\Enum\TargetsEnum::CALL }}">{{ __('lang.call') }}</option>
+                                    <option value="{{ \App\Enum\TargetsEnum::WHATSAPP_MESSAGE }}">{{ __('lang.whatsapp_message') }}</option>
+                                    <option value="{{ \App\Enum\TargetsEnum::CLIENT }}">{{ __('lang.client') }}</option>
                                 </select>
                                 @error("userTargets_target[]")
                                     <span class="error">{{ $message }}</span>

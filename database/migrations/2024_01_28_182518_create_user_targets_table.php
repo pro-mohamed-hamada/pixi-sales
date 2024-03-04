@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\TargetsEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ return new class extends Migration
         Schema::create('user_targets', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Target::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
+            $table->enum('target', [TargetsEnum::CALL, TargetsEnum::VISIT, TargetsEnum::MEETING, TargetsEnum::PROPOSAL, TargetsEnum::WHATSAPP_MESSAGE, TargetsEnum::CLIENT]);
             $table->integer('target_value');
             $table->integer('target_done')->default(0);
             $table->timestamps();

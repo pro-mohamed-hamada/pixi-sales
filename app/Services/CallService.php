@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Enum\TargetsEnum;
 use App\Exceptions\NotFoundException;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Call;
+use App\Models\User;
 use App\QueryFilters\CallsFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +41,7 @@ class CallService extends BaseService
         $data['added_by'] = $user->id;
         DB::beginTransaction();
         $call = $this->getModel()->create($data);
+        $user->increaseUserTarget(TargetsEnum::CALL);
         DB::commit();
         if (!$call)
             return false ;
