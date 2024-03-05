@@ -24,8 +24,8 @@ class ClientsController extends Controller
         try{
             $filters = $request->all();
             $withRelations = ['visits', 'calls', 'meetings', 'whatsappMessages'];
-            $cities = $this->clientService->getAll(filters: $filters, withRelations: $withRelations);
-            return ClientsResource::collection($cities);
+            $clients = $this->clientService->getAll(filters: $filters, withRelations: $withRelations);
+            return ClientsResource::collection($clients);
     
         }catch(Exception $e){
             return apiResponse(message: __('lang.something_went_wrong'), code: 442);
@@ -38,8 +38,8 @@ class ClientsController extends Controller
         // try{
             $filters = $request->all();
             $withRelations = ['visits', 'calls', 'meetings', 'whatsappMessages'];
-            $cities = $this->clientService->getAll(filters: $filters, withRelations: $withRelations);
-            return apiResponse(data: ClientOnCallResource::collection($cities), message: __('lang.success_operation'));
+            $clients = $this->clientService->getAll(filters: $filters, withRelations: $withRelations);
+            return apiResponse(data: ClientOnCallResource::collection($clients), message: __('lang.success_operation'));
     
         // }catch(Exception $e){
         //     return apiResponse(message: __('lang.something_went_wrong'), code: 442);
