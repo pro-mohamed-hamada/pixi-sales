@@ -51,7 +51,6 @@ class HomeResource extends JsonResource
                  ],
              ]
              , null),
-             "tasks"=>$this->tasks,
         ];
     }
 }

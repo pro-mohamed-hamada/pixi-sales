@@ -17,6 +17,11 @@ class VisitsFilter extends QueryFilter
         return $this->builder->where('is_active',$term);
     }
 
+    public function added_by($term)
+    {
+        return $this->builder->where('added_by',$term);
+    }
+
     public function next_action($term)
     {
         return $this->builder->where('next_action',$term);

@@ -32,7 +32,8 @@ use App\Http\Controllers\Api\WhatsappTemplatesController;
 Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
-    Route::get('home', HomeController::class);
+    Route::get('home', [HomeController::class, 'index']);
+    Route::get('user/tasks', [HomeController::class, 'tasks']);
     Route::get('governorates', [GovernoratesController::class, 'index']);
     Route::get('cities', [CitiesController::class, 'index']);
     Route::resource('clients', ClientsController::class);

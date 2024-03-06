@@ -26,18 +26,30 @@ class HomeController extends Controller
     {
         
     }
-    public function __invoke()
+    public function index()
     {
         try{
             $user = auth()->user()->load(['latestStatus', 'targets']);
+
+            return  apiResponse(data: new HomeResource($user));  
+        }catch(Exception $e){
+            return  apiResponse(message: $e->getMessage(), code: 442);  
+        }
+    }
+
+    public function tasks()
+    {
+        try{
+            $user = auth()->user();
+            $filters['added_by'] = $user->id;
             $filters['next_tasks'] = Carbon::now();
             $visits_next_actions = TasksResource::collection($this->visitService->getAll(filters: $filters, withRelations:[]));
             $calls_next_actions = TasksResource::collection($this->callService->getAll(filters: $filters, withRelations:[]));
             $meetings_next_action = TasksResource::collection($this->meetingService->getAll(filters: $filters, withRelations:[]));
 
-            $user['tasks'] = $visits_next_actions->concat($calls_next_actions)->concat($meetings_next_action);
+            $tasks = $visits_next_actions->concat($calls_next_actions)->concat($meetings_next_action);
 
-            return  apiResponse(data: new HomeResource($user));  
+            return  apiResponse(data: $tasks);  
         }catch(Exception $e){
             return  apiResponse(message: $e->getMessage(), code: 442);  
         }
