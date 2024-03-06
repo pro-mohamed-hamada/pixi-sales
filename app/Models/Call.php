@@ -29,6 +29,11 @@ class Call extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function getLatestActionTypeAttribute()
+    {
+        return __('lang.call');
+    }
+
     public function getTypeAttribute()
     {
         switch($this->getRawOriginal('type'))

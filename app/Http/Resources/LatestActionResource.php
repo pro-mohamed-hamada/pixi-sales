@@ -16,6 +16,7 @@ class LatestActionResource extends JsonResource
     {
         return [
             "id"=>$this->id,
+            "action_name"=>$this->latest_action_type,
             "date"=>$this->date,
             "next_action"=>$this->next_action,
             "next_action_date"=>$this->next_action_date,

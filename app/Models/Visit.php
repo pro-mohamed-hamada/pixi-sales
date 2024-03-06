@@ -26,6 +26,11 @@ class Visit extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function getLatestActionTypeAttribute()
+    {
+        return __('lang.visit');
+    }
+
     public function city(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
         return $this->belongsTo(City::class);

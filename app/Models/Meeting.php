@@ -22,6 +22,11 @@ class Meeting extends Model
         'added_by',
     ];
 
+    public function getLatestActionTypeAttribute()
+    {
+        return __('lang.meeting');
+    }
+
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
         return $this->belongsTo(Client::class);

@@ -22,7 +22,7 @@ class GovernoratesController extends Controller
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = [];
-        $governorates = $this->governorateService->getAll(filters: $filters, withRelations: $withRelations);
+        $governorates = $this->governorateService->getAll(filters: $filters, withRelations: $withRelations, perPage: 25);
         return View('Dashboard.Governorates.index', compact(['governorates']));
     }//end of index
 

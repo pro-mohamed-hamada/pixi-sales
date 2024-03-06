@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Enum\ClientStatusEnum;
+use App\Http\Resources\LatestActionResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Filterable;
+use Carbon\Carbon;
 use Exception;
 
 class Client extends Model
@@ -68,6 +70,31 @@ class Client extends Model
     public function meetings(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Meeting::class,  'client_id');
+    }
+
+    public function getLatestAction()
+    {
+        $visit = !empty($this->visits()->whereNotNull('next_action')->latest()->first()) ? $this->visits()->whereNotNull('next_action')->latest()->first():null;
+        $call = !empty($this->calls()->whereNotNull('next_action')->latest()->first()) ? $this->calls()->whereNotNull('next_action')->latest()->first():null;
+        $meeting = !empty($this->meetings()->whereNotNull('next_action')->latest()->first()) ? $this->meetings()->whereNotNull('next_action')->latest()->first():null;           
+
+        $greatestDate = null;
+        $greatestDate = max($visit?->created_at, $call?->created_at,$meeting?->created_at);
+
+        $model = null;
+        if($greatestDate)
+        {
+            if ($greatestDate->equalTo($visit?->created_at))
+                $model = $visit;
+            elseif ($greatestDate->equalTo($call?->created_at))
+                $model = $call;
+            elseif ($greatestDate->equalTo($meeting?->created_at))
+                $model = $meeting;
+        }
+
+        return !empty($model) ? new LatestActionResource($model):null;
+        // Now you can use $mostRecentModel as needed
+
     }
 
     public function checkStatus(int $status)
