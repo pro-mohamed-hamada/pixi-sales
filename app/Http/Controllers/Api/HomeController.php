@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function __invoke()
     {
         try{
-            $user = Auth::user();
+            $user = auth()->user()->load(['latestStatus', 'targets']);
             return  apiResponse(data: new HomeResource($user));  
         }catch(Exception $e){
             return  apiResponse(message: $e->getMessage(), code: 442);  

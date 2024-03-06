@@ -20,6 +20,7 @@ class HomeResource extends JsonResource
                  "id"=> $this->id,
                  "name"=> $this->name,
                  "email"=> $this->email,
+                 "latest_status"=>$this->whenLoaded('latestStatus', new UserLatestStatusResource($this->latestStatus), null)
              ],
              "user_target"=>$this->whenLoaded("targets", UserTargetsResource::collection($this->targets)),
              "personal_achievements"=>$this->whenLoaded("targets",

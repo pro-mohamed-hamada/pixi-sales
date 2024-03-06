@@ -64,6 +64,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(ActivityLog::class,  'user_id', );
     }
+    
+    public function latestStatus(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ActivityLog::class, 'user_id')->latestOfMany();
+    }
 
     public function deviceSerials(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
