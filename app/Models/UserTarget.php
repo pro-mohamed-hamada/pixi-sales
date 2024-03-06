@@ -43,4 +43,30 @@ class UserTarget extends Model
                 return "";
         }
     }
+    public function getTargetIconAttribute()
+    {
+        switch($this->getRawOriginal('target'))
+        {
+            case TargetsEnum::CALL:
+                return asset('images/call.jpg');
+                break;
+            case TargetsEnum::CLIENT:
+                return asset('images/client.jpg');
+                break;
+            case TargetsEnum::MEETING:
+                return asset('images/meeting.jpg');
+                break;
+            case TargetsEnum::PROPOSAL:
+                return asset('images/proposal.jpg');
+                break;
+            case TargetsEnum::VISIT:
+                return asset('images/visit.jpg');
+                break;
+            case TargetsEnum::WHATSAPP_MESSAGE:
+                return asset('images/whatsapp_message.jpg');
+                break;
+            default:
+                return "";
+        }
+    }
 }
