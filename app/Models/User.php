@@ -75,6 +75,26 @@ class User extends Authenticatable
         return $this->hasMany(UserTarget::class, 'user_id');
     }
 
+    public function visits(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Visit::class, 'added_by');
+    }
+
+    public function calls(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Call::class, 'added_by');
+    }
+
+    public function meetings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Meeting::class, 'added_by');
+    }
+
+    public function clients(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Client::class, 'added_by');
+    }
+
     public function getISActiveAttribute()
     {
         return $this->getRawOriginal('is_active') ? __('lang.active'):__('lang.not_active');

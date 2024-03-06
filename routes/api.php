@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ClientHistoriesController;
 use App\Http\Controllers\Api\GovernoratesController;
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\ClientServicesController;
+use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\MeetingsController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\VisitsController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Api\WhatsappTemplatesController;
 Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
+    Route::get('home', HomeController::class);
     Route::get('governorates', [GovernoratesController::class, 'index']);
     Route::get('cities', [CitiesController::class, 'index']);
     Route::resource('clients', ClientsController::class);
