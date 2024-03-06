@@ -16,7 +16,7 @@ class UserLatestStatusResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'current_status'=>$this->end_work_time ? __('lang.end_work'):__('lang.start_work'),
+            'is_working'=>$this->end_work_time ? false:true,
             'start_work_time'=>$this->start_work_time,
             'end_work_time'=>$this->end_work_time,
             'hours'=>$this->hours,
