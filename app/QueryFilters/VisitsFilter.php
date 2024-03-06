@@ -17,37 +17,24 @@ class VisitsFilter extends QueryFilter
         return $this->builder->where('is_active',$term);
     }
 
-    public function title($term)
+    public function next_action($term)
     {
-        return $this->builder->where('name',$term);
+        return $this->builder->where('next_action',$term);
     }
 
-    public function center_id($term)
+    public function next_action_date($term)
     {
-        return $this->builder->where('center_id',$term);
+        return $this->builder->where('next_action_date',$term);
     }
 
-    public function phone($term)
+    public function next_tasks($term)
     {
-        return $this->builder->where('phone', $term);
-    }
-
-    public function age($term)
-    {
-        return $this->builder->where('age', $term);
+        return $this->builder->where('next_action_date', '>=',$term);
     }
 
     public function keyword($term)
     {
         return $this->builder->where('name', 'like', '%'.$term.'%');
-    }
-    
-    public function governorate_id($term)
-    {
-        if (isset($term))
-            return $this->whereHas('governorate', function ($query) use ($term) {
-                $query->where('governorate_id', $term);
-            });
     }
 
     public function city_id($term)

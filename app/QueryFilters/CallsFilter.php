@@ -32,9 +32,19 @@ class CallsFilter extends QueryFilter
         return $this->builder->where('date',$term);
     }
 
+    public function next_action($term)
+    {
+        return $this->builder->where('next_action',$term);
+    }
+
     public function next_action_date($term)
     {
         return $this->builder->where('next_action_date',$term);
+    }
+
+    public function next_tasks($term)
+    {
+        return $this->builder->where('next_action_date', '>=',$term);
     }
 
 }
