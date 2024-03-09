@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Web;
 
+use App\Enum\ActionTypeEnum;
 use App\Enum\ClientSourceEnum;
 use App\Enum\ClientStatusEnum;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClientStoreRequest extends FormRequest
@@ -43,6 +45,10 @@ class ClientStoreRequest extends FormRequest
             'services.*'=>'required|integer|exists:services,id',
             'prices'=>'nullable|array',
             'prices.*'=>'nullable|required_with:services.*|numeric',
+            'next_action'=>'nullable|required_with:next_action_date|integer|in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::MEETING.','.ActionTypeEnum::WHATSAPP.','.ActionTypeEnum::VISIT,
+            'next_action_date'=>'nullable|required_with:next_action|date|after:'.Carbon::now(),
+            'comment'=>'nullable|string',
+
         ];
     }
 }

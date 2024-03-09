@@ -85,6 +85,16 @@
                                             <span class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                    <div class="col-lg-4">
+                                        <label>{{ __('lang.source') }} *</label>
+                                        <select name="source_id" class="form-control">
+                                            <option selected disabled>{{ __("lang.choose") }}</option>
+                                            @foreach ($sources as $source)
+                                                <option value="{{ $source->id }}">{{ $source->title }}</option>
+                                            @endforeach
+                                        <select>
+                                    </div>
+
                                 </div>
                                 
                         </div>
@@ -170,6 +180,34 @@
                                             @enderror
                                         </div>
                                     @endforeach
+                                    <div class="col-lg-4">
+                                        <label>{{ __('lang.next_action') }} *</label>
+                                        <select name="next_action" class="form-control">
+                                            <option selected disabled>{{ __("lang.choose") }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::CALL }}">{{ __('lang.call') }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::MEETING }}">{{ __('lang.meeting') }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::WHATSAPP }}">{{ __('lang.whatsapp') }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::VISIT }}">{{ __('lang.visit') }}</option>
+                                            <select>
+                                                @error('next_action')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>{{ __('lang.next_action_date') }} *</label>
+                                        <input type="datetime-local" name="next_action_date" class="form-control">
+                                        @error('next_action_date')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>{{ __('lang.comment') }} *</label>
+                                        <textarea name="comment" class="form-control"></textarea>
+                                        @error('comment')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+    
                                 </div>
                                 
                         </div>

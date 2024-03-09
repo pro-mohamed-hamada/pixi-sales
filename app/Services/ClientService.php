@@ -82,11 +82,12 @@ class ClientService extends BaseService
         $nextAction = isset($data['next_action']) ? $data['next_action']:null;
         $nextActionDate = isset($data['next_action_date']) ? $data['next_action_date']:null;
         $comment = isset($data['comment']) ? $data['comment']:null;
+        $addedBy = Auth::user()->id;
         if(Arr::has(array: $data, keys: 'services'))
         {
             for($i=0; $i<count($data['services']); $i++)
             {
-                $servicesData[$data['services'][$i]] = ['price'=> $data['prices'][$i], 'next_action'=>$nextAction,'next_action_date'=>$nextActionDate, 'comment'=>$comment];
+                $servicesData[$data['services'][$i]] = ['price'=> $data['prices'][$i], 'next_action'=>$nextAction,'next_action_date'=>$nextActionDate, 'comment'=>$comment, 'added_by'=>$addedBy];
             }
         }
         return $servicesData;

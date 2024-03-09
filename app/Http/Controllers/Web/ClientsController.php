@@ -13,12 +13,14 @@ use App\Services\ClientServiceService;
 use App\Services\GovernorateService;
 use App\Services\ReasonService;
 use App\Services\ServiceService;
+use App\Services\SourceService;
 
 class ClientsController extends Controller
 {
     public function __construct(private ClientService $clientService,
     private GovernorateService $governorateService,
     private ReasonService $reasonService,
+    private SourceService $sourceService,
     private ServiceService $serviceService,
     private ClientServiceService $clientServiceService)
     {
@@ -46,16 +48,18 @@ class ClientsController extends Controller
         }
         $governorates = $this->governorateService->getAll();//TODO: get only the active governorates
         $reasons = $this->reasonService->getAll();
+        $sources = $this->sourceService->getAll();
         $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
-        return view('Dashboard.Clients.edit', compact('governorates', 'client', 'reasons', 'services'));
+        return view('Dashboard.Clients.edit', compact('governorates', 'client', 'reasons', 'services', 'sources'));
     }//end of create
 
     public function create(Request $request)
     {
         $governorates = $this->governorateService->getAll();//TODO: get only the active governorates
         $reasons = $this->reasonService->getAll();
+        $sources = $this->sourceService->getAll();
         $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
-        return view('Dashboard.Clients.create', compact('governorates', 'reasons', 'services'));
+        return view('Dashboard.Clients.create', compact('governorates', 'reasons', 'services', 'sources'));
     }//end of create
 
     public function store(ClientStoreRequest $request)

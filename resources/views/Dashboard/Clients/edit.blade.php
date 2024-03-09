@@ -88,6 +88,16 @@
                                             <span class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                    <div class="col-lg-4">
+                                        <label>{{ __('lang.source') }} *</label>
+                                        <select name="source_id" class="form-control">
+                                            <option selected disabled>{{ __("lang.choose") }}</option>
+                                            @foreach ($sources as $source)
+                                                <option value="{{ $source->id }}" {{ $source->id == $client->source_id ? "selected":"" }}>{{ $source->title }}</option>
+                                            @endforeach
+                                        <select>
+                                    </div>
+
                                 </div>
                             {{-- end update form --}}
                         </div>
@@ -185,6 +195,33 @@
                                         @endif
                                                 
                                     @endforeach
+                                    <div class="col-lg-4">
+                                        <label>{{ __('lang.next_action') }} *</label>
+                                        <select name="next_action" class="form-control">
+                                            <option selected disabled>{{ __("lang.choose") }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::CALL }}" {{ \App\Enum\ActionTypeEnum::CALL == $client->services->first()->pivot->next_action ? "selected":"" }}>{{ __('lang.call') }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::MEETING }}" {{ \App\Enum\ActionTypeEnum::MEETING == $client->services->first()->pivot->next_action ? "selected":"" }}>{{ __('lang.meeting') }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::WHATSAPP }}" {{ \App\Enum\ActionTypeEnum::WHATSAPP == $client->services->first()->pivot->next_action ? "selected":"" }}>{{ __('lang.whatsapp') }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::VISIT }}" {{ \App\Enum\ActionTypeEnum::VISIT == $client->services->first()->pivot->next_action ? "selected":"" }}>{{ __('lang.visit') }}</option>
+                                            <select>
+                                                @error('next_action')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>{{ __('lang.next_action_date') }} *</label>
+                                        <input type="datetime-local" value="{{ $client->services->first()->pivot->next_action_date }}" name="next_action_date" class="form-control">
+                                        @error('next_action_date')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>{{ __('lang.comment') }} *</label>
+                                        <textarea name="comment" class="form-control">{{ $client->services->first()->pivot->comment }}</textarea>
+                                        @error('comment')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>    
                                     
                                 </div>
                             {{-- end update form --}}
