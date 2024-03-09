@@ -46,8 +46,9 @@ class HomeController extends Controller
             $visits_next_actions = TasksResource::collection($this->visitService->getAll(filters: $filters, withRelations:[]));
             $calls_next_actions = TasksResource::collection($this->callService->getAll(filters: $filters, withRelations:[]));
             $meetings_next_action = TasksResource::collection($this->meetingService->getAll(filters: $filters, withRelations:[]));
+            $services_next_action = TasksResource::collection($user->clientServices()->where('next_action_date', '>=', Carbon::now())->get());
 
-            $tasks = $visits_next_actions->concat($calls_next_actions)->concat($meetings_next_action);
+            $tasks = $visits_next_actions->concat($calls_next_actions)->concat($meetings_next_action)->concat($services_next_action);
 
             return  apiResponse(data: $tasks);  
         }catch(Exception $e){

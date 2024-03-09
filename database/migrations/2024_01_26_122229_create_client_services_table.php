@@ -16,6 +16,10 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Client::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Service::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->float('price');
+            $table->integer('next_action')->nullable();
+            $table->dateTime('next_action_date')->nullable();
+            $table->string('comment')->nullable();
+            $table->foreignId('added_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

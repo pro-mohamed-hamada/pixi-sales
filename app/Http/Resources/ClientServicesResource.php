@@ -16,8 +16,11 @@ class ClientServicesResource extends JsonResource
     {
         return [
             "id"=>$this->id,
-            'name'=>$this->name,
-            'price'=>$this->pivot->price,
+            "name"=>$this->name,
+            "price"=>$this->pivot->price,
+            "next_action"=>$this->pivot->next_action,
+            "next_action_date"=>$this->pivot->next_action_date,
+            "comment"=>$this->pivot->comment,
         ];
     }
 }

@@ -9,6 +9,8 @@ use App\Models\ClientService;
 use App\QueryFilters\ClientServicesFilter;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class ClientServiceService extends BaseService
 {
@@ -32,10 +34,28 @@ class ClientServiceService extends BaseService
         $client = Client::where('id', $data['client_id'])->first();
         if(!$client)
             return false;
-            $client->services()->detach($data['service_id'], ['price'=> $data['price']]);
-            $client->services()->attach($data['service_id'], ['price'=> $data['price']]);
+        // start add the client services
+        $servicesData = $this->prepareServicesData(data: $data);
+        $client->services()->sync($servicesData);
         return $client;
     } //end of store
+
+    private function prepareServicesData(array $data): array
+    {
+        $servicesData = [];
+        $nextAction = isset($data['next_action']) ? $data['next_action']:null;
+        $nextActionDate = isset($data['next_action_date']) ? $data['next_action_date']:null;
+        $comment = isset($data['comment']) ? $data['comment']:null;
+        $addedBy = Auth::user()->id;
+        if(Arr::has(array: $data, keys: 'services'))
+        {
+            for($i=0; $i<count($data['services']); $i++)
+            {
+                $servicesData[$data['services'][$i]] = ['price'=> $data['prices'][$i], 'next_action'=>$nextAction,'next_action_date'=>$nextActionDate, 'comment'=>$comment, 'added_by'=>$addedBy];
+            }
+        }
+        return $servicesData;
+    }
 
     /**
      * @throws NotFoundException

@@ -105,6 +105,11 @@ class User extends Authenticatable
         return $this->hasMany(WhatsappMessage::class, 'added_by');
     }
 
+    public function clientServices(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ClientService::class, 'added_by');
+    }
+
     public function getISActiveAttribute()
     {
         return $this->getRawOriginal('is_active') ? __('lang.active'):__('lang.not_active');

@@ -54,7 +54,7 @@ class Client extends Model
 
     public function services(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Service::class, ClientService::class)->withPivot('price');
+        return $this->belongsToMany(Service::class, ClientService::class)->withPivot('price', 'next_action', 'next_action_date', 'comment');
     }
 
     public function calls(): \Illuminate\Database\Eloquent\Relations\HasMany

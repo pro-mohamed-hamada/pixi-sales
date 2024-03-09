@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Api;
 
+use App\Enum\ActionTypeEnum;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ClientServiceStoreRequest extends FormRequest
 {
@@ -23,8 +26,15 @@ class ClientServiceStoreRequest extends FormRequest
     {
         return [
             'client_id'=>'required|integer|exists:clients,id',
-            'service_id'=>'required|integer|exists:services,id',
-            'price'=>'required|numeric',
+
+            'services'=>'nullable|array',
+            'services.*'=>'required|integer|exists:services,id',
+            'prices'=>'nullable|array',
+            'prices.*'=>'nullable|required_with:services.*|numeric',
+
+            'next_action'=>'nullable|required_with:next_action_date|integer|in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::MEETING.','.ActionTypeEnum::WHATSAPP.','.ActionTypeEnum::VISIT,
+            'next_action_date'=>'nullable|required_with:next_action|date|after:'.Carbon::now(),
+            'comment'=>'nullable|string',
         ];
     }
 }
