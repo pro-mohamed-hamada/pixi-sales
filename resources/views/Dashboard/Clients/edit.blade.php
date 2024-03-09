@@ -199,10 +199,17 @@
                                         <label>{{ __('lang.next_action') }} *</label>
                                         <select name="next_action" class="form-control">
                                             <option selected disabled>{{ __("lang.choose") }}</option>
+                                            @if (count($client->services))
                                             <option value="{{ \App\Enum\ActionTypeEnum::CALL }}" {{ \App\Enum\ActionTypeEnum::CALL == $client->services->first()->pivot->next_action ? "selected":"" }}>{{ __('lang.call') }}</option>
                                             <option value="{{ \App\Enum\ActionTypeEnum::MEETING }}" {{ \App\Enum\ActionTypeEnum::MEETING == $client->services->first()->pivot->next_action ? "selected":"" }}>{{ __('lang.meeting') }}</option>
                                             <option value="{{ \App\Enum\ActionTypeEnum::WHATSAPP }}" {{ \App\Enum\ActionTypeEnum::WHATSAPP == $client->services->first()->pivot->next_action ? "selected":"" }}>{{ __('lang.whatsapp') }}</option>
                                             <option value="{{ \App\Enum\ActionTypeEnum::VISIT }}" {{ \App\Enum\ActionTypeEnum::VISIT == $client->services->first()->pivot->next_action ? "selected":"" }}>{{ __('lang.visit') }}</option>
+                                            @else
+                                            <option value="{{ \App\Enum\ActionTypeEnum::CALL }}">{{ __('lang.call') }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::MEETING }}">{{ __('lang.meeting') }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::WHATSAPP }}">{{ __('lang.whatsapp') }}</option>
+                                            <option value="{{ \App\Enum\ActionTypeEnum::VISIT }}">{{ __('lang.visit') }}</option>
+                                            @endif
                                             <select>
                                                 @error('next_action')
                                             <span class="error">{{ $message }}</span>
@@ -210,14 +217,22 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label>{{ __('lang.next_action_date') }} *</label>
+                                        @if (count($client->services))
                                         <input type="datetime-local" value="{{ $client->services->first()->pivot->next_action_date }}" name="next_action_date" class="form-control">
+                                        @else
+                                        <input type="datetime-local" name="next_action_date" class="form-control">
+                                        @endif
                                         @error('next_action_date')
                                             <span class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-lg-12">
                                         <label>{{ __('lang.comment') }} *</label>
+                                        @if (count($client->services))
                                         <textarea name="comment" class="form-control">{{ $client->services->first()->pivot->comment }}</textarea>
+                                        @else
+                                        <textarea name="comment" class="form-control"></textarea>
+                                        @endif
                                         @error('comment')
                                             <span class="error">{{ $message }}</span>
                                         @enderror
