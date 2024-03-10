@@ -39,7 +39,15 @@ class VisitsFilter extends QueryFilter
 
     public function keyword($term)
     {
-        return $this->builder->where('name', 'like', '%'.$term.'%');
+        if (isset($term))
+            return $this->builder->whereHas('client', function ($query) use ($term) {
+                $query->where('name', 'like', '%'.$term.'%')
+                ->where('phone', 'like', '%'.$term.'%')
+                ->where('company_name', 'like', '%'.$term.'%')
+                ->where('other_person_name', 'like', '%'.$term.'%')
+                ->where('other_person_phone', 'like', '%'.$term.'%')
+                ->where('other_person_position', 'like', '%'.$term.'%');
+            });
     }
 
     public function city_id($term)

@@ -27,4 +27,18 @@ class WhatsappMessagesFilter extends QueryFilter
         return $this->builder->where('created_at',$term);
     }
 
+    public function keyword($term)
+    {
+        if (isset($term))
+            return $this->builder->whereHas('client', function ($query) use ($term) {
+                $query->where('name', 'like', '%'.$term.'%')
+                ->where('phone', 'like', '%'.$term.'%')
+                ->where('company_name', 'like', '%'.$term.'%')
+                ->where('other_person_name', 'like', '%'.$term.'%')
+                ->where('other_person_phone', 'like', '%'.$term.'%')
+                ->where('other_person_position', 'like', '%'.$term.'%');
+            });
+    }
+
+
 }
