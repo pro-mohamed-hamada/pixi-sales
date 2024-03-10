@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\WhatsappTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,7 +29,12 @@ class ClientsResource extends JsonResource
             "source"=>$this->whenLoaded('source', $this->source->title),
             "whatsapp_messages_count"=>$this->whenLoaded('whatsappMessages', $this->whatsappMessages->count()),
             "latest_status"=>$this->whenLoaded("latestStatus", $this->latestStatus),
-            "services"=>$this->whenLoaded("services", ClientServicesResource::collection($this->services), null),
+            "services"=>$this->whenLoaded("services",
+            [
+                'client_services'=>ClientServicesResource::collection($this->services),
+                'whatsapp_templates'=>WhatsappTemplate::where('action', 'Service')->select('id', 'title', 'content')->get(),
+            ]
+            , null),
             "visits"=>$this->whenLoaded("visits", VisitsResource::collection($this->visits), null),
             "calls"=>$this->whenLoaded("calls", CallsResource::collection($this->calls), null),
             "meetings"=>$this->whenLoaded("meetings", MeetingsResource::collection($this->meetings), null),
