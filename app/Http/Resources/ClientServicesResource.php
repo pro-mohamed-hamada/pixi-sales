@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\WhatsappTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,6 +22,7 @@ class ClientServicesResource extends JsonResource
             "next_action"=>$this->pivot->next_action,
             "next_action_date"=>$this->pivot->next_action_date,
             "comment"=>$this->pivot->comment,
+            'whatsapp_templates'=>WhatsappTemplate::where('action', 'Service')->select('id', 'title', 'content')->get(),
         ];
     }
 }
