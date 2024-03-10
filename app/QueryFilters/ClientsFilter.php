@@ -29,14 +29,12 @@ class ClientsFilter extends QueryFilter
 
     public function keyword($term)
     {
-        return $this->builder
-        ->where('name', 'like', '%'.$term.'%')
-        ->where('phone', 'like', '%'.$term.'%')
-        ->where('company_name', 'like', '%'.$term.'%')
-        ->where('other_person_name', 'like', '%'.$term.'%')
-        ->where('other_person_phone', 'like', '%'.$term.'%')
-        ->where('other_person_position', 'like', '%'.$term.'%');
-    }
+        return $this->builder->where('name', 'like', '%'.$term.'%')
+        ->orWhere('phone', 'like', '%'.$term.'%')
+        ->orWhere('company_name', 'like', '%'.$term.'%')
+        ->orWhere('other_person_name', 'like', '%'.$term.'%')
+        ->orWhere('other_person_phone', 'like', '%'.$term.'%')
+        ->orWhere('other_person_position', 'like', '%'.$term.'%');    }
     
     public function governorate_id($term)
     {
