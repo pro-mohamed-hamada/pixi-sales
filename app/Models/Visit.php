@@ -35,4 +35,10 @@ class Visit extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function getIconAttribute()
+    {
+        return asset('images/visit.jpg');
+    }
+
 }

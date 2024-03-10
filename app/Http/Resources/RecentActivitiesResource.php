@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\WhatsappTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClientServicesResource extends JsonResource
+class RecentActivitiesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +16,11 @@ class ClientServicesResource extends JsonResource
     {
         return [
             "id"=>$this->id,
-            "name"=>$this->name,
-            "price"=>$this->pivot->price,
-            "next_action"=>$this->pivot->next_action,
-            "next_action_date"=>$this->pivot->next_action_date,
-            "comment"=>$this->pivot->comment,
+            "action_type"=>$this->action_type,
+            "status"=>$this->status,
+            "icon"=>$this->icon,
+            "comment"=>$this->comment,
+            "created_at"=>$this->created_at,
         ];
     }
 }

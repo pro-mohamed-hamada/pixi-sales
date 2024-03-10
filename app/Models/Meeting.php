@@ -32,4 +32,10 @@ class Meeting extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function getIconAttribute()
+    {
+        return asset('images/meeting.jpg');
+    }
+
+
 }

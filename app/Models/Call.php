@@ -74,4 +74,9 @@ class Call extends Model
 
         }
     }
+    public function getIconAttribute()
+    {
+        return asset('images/call.jpg');
+    }
+        
 }

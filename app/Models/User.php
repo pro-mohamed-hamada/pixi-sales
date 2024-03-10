@@ -3,12 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Http\Resources\RecentActivitiesResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\EscapeUnicodeJson;
 use App\Traits\Filterable;
+use Illuminate\Support\Facades\DB;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Filterable, EscapeUnicodeJson;
@@ -136,4 +140,24 @@ class User extends Authenticatable
         }
     }
 
+    public function getRecentActivities()
+    {
+        $visits = $this->visits()->select('id', DB::raw("'visit' as action_type"), 'comment', 'created_at')->latest()->take(5)->get();
+        $meetings = $this->meetings()->select('id', DB::raw("'meeting' as action_type"), 'comment', 'created_at')->latest()->take(5)->get();
+        $calls = $this->calls()->select('id', DB::raw("'call' as action_type"), 'comment', 'status', 'created_at')->latest()->take(5)->get();
+        $whatsapp_messages = $this->whatsappMessages()->select('id', DB::raw("'whatsapp_message' as action_type"), 'created_at')->latest()->take(5)->get();
+        $clients = $this->whatsappMessages()->select('id', DB::raw("'client' as action_type"), 'created_at')->latest()->take(5)->get();
+
+        $data = collect($visits)
+                    ->merge($meetings)
+                    ->merge($calls)
+                    ->merge($whatsapp_messages)
+                    ->merge($clients)
+                    ->sortByDesc('created_at')
+                    ->take(5)
+                    ->values() // Reset the keys to ensure a 0-indexed array
+                    ->all(); 
+        return RecentActivitiesResource::collection($data);
+
+    }
 }

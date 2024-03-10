@@ -51,13 +51,7 @@ class HomeResource extends JsonResource
                  ],
              ]
              , null),
-            'recent_activities'=>[
-                'visits' => new VisitResource($this->visits()->latest()->first()),
-                'calls' => new CallResource($this->calls()->latest()->first()),
-                'meetings' => new MeetingResource($this->meetings()->latest()->first()),
-                'clients' => new ClientResource($this->clients()->latest()->first()),
-                'whatsapp_messages' => new WhatsappMessagesResource($this->whatsappMessages()->latest()->first()),
-            ],
+            'recent_activities_test'=>$this->getRecentActivities()
         ];
     }
 }
