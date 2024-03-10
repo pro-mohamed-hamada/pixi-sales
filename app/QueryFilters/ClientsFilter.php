@@ -17,40 +17,32 @@ class ClientsFilter extends QueryFilter
         return $this->builder->where('is_active',$term);
     }
 
-    public function title($term)
-    {
-        return $this->builder->where('name',$term);
-    }
-
-    public function center_id($term)
-    {
-        return $this->builder->where('center_id',$term);
-    }
-
     public function phone($term)
     {
         return $this->builder->where('phone', $term);
     }
 
-    public function age($term)
+    public function other_person_phone($term)
     {
-        return $this->builder->where('age', $term);
+        return $this->builder->where('phone', $term);
     }
 
     public function keyword($term)
     {
-        return $this->builder->where('name', 'like', '%'.$term.'%');
+        return $this->builder
+        ->where('name', 'like', '%'.$term.'%')
+        ->where('phone', 'like', '%'.$term.'%')
+        ->where('company_name', 'like', '%'.$term.'%')
+        ->where('other_person_name', 'like', '%'.$term.'%')
+        ->where('other_person_phone', 'like', '%'.$term.'%')
+        ->where('other_person_position', 'like', '%'.$term.'%');
     }
     
     public function governorate_id($term)
     {
         if (isset($term))
-            return $this->builder->whereHas('center', function ($query) use ($term) {
-                $query->whereHas('user', function($query) use ($term){
-                    $query->whereHas('location', function ($query) use ($term) {
-                        $query->where('parent_id', $term);
-                    });
-                });
+            return $this->builder->whereHas('city', function ($query) use ($term) {
+                $query->where('governorate_id', $term);
             });
     }
 
