@@ -19,7 +19,10 @@ class TasksResource extends JsonResource
             "client"=>$this->whenLoaded('client', [
                 'id'=>$this->client->id,
                 'name'=>$this->client->name,
+                'phone'=>$this->client->phone,
+                'city'=>$this->client->city->name,
             ], null),
+            "next_action_key"=>$this->getRawOriginal('next_action'),
             "next_action"=>$this->next_action,
             "next_action_date"=>$this->next_action_date,
             "comment"=>$this->comment,
