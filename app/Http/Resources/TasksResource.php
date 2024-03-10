@@ -21,6 +21,7 @@ class TasksResource extends JsonResource
                 'name'=>$this->client->name,
                 'phone'=>$this->client->phone,
                 'city'=>$this->client->city->name,
+                'company_name'=>$this->client->company_name,
             ], null),
             "next_action_key"=>$this->getRawOriginal('next_action'),
             "next_action"=>$this->next_action,
