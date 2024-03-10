@@ -23,10 +23,15 @@ class ClientServiceService extends BaseService
         return $this->model;
     }
 
-    public function getAll(array $filters = [] , array $withRelations =[], $perPage = 10 ): Collection
+    public function queryGet(array $filters = [] , array $withRelations = []) :builder
     {
-        $client = Client::find($filters['client_id']);
-        return $client->services;
+        $clientServices = $this->getModel()->query()->with($withRelations);
+        return $clientServices->filter(new ClientServicesFilter($filters));
+    }
+
+    public function getAll(array $filters = [] , array $withRelations =[], $perPage = 10 ): \Illuminate\Contracts\Pagination\CursorPaginator
+    {
+        return $this->queryGet(filters: $filters,withRelations: $withRelations)->cursorPaginate($perPage);
     }
 
     public function store(array $data = []):Client|Model|bool
