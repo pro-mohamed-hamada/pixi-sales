@@ -142,11 +142,13 @@ class User extends Authenticatable
 
     public function getRecentActivities()
     {
-        $visits = $this->visits()->select('id', DB::raw("'visit' as action_type"), 'comment', 'created_at')->latest()->take(5)->get();
+        $visits = $this->visits()->select('id', DB::raw("'visit' as action_type"), 'comment', 'city_id', 'created_at')->with(['city' => function($query) {
+            $query->select('id', 'name');
+        }])->latest()->take(5)->get();
         $meetings = $this->meetings()->select('id', DB::raw("'meeting' as action_type"), 'comment', 'created_at')->latest()->take(5)->get();
         $calls = $this->calls()->select('id', DB::raw("'call' as action_type"), 'comment', 'status', 'created_at')->latest()->take(5)->get();
         $whatsapp_messages = $this->whatsappMessages()->select('id', DB::raw("'whatsapp_message' as action_type"), 'created_at')->latest()->take(5)->get();
-        $clients = $this->whatsappMessages()->select('id', DB::raw("'client' as action_type"), 'created_at')->latest()->take(5)->get();
+        $clients = $this->clients()->select('id', DB::raw("'client' as action_type"), 'company_name', 'created_at')->latest()->take(5)->get();
 
         $data = collect($visits)
                     ->merge($meetings)

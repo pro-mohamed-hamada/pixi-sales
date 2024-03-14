@@ -17,10 +17,12 @@ class RecentActivitiesResource extends JsonResource
         return [
             "id"=>$this->id,
             "action_type"=>$this->action_type,
-            "status"=>$this->status,
+            "status"=>$this->whenNotNull($this->status),
+            "company_name"=>$this->whenNotNull($this->company_name),
+            "city"=>$this->whenNotNull($this->city->name),
             "icon"=>$this->icon,
             "comment"=>$this->comment,
-            "created_at"=>$this->created_at,
+            "created_at"=>$this->created_at->format('Y-m-d h:i:s A'),
         ];
     }
 }

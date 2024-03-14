@@ -51,7 +51,7 @@ class HomeResource extends JsonResource
                  ],
              ]
              , null),
-            'recent_activities_test'=>$this->getRecentActivities()
+            'recent_activities'=>$this->getRecentActivities()
         ];
     }
 }
