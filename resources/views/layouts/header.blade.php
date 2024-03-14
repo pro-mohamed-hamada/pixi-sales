@@ -42,10 +42,10 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('lang', 'en' )}}">
-                                       {{ __('lang.english') }}
+                                       English
                                     </a>
                                     <a class="dropdown-item" href="{{ route('lang', 'ar' )}}">
-                                       {{ __('lang.arabic') }}
+                                       عربى
                                     </a>
 
                                 </div>
@@ -61,10 +61,10 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('lang', 'en' )}}">
-                                       {{ __('lang.english') }}
+                                       English
                                     </a>
                                     <a class="dropdown-item" href="{{ route('lang', 'ar' )}}">
-                                       {{ __('lang.arabic') }}
+                                       عربى
                                     </a>
 
                                 </div>
