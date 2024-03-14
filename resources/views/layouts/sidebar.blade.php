@@ -7,7 +7,7 @@
                 <li>
                         <a class="user-data text-center list-group-item">
                                 @auth
-                                <img class="logo img-responsive img-circle img-thumbnail" src="{{asset('images/default.jpg')}}">
+                                <img class="logo img-responsive img-circle img-thumbnail" src="{{asset('images/pixi.jpg')}}">
                                 <h4><span>{{ Auth::user()->name }}</span></h4>
                                 @endauth
                         </a>
