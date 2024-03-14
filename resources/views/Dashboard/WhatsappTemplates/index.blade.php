@@ -5,7 +5,7 @@
         <div class="content col-md-9 col-lg-10 offset-md-3 offset-lg-2">
             <div class="mb-3">
                 <div class="card">
-                    <div class="card-header">{{ __('lang.whatsappTemplates_filters') }}</div>
+                    <div class="card-header">{{ __('lang.whatsapp_templates_filters') }}</div>
 
                     <div class="card-body">
                         
@@ -23,8 +23,8 @@
                         </div>
                         <div  class="filters-buttons">
                             <div class="">
-                                <button class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.search')}}</button>
-                                <button class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.reset')}}</button>
+                                <button class="btn btn-primary"><i class="fa fa-search"></i> {{__('lang.search')}}</button>
+                                <button class="btn btn-primary"><i class="fa fa-plus"></i> {{__('lang.reset')}}</button>
                             </div>
                         </div>
 

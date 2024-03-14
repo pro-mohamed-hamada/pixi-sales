@@ -65,7 +65,7 @@
                             
                             <div class="row mb-3 g-3">
                                 <div class="">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.edit')}}</button>
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('lang.edit')}}</button>
                                     <a href="{{ url()->previous() }}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> {{__('lang.go_back')}}</a>
                                 </div>
                             </div>

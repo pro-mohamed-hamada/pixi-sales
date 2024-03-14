@@ -4,7 +4,7 @@
 
         <div class="card-body">
             <div class="">
-                <h5><a role="button" class="btn btn-primary " href="{{route('users.create')}}"><i class="fa fa-plus-circle"></i> {{__('lang.create_user')}}</a></h5>
+                <h5><a role="button" class="btn btn-primary " href="{{route('users.create')}}"><i class="fa fa-plus"></i> {{__('lang.create_user')}}</a></h5>
             </div>
             <div class="search-box">
                 <div class="row mb-3 g-3">

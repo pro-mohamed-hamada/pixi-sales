@@ -23,8 +23,8 @@
                         </div>
                         <div  class="filters-buttons">
                             <div class="">
-                                <button class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.search')}}</button>
-                                <button class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__('lang.reset')}}</button>
+                                <button class="btn btn-primary"><i class="fa fa-search"></i> {{__('lang.search')}}</button>
+                                <button class="btn btn-primary"><i class="fa fa-plus"></i> {{__('lang.reset')}}</button>
                             </div>
                         </div>
 
