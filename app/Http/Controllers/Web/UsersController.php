@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ClientStoreRequest;
+use App\Http\Requests\Web\UserProfileRequest;
 use App\Http\Requests\Web\UserStoreRequest;
 use App\Services\GovernorateService;
 use App\Services\TargetService;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -70,6 +72,29 @@ class UsersController extends Controller
     //         return redirect()->back()->with('toast', $toast);
     //     }
     // } //end of update
+
+    public function profileView()
+    {
+        try {
+            $user = Auth::user();
+            return view('Dashboard.Users.profile', compact('user'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+    } //end of destroy
+
+    public function profile(UserProfileRequest $request)
+    {
+        try {
+            $userId = Auth::user()->id;
+            $result = $this->userService->update(id: $userId, data: $request->validated());
+            if (!$result)
+                return redirect()->back()->with("message", __('lang.not_found'));
+            return redirect()->back()->with("message", __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+    } //end of destroy
 
     public function destroy($id)
     {

@@ -31,7 +31,9 @@ use App\Http\Controllers\Api\WhatsappTemplatesController;
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::group(['middleware'=>['auth:sanctum', 'localization']], function(){
+Route::group(['middleware'=>'auth:sanctum'], function(){
+    Route::get('profile',      [AuthController::class, 'profile']);
+    Route::post('profile-logo', [AuthController::class, 'updateProfileLogo']);
     Route::get('home', [HomeController::class, 'index']);
     Route::get('user/tasks', [HomeController::class, 'tasks']);
     Route::get('governorates', [GovernoratesController::class, 'index']);

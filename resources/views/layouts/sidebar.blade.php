@@ -2,13 +2,14 @@
         
 </div>
 
-<section class="sideBar col-xs-2  col-md-3 col-lg-2 text-left">
+<section class="sideBar col-xs-2  col-md-3 col-lg-2">
         <ul>
                 <li>
                         <a class="user-data text-center list-group-item">
-                                <img class="user-img img-responsive img-circle img-thumbnail" src="{{asset('images/default.jpg')}}">
+                                @auth
+                                <img class="logo img-responsive img-circle img-thumbnail" src="{{asset('images/default.jpg')}}">
                                 <h4><span>{{ Auth::user()->name }}</span></h4>
-                                <a class="text-center list-group-item active" href="{{url("/settings")}}"><span>{{ __("lang.profile") }}</span></a>
+                                @endauth
                         </a>
                 </li>
                 <li><a class="sidebare-button list-group-item" href="{{route('users.index')}}"><span class="fa fa-product-hunt"></span> <span>{{ __("lang.users") }}</span></a></li>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\ClientsController;
 use App\Http\Controllers\Web\ActivityLogsController;
 use App\Http\Controllers\Web\CallsController;
+use App\Http\Controllers\Web\LocalizationController;
 use App\Http\Controllers\Web\MeetingsController;
 use App\Http\Controllers\Web\ReasonsController;
 use App\Http\Controllers\Web\ServicesController;
@@ -31,6 +32,8 @@ Auth::routes(['register' => false]);
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
+    Route::get('profile', [UsersController::class, 'profileView'])->name('profile.view');
+    Route::put('profile', [UsersController::class, 'profile'])->name('profile.update');
     Route::resource('clients', ClientsController::class);
     Route::resource('calls', CallsController::class)->except('show');
     Route::resource('meetings', MeetingsController::class)->except('show');
@@ -46,4 +49,6 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::post('user-targets', [UsersController::class, 'userTargets'])->name('users.target');
     Route::resource('whatsapp-templates', WhatsappTemplatesController::class);
     Route::resource('whatsapp-messages', WhatsappMessagesController::class)->except(['update', 'edit', 'show']);
+
+    Route::get('lang/{locale}',LocalizationController::class)->name('lang');
 });

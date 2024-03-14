@@ -3,15 +3,13 @@
     top:0;
     bottom:0;
     overflow-y:auto;
-    padding:0px;
-    padding-top:70px;
+    padding:10px;
     padding-bottom:30px;
     background-color: #333;
 }
 .sideBar ul{
     list-style:none;
     padding:0;
-    text-align:left;
 }
 .sideBar a{
     
@@ -23,10 +21,10 @@
 .sideBar a:hover{
     padding:10px;
     font-weight: bold;
-    
 }
 
-.sideBar .user-img{
+
+.sideBar .logo{
     width:50%;
     margin:10px;
 }
@@ -45,7 +43,7 @@
 @media(min-width:768px) and (max-width:991px){
     /*small screen*/
     
-    .sideBar .user-img{
+    .sideBar .logo{
         width:100%;
     }
     

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html dir="{{ app()->getLocale() == "en" ? "ltr":"rtl" }}"  lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +15,9 @@
     <link href="{{ asset('css/header.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    @if(app()->isLocale('ar'))
+    <link href="{{ asset('css/rtl.css') }}" rel="stylesheet">
+    @endif
     <link href="{{ asset('css/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- <link href="https://fonts.googleapis.com/css2?family=Almarai&display=swap" rel="stylesheet"> -->
     
@@ -23,14 +26,16 @@
 </head>
 <body>
     <div id="app">
-        @include('layouts.header')
         <main class="py-4">
-        <div class="container-fluid">
-            <div class="row ">
             @include('layouts.sidebar')
-            @yield('content')
+            <div class="container-fluid">
+                <div class="row ">
+                    @include('layouts.header')
+    
+                    @yield('content')
+                </div>
             </div>
-        </div>
+        
         </main>
         
         <div class="load_content form-group text-center">
@@ -49,6 +54,9 @@
         @endif
         <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
         <script src="{{asset('js/js.js')}}"></script>
+        @if(app()->isLocale('ar'))
+        <script src="{{asset('js/rtl.js')}}"></script>
+        @endif
         <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
 </body>
 <script>

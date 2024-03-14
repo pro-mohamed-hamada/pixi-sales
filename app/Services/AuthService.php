@@ -66,7 +66,17 @@ class AuthService extends BaseService
         return $user->load('targets');
     }
 
-    
+    public function updateProfileLogo(array $data)
+    {
+        $user = Auth::user();
+        // if (isset($data['logo']))
+        // {
+        //     $user->clearMediaCollection('users');
+        //     $user->addMediaFromRequest('logo')->toMediaCollection('users');
+        // }
+        return $user;
+
+    }
 
     public function logout(): bool
     {

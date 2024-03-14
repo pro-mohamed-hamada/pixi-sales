@@ -8,6 +8,7 @@ use App\Http\Requests\Api\EndWorkRequest;
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Requests\Api\LogoutRequest;
 use App\Http\Requests\Api\StartWorkRequest;
+use App\Http\Requests\Api\UpdateProfileLogoRequest;
 use App\Http\Resources\AuthUserResource;
 use App\Models\User;
 use App\Services\AuthService;
@@ -70,7 +71,25 @@ class AuthController extends Controller
         }
     }
 
-
+    public function profile(): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    {
+        try {
+            $user = Auth::user();
+            
+            return apiResponse(data: new AuthUserResource($user), message: __('lang.success_operation'));
+        } catch (\Exception $exception) {
+            return apiResponse(message: $exception->getMessage(), code: 422);
+        }
+    }
+    public function updateProfileLogo(UpdateProfileLogoRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    {
+        try {
+            $user = $this->authService->updateProfileLogo(data: $request->Validated());
+            return apiResponse(data: new AuthUserResource($user), message: __('lang.success_operation'));
+        } catch (\Exception $exception) {
+            return apiResponse(message: $exception->getMessage(), code: 422);
+        }
+    }
 
     public function authUser(): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
