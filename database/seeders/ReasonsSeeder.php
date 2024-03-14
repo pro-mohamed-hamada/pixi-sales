@@ -15,19 +15,19 @@ class ReasonsSeeder extends Seeder
     public function run(): void
     {
         Reason::create([
-            'name'=>['ar'=>'سبب 1', 'en'=>'reason 1'],
+            'name'=>'سبب 1',
         ]);
         Reason::create([
-            'name'=>['ar'=>'سبب 2', 'en'=>'reason 2'],
+            'name'=>'سبب 2',
         ]);
         Reason::create([
-            'name'=>['ar'=>'سبب 3', 'en'=>'reason 3'],
+            'name'=>'سبب 3',
         ]);
         Reason::create([
-            'name'=>['ar'=>'سبب 4', 'en'=>'reason 4'],
+            'name'=>'سبب 4',
         ]);
         Reason::create([
-            'name'=>['ar'=>'سبب 5', 'en'=>'reason 5'],
+            'name'=>'سبب 5',
         ]);
     }
 }

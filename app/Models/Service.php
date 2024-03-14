@@ -4,15 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
 use App\Traits\Filterable;
 class Service extends Model
 {
-    use HasFactory, HasTranslations, Filterable;
+    use HasFactory, Filterable;
 
     protected $fillable = ['name', 'is_active'];
 
-    public $translatable = ['name'];
 
     public function clients(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

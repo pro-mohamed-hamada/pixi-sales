@@ -13,15 +13,15 @@ class ServicesSeeder extends Seeder
     public function run(): void
     {
         Service::create([
-            'name'=>["ar"=>"تطبيق هاتف", "en"=>"Mobile app"],
+            'name'=>"تطبيق هاتف",
             'is_active'=>1,
         ]);
         Service::create([
-            'name'=>["ar"=>"موقع الكترونى", "en"=>"ًWeb site"],
+            'name'=>"موقع الكترونى",
             'is_active'=>1,
         ]);
         Service::create([
-            'name'=>["ar"=>"تطبيق سطح مكتب", "en"=>"ًDesktop app"],
+            'name'=>"تطبيق سطح مكتب",
             'is_active'=>1,
         ]);
     }

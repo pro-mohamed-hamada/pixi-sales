@@ -23,8 +23,7 @@ class ReasonStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|array',
-            'name.*'=>'required|string',
+            'name'=>'required|string',
         ];
     }
 }

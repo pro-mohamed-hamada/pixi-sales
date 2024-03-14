@@ -34,7 +34,7 @@ class ClientsController extends Controller
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = ['latestStatus'];
-        $clients = $this->clientService->getAll(['filters'=>$filters, 'withRelations'=>$withRelations, 'perPage'=>1]);
+        $clients = $this->clientService->getAll(['filters'=>$filters, 'withRelations'=>$withRelations, 'perPage'=>25]);
         return View('Dashboard.Clients.index', compact(['clients']));
     }//end of index
 

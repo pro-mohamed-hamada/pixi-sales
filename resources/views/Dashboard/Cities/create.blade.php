@@ -24,17 +24,10 @@
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-lg-6">
-                                    <label>{{ __('lang.name_ar') }} *</label>
-                                    <input type="text" name="name[ar]" class="form-control">
-                                    @error('name.ar')
-                                        <span class="error">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="col-lg-6">
-                                    <label>{{ __('lang.name_en') }} *</label>
-                                    <input type="text" name="name[en]" class="form-control">
-                                    @error('name.en')
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.name') }} *</label>
+                                    <input type="text" name="name" class="form-control">
+                                    @error('name')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>

@@ -26,7 +26,7 @@ class CitiesController extends Controller
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = [];
-        $cities = $this->cityService->getAll(filters: $filters, withRelations: $withRelations);
+        $cities = $this->cityService->getAll(filters: $filters, withRelations: $withRelations, perPage: 100);
         return View('Dashboard.Cities.index', compact(['cities']));
     }//end of index
 

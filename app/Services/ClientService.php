@@ -105,7 +105,6 @@ class ClientService extends BaseService
     public function checkClientLatestStatus(Client $client, int $newStatus)
     {
         $latestStatus = $client->latestStatus;
-        dd($latestStatus->id);
         if($latestStatus->status == $newStatus)
             throw new Exception(message: __('lang.the_status_can_not_be_the_same'), code: 442);
     }

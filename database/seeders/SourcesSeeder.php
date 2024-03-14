@@ -16,10 +16,10 @@ class SourcesSeeder extends Seeder
     public function run(): void
     {
         Source::create([
-            'title'=>['ar'=>'فيسبوك', 'en'=>'facebook'],
+            'title'=>'فيسبوك',
         ]);
         Source::create([
-            'title'=>['ar'=>'الموقع', 'en'=>'website'],
+            'title'=>'الموقع',
         ]);
     }
 }

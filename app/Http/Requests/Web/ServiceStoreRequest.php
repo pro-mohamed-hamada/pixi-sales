@@ -23,8 +23,7 @@ class ServiceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|array',
-            'name.*'=>'required|string',
+            'name'=>'required|string',
             'is_active'=>'nullable|string',
         ];
     }
