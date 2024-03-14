@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\SourcesController;
 use App\Http\Controllers\Web\CitiesController;
 use App\Http\Controllers\Web\GovernoratesController;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,7 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::get('cities-ajax', [CitiesController::class, 'citiesAjax'])->name('cities.ajax');
     Route::resource('services', ServicesController::class);
     Route::resource('reasons', ReasonsController::class);
+    Route::resource('sources', SourcesController::class);
     Route::resource('users', UsersController::class);
     Route::post('user-targets', [UsersController::class, 'userTargets'])->name('users.target');
     Route::resource('whatsapp-templates', WhatsappTemplatesController::class);
