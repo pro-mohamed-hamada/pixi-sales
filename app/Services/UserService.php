@@ -96,11 +96,11 @@ class UserService extends BaseService
         $data['is_active'] = isset($data['is_active']) ? ActivationStatusEnum::ACTIVE:ActivationStatusEnum::NOT_ACTIVE;
         $user = $this->findById(id: $id);
         
-        // if (isset($data['logo']))
-        // {
-        //     $user->clearMediaCollection('users');
-        //     $user->addMediaFromRequest('logo')->toMediaCollection('users');
-        // }
+        if (isset($data['logo']))
+        {
+            $user->clearMediaCollection('users');
+            $user->addMediaFromRequest('logo')->toMediaCollection('users');
+        }
         return $user->update(Arr::except($data, 'logo'));
     } //end of store
 

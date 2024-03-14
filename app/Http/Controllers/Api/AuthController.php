@@ -71,16 +71,6 @@ class AuthController extends Controller
         }
     }
 
-    public function profile(): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
-    {
-        try {
-            $user = Auth::user();
-            
-            return apiResponse(data: new AuthUserResource($user), message: __('lang.success_operation'));
-        } catch (\Exception $exception) {
-            return apiResponse(message: $exception->getMessage(), code: 422);
-        }
-    }
     public function updateProfileLogo(UpdateProfileLogoRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         try {

@@ -73,7 +73,7 @@
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{-- <img style="width:20px" class=" img-responsive img-circle img-thumbnail" src="{{ empty(Auth::user()->getFirstMediaUrl('users')) ? asset('images/default-image.jpg'):Auth::user()->getFirstMediaUrl('users')}}"> --}}
+                                    <img style="width:20px" class=" img-responsive img-circle img-thumbnail" src="{{ empty(Auth::user()->getFirstMediaUrl('users')) ? asset('images/default-image.jpg'):Auth::user()->getFirstMediaUrl('users')}}">
                                     {{ Auth::user()->name }}
                                 </a>
 

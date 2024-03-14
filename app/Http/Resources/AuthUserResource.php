@@ -25,6 +25,7 @@ class AuthUserResource extends JsonResource
                 "id"=> $this->id,
                 "name"=> $this->name,
                 "email"=> $this->email,
+                'profile_image' =>$this->getFirstMediaUrl('users') !=""?$this->getFirstMediaUrl('users') : asset('images/default-image.jpg'),
             ],
        ];
     }

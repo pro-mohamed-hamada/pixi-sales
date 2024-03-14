@@ -12,10 +12,11 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Traits\EscapeUnicodeJson;
 use App\Traits\Filterable;
 use Illuminate\Support\Facades\DB;
-
-class User extends Authenticatable
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, Filterable, EscapeUnicodeJson;
+    use HasApiTokens, InteractsWithMedia, HasFactory, Notifiable, Filterable, EscapeUnicodeJson;
 
     /**
      * The attributes that are mass assignable.

@@ -69,11 +69,11 @@ class AuthService extends BaseService
     public function updateProfileLogo(array $data)
     {
         $user = Auth::user();
-        // if (isset($data['logo']))
-        // {
-        //     $user->clearMediaCollection('users');
-        //     $user->addMediaFromRequest('logo')->toMediaCollection('users');
-        // }
+        if (isset($data['logo']))
+        {
+            $user->clearMediaCollection('users');
+            $user->addMediaFromRequest('logo')->toMediaCollection('users');
+        }
         return $user;
 
     }
