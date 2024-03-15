@@ -17,7 +17,7 @@ class ClientsSeeder extends Seeder
         $client = Client::create([
             'name'=>'client 1',
             'phone'=>'01101865213',
-            'industry'=>'industry 1',
+            'industry_id'=>1,
             'company_name'=>'company 1',
             'city_id'=>1,
             'other_person_name'=>'person 2',

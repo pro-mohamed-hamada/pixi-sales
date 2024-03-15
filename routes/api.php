@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\GovernoratesController;
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\ClientServicesController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\IndustriesController;
 use App\Http\Controllers\Api\MeetingsController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\VisitsController;
@@ -54,6 +55,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::get('user/target',  [AuthController::class, 'userTarget']);
     Route::get('reasons', [ReasonsController::class, 'index']);
     Route::get('sources', [SourcesController::class, 'index']);
+    Route::get('industries', [IndustriesController::class, 'index']);
     Route::resource('calls', CallsController::class)->except('edit', 'show');
     Route::resource('meetings', MeetingsController::class)->except('edit', 'show');
     Route::get('whatsapp-templates', WhatsappTemplatesController::class);

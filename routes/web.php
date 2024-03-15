@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\ClientsController;
 use App\Http\Controllers\Web\ActivityLogsController;
 use App\Http\Controllers\Web\CallsController;
+use App\Http\Controllers\Web\IndustriesController;
 use App\Http\Controllers\Web\LocalizationController;
 use App\Http\Controllers\Web\MeetingsController;
 use App\Http\Controllers\Web\ReasonsController;
@@ -46,6 +47,7 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::get('cities-ajax', [CitiesController::class, 'citiesAjax'])->name('cities.ajax');
     Route::resource('services', ServicesController::class);
     Route::resource('reasons', ReasonsController::class);
+    Route::resource('industries', IndustriesController::class);
     Route::resource('sources', SourcesController::class);
     Route::resource('users', UsersController::class);
     Route::post('user-targets', [UsersController::class, 'userTargets'])->name('users.target');

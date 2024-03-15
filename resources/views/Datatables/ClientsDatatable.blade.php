@@ -46,7 +46,7 @@
                             <td>{{ $client->name }}</td>
                             <td>{{ $client->phone }}</td>
                             <td>{{ $client->city->name }}</td>
-                            <td>{{ $client->industry }}</td>
+                            <td>{{ $client->industry->name }}</td>
                             <td>{{ $client->company_name }}</td>
                             <td>{{ $client->other_person_name }}</td>
                             <td>{{ $client->other_person_phone }}</td>

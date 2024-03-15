@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->string('industry');
+            $table->foreignIdFor(\App\Models\Industry::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('company_name');
             $table->foreignIdFor(\App\Models\City::class)->nullable()->constrained()->onUpdate('cascade')->nullOnDelete();
             $table->string('other_person_name');

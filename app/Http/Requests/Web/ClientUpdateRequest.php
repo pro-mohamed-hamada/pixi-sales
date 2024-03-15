@@ -28,7 +28,7 @@ class ClientUpdateRequest extends FormRequest
         return [
             'name'=>'required|string',
             'phone'=>['required', 'string', 'unique:clients,phone,'.$this->client, 'unique:clients,other_person_phone,'.$this->client],
-            'industry'=>'required|string',
+            'industry_id'=>'required|integer|exists:industries,id',
             'company_name'=>'required|string',
             'city_id'=>'required|integer|exists:cities,id',
             'other_person_name'=>'required|string',

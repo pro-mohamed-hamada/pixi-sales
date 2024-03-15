@@ -18,7 +18,7 @@ class Client extends Model
     protected $fillable = [
         'name',
         'phone',
-        'industry',
+        'industry_id',
         'company_name',
         'city_id',
         'other_person_name',
@@ -37,6 +37,11 @@ class Client extends Model
     public function source(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
         return $this->belongsTo(Source::class);
+    }
+
+    public function industry(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
+        return $this->belongsTo(Industry::class);
     }
 
     public function visits(): \Illuminate\Database\Eloquent\Relations\HasMany

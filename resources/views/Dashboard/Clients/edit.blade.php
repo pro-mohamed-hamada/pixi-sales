@@ -55,10 +55,12 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label>{{ __('lang.industry') }} *</label>
-                                        <input type="text" name="industry" class="form-control" value="{{ $client->industry }}">
-                                        @error('industry')
-                                            <span class="error">{{ $message }}</span>
-                                        @enderror
+                                        <select name="industry_id" class="form-control">
+                                            <option selected disabled>{{ __("lang.choose") }}</option>
+                                            @foreach ($industries as $industry)
+                                                <option value="{{ $industry->id }}" {{ $industry->id == $client->industry_id ? "selected":"" }}>{{ $industry->name }}</option>
+                                            @endforeach
+                                        <select>
                                     </div>
                                     <div class="col-lg-4">
                                         <label>{{ __('lang.company_name') }} *</label>

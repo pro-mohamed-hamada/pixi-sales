@@ -11,6 +11,7 @@ use App\Http\Requests\Web\ClientHistoryRequest;
 use App\Http\Requests\Web\ClientUpdateRequest;
 use App\Services\ClientServiceService;
 use App\Services\GovernorateService;
+use App\Services\IndustryService;
 use App\Services\ReasonService;
 use App\Services\ServiceService;
 use App\Services\SourceService;
@@ -21,6 +22,7 @@ class ClientsController extends Controller
     private GovernorateService $governorateService,
     private ReasonService $reasonService,
     private SourceService $sourceService,
+    private IndustryService $industryService,
     private ServiceService $serviceService,
     private ClientServiceService $clientServiceService)
     {
@@ -49,8 +51,9 @@ class ClientsController extends Controller
         $governorates = $this->governorateService->getAll();//TODO: get only the active governorates
         $reasons = $this->reasonService->getAll();
         $sources = $this->sourceService->getAll();
+        $industries = $this->industryService->getAll();
         $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
-        return view('Dashboard.Clients.edit', compact('governorates', 'client', 'reasons', 'services', 'sources'));
+        return view('Dashboard.Clients.edit', compact('governorates', 'client', 'reasons', 'services', 'sources', 'industries'));
     }//end of create
 
     public function create(Request $request)
@@ -58,8 +61,9 @@ class ClientsController extends Controller
         $governorates = $this->governorateService->getAll();//TODO: get only the active governorates
         $reasons = $this->reasonService->getAll();
         $sources = $this->sourceService->getAll();
+        $industries = $this->industryService->getAll();
         $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
-        return view('Dashboard.Clients.create', compact('governorates', 'reasons', 'services', 'sources'));
+        return view('Dashboard.Clients.create', compact('governorates', 'reasons', 'services', 'sources', 'industries'));
     }//end of create
 
     public function store(ClientStoreRequest $request)
