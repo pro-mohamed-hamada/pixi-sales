@@ -5,7 +5,7 @@
         <div class="content col-md-9 col-lg-10 offset-md-3 offset-lg-2">
             <div class="mb-3">
                 <div class="card">
-                    <div class="card-header">{{ __('lang.create_call') }}</div>
+                    <div class="card-header">{{ __('lang.edit_whatsapp_message') }}</div>
 
                     <div class="card-body">
                         {{-- start create form --}}

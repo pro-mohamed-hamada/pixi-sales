@@ -118,5 +118,22 @@
                 "flags"=>"Flags",
 
                 "whatsapp_template"=>"Whatsapp template",
+
+                "industries"=>'Industries',
+                "industries_filters"=>'Industries filters',
+                "create_industry"=>'Create industry',
+                "edit_industry"=>'Edit industry',
+                "update"=>'Update',
+                "edit_user"=>'Edit user',
+                "edit_governorate"=>'Edit governorate',
+                "edit_city"=>'Edit city',
+                "edit_client"=>'Edit client',
+                "edit_visit"=>'Edit visit',
+                "edit_service"=>'Edit service',
+                "edit_reason"=>'Edit reason',
+                "edit_source"=>'Edit source',
+                "edit_call"=>'Edit call',
+                "edit_meeting"=>'Edit meeting',
+                "edit_whatsapp_template"=>'Edit whatsapp template',
 	]
 ?>

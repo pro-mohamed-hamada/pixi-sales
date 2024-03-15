@@ -248,7 +248,7 @@
                 {{-- end the client services --}}
                 <div class="row mb-3 g-3">
                     <div class="">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('lang.update')}}</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> {{__('lang.update')}}</button>
                         <a href="{{ url()->previous() }}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> {{__('lang.go_back')}}</a>
                     </div>
                 </div>
