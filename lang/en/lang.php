@@ -135,5 +135,8 @@
                 "edit_call"=>'Edit call',
                 "edit_meeting"=>'Edit meeting',
                 "edit_whatsapp_template"=>'Edit whatsapp template',
+                "profile"=>'Profile',
+                "logout"=>'Logout',
+
 	]
 ?>

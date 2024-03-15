@@ -118,5 +118,24 @@
                 "flags"=>"الأعلام",
 
                 "whatsapp_template"=>"نموزج واتساب",
+
+                "industries"=>'الأنشطه',
+                "industries_filters"=>'فلترة الأنشطه',
+                "create_industry"=>'إنشاء نشاط',
+                "edit_industry"=>'تعديل النشاط',
+                "update"=>'تحديث',
+                "edit_user"=>'تعديل المستخدم',
+                "edit_governorate"=>'تعديل المحافظه',
+                "edit_city"=>'تعديل المدينه',
+                "edit_client"=>'تعديل العميل',
+                "edit_visit"=>'تعديل الزيارة',
+                "edit_service"=>'تعديل الخدمه',
+                "edit_reason"=>'تعديل السبب',
+                "edit_source"=>'تعديل المصدر',
+                "edit_call"=>'تعديل المكالمة',
+                "edit_meeting"=>'تعديل الإجتماع',
+                "edit_whatsapp_template"=>'تعديل نموذج واتساب',
+                "profile"=>'الملف الشخصى',
+                "logout"=>'تسجيل خروج',
 	]
 ?>
