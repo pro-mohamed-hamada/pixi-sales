@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\GovernorateStoreRequest;
+use App\Http\Requests\Web\GovernorateUpdateRequest;
 use App\Services\GovernorateService;
 
 class GovernoratesController extends Controller
@@ -26,17 +27,16 @@ class GovernoratesController extends Controller
         return View('Dashboard.Governorates.index', compact(['governorates']));
     }//end of index
 
-    // public function edit(Request $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     $category = $this->categoryService->find($id);
-    //     if (!$category)
-    //     {
-    //         $toast = ['type' => 'error', 'title' => trans('lang.error'), 'message' => trans('lang.category_not_found')];
-    //         return back()->with('toast', $toast);
-    //     }
-    //     return view('dashboard.categories.edit', compact('category'));
-    // }//end of edit
+    public function edit(Request $request, $id)
+    {
+
+        $governorate = $this->governorateService->findById(id: $id);
+        if (!$governorate)
+        {
+            return redirect()->back()->with("message", __('lang.not_found'));
+        }
+        return view('Dashboard.Governorates.edit', compact('governorate'));
+    }//end of edit
 
     public function create(Request $request)
     {
@@ -52,19 +52,16 @@ class GovernoratesController extends Controller
             return redirect()->route('governorates.index')->with('message', $e->getMessage());
         }
     }//end of store
-    // public function update(CategoryRequest $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     try {
-    //         $this->categoryService->update($id, $request->validated());
-    //         $toast = ['title' => 'Success', 'message' => trans('lang.success_operation')];
-    //         return redirect(route('categories.index'))->with('toast', $toast);
-    //     } catch (\Exception $ex) {
-
-    //         $toast = ['type' => 'error', 'title' => 'error', 'message' => $ex->getMessage(),];
-    //         return redirect()->back()->with('toast', $toast);
-    //     }
-    // } //end of update
+    
+    public function update(GovernorateUpdateRequest $request, $id)
+    {
+        try {
+            $this->governorateService->update(id: $id, data: $request->validated());
+            return redirect()->route('governorates.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->route('governorates.index')->with('message', $e->getMessage());
+        }
+    }//end of update
 
     public function destroy($id)
     {

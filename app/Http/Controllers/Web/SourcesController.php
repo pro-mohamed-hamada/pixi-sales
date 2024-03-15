@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\SourceStoreRequest;
+use App\Http\Requests\Web\SourceUpdateRequest;
 use App\Services\GovernorateService;
 use App\Services\SourceService;
 
@@ -27,17 +28,16 @@ class SourcesController extends Controller
         return View('Dashboard.Sources.index', compact(['sources']));
     }//end of index
 
-    // public function edit(Request $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     $category = $this->categoryService->find($id);
-    //     if (!$category)
-    //     {
-    //         $toast = ['type' => 'error', 'title' => trans('lang.error'), 'message' => trans('lang.category_not_found')];
-    //         return back()->with('toast', $toast);
-    //     }
-    //     return view('dashboard.categories.edit', compact('category'));
-    // }//end of edit
+    public function edit(Request $request, $id)
+    {
+
+        $source = $this->sourceService->findById(id: $id);
+        if (!$source)
+        {
+            return redirect()->back()->with("message", __('lang.not_found'));
+        }
+        return view('Dashboard.Sources.edit', compact('source'));
+    }//end of edit
 
     public function create(Request $request)
     {
@@ -54,19 +54,15 @@ class SourcesController extends Controller
         }
     }//end of store
 
-    // public function update(CategoryRequest $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     try {
-    //         $this->categoryService->update($id, $request->validated());
-    //         $toast = ['title' => 'Success', 'message' => trans('lang.success_operation')];
-    //         return redirect(route('categories.index'))->with('toast', $toast);
-    //     } catch (\Exception $ex) {
-
-    //         $toast = ['type' => 'error', 'title' => 'error', 'message' => $ex->getMessage(),];
-    //         return redirect()->back()->with('toast', $toast);
-    //     }
-    // } //end of update
+    public function update(SourceUpdateRequest $request, $id)
+    {
+        try {
+            $this->sourceService->update(id: $id, data: $request->validated());
+            return redirect()->route('sources.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->route('sources.index')->with('message', $e->getMessage());
+        }
+    }//end of upate
 
     public function destroy($id)
     {

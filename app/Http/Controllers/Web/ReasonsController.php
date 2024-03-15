@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\ReasonStoreRequest;
+use App\Http\Requests\Web\ReasonUpdateRequest;
 use App\Services\GovernorateService;
 use App\Services\ReasonService;
 
@@ -27,18 +28,17 @@ class ReasonsController extends Controller
         return View('Dashboard.Reasons.index', compact(['reasons']));
     }//end of index
 
-    // public function edit(Request $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     $category = $this->categoryService->find($id);
-    //     if (!$category)
-    //     {
-    //         $toast = ['type' => 'error', 'title' => trans('lang.error'), 'message' => trans('lang.category_not_found')];
-    //         return back()->with('toast', $toast);
-    //     }
-    //     return view('dashboard.categories.edit', compact('category'));
-    // }//end of edit
+    public function edit(Request $request, $id)
+    {
 
+        $reason = $this->reasonService->findById(id: $id);
+        if (!$reason)
+        {
+            return redirect()->back()->with("message", __('lang.not_found'));
+        }
+        return view('Dashboard.Reasons.edit', compact('reason'));
+    }//end of edit
+    
     public function create(Request $request)
     {
         return view('Dashboard.Reasons.create');
@@ -54,19 +54,15 @@ class ReasonsController extends Controller
         }
     }//end of store
 
-    // public function update(CategoryRequest $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     try {
-    //         $this->categoryService->update($id, $request->validated());
-    //         $toast = ['title' => 'Success', 'message' => trans('lang.success_operation')];
-    //         return redirect(route('categories.index'))->with('toast', $toast);
-    //     } catch (\Exception $ex) {
-
-    //         $toast = ['type' => 'error', 'title' => 'error', 'message' => $ex->getMessage(),];
-    //         return redirect()->back()->with('toast', $toast);
-    //     }
-    // } //end of update
+    public function update(ReasonUpdateRequest $request, $id)
+    {
+        try {
+            $this->reasonService->update(id: $id, data: $request->validated());
+            return redirect()->route('reasons.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->route('reasons.index')->with('message', $e->getMessage());
+        }
+    }//end of update
 
     public function destroy($id)
     {

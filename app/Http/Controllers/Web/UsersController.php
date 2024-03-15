@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ClientStoreRequest;
 use App\Http\Requests\Web\UserProfileRequest;
 use App\Http\Requests\Web\UserStoreRequest;
+use App\Http\Requests\Web\UserUpdateRequest;
 use App\Services\GovernorateService;
 use App\Services\TargetService;
 use App\Services\UserService;
@@ -32,17 +33,6 @@ class UsersController extends Controller
         return View('Dashboard.Users.index', compact(['users']));
     }//end of index
 
-    // public function edit(Request $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     $category = $this->categoryService->find($id);
-    //     if (!$category)
-    //     {
-    //         $toast = ['type' => 'error', 'title' => trans('lang.error'), 'message' => trans('lang.category_not_found')];
-    //         return back()->with('toast', $toast);
-    //     }
-    //     return view('dashboard.categories.edit', compact('category'));
-    // }//end of edit
 
     public function create(Request $request)
     {
@@ -59,19 +49,26 @@ class UsersController extends Controller
         }
     }//end of store
 
-    // public function update(CategoryRequest $request, $id)
-    // {
-    //     userCan(request: $request, permission: 'edit_category');
-    //     try {
-    //         $this->categoryService->update($id, $request->validated());
-    //         $toast = ['title' => 'Success', 'message' => trans('lang.success_operation')];
-    //         return redirect(route('categories.index'))->with('toast', $toast);
-    //     } catch (\Exception $ex) {
+    public function edit(Request $request, $id)
+    {
 
-    //         $toast = ['type' => 'error', 'title' => 'error', 'message' => $ex->getMessage(),];
-    //         return redirect()->back()->with('toast', $toast);
-    //     }
-    // } //end of update
+        $user = $this->userService->findById(id: $id);
+        if (!$user)
+        {
+            return redirect()->back()->with("message", __('lang.not_found'));
+        }
+        return view('Dashboard.Users.edit', compact('user'));
+    }//end of edit
+
+    public function update(UserUpdateRequest $request, $id)
+    {
+        try {
+            $status = $this->userService->update(id: $id, data: $request->validated());
+            return redirect()->route('users.index')->with('message', __('lang.success_operation'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('message', $e->getMessage());
+        }
+    }//end of update
 
     public function profileView()
     {

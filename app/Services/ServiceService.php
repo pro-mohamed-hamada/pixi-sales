@@ -42,6 +42,16 @@ class ServiceService extends BaseService
         return $service;
     } //end of store
 
+    public function update($id, array $data = [])
+    {
+        $data['is_active'] = isset($data['is_active']) ? ActivationStatusEnum::ACTIVE:ActivationStatusEnum::NOT_ACTIVE;
+        $service = $this->findById($id);
+        $service = $service->update($data);
+        if (!$service)
+            return false ;
+        return $service;
+    } //end of update
+
     /**
      * @throws NotFoundException
      */
