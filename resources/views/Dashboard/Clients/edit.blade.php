@@ -175,7 +175,7 @@
                                     
                                     @foreach ($services as $service)
                                         @if($client->services->contains('id', $service->id))
-                                            <div class="col-lg-3">
+                                            <div class="client-service col-lg-3">
                                                 <label>{{ $service->name }}</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-text">

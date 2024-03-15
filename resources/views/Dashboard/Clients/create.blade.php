@@ -169,7 +169,7 @@
                             
                                 <div class="row mb-3 g-3">
                                     @foreach ($services as $service)
-                                        <div class="col-lg-3">
+                                        <div class="client-service col-lg-3">
                                             <label>{{ $service->name }}</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-text">

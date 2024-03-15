@@ -3,6 +3,17 @@
                 "active"=>"نشط",
                 "not_acive"=>"غير نشط",
                 "choose"=>"إختار",
+                "success_operation"=>"عملية ناجحة",
+
+                "new"=>"جديد",
+                "contacted"=>"تم التواصل",
+                "interested"=>"مهتم",
+                "not_interested"=>"غير مهتم",
+                "proposal"=>"عقد",
+                "meeting"=>"إجتماع",
+                "closed"=>"مغلق",
+                "lost"=>"مفقود",
+                "no_reason"=>"لا يوجد سبب",
 
                 "users"=>"المستخدمين",
                 "governorates"=>"المحافظات",

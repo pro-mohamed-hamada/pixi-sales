@@ -3,6 +3,17 @@
                 "active"=>"Active",
                 "not_acive"=>"Not active",
                 "choose"=>"Choose",
+                "success_operation"=>"Success operation",
+
+                "new"=>"New",
+                "contacted"=>"Contacted",
+                "interested"=>"Interested",
+                "not_interested"=>"Not nterested",
+                "proposal"=>"Proposal",
+                "meeting"=>"Meeting",
+                "closed"=>"Closed",
+                "lost"=>"Lost",
+                "no_reason"=>"No reason",
 
                 "users"=>"Users",
                 "governorates"=>"Governorates",

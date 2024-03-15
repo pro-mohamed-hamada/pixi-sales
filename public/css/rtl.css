@@ -21,3 +21,6 @@
     right: auto !important;
     text-align: right !important;
 }
+.client-service{
+    direction: ltr;
+}
