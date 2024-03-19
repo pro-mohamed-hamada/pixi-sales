@@ -20,9 +20,9 @@ class AuthService extends BaseService
         if (!auth()->attempt(credentials: $credential, remember: $remember))
             return throw new NotFoundException(__('lang.login_failed'));
         $user = User::where('email', $email)->first();
-        $userDeviceSerial = $user->deviceSerials()->where('device_serial', $deviceSerial)->first();
-        if(!$userDeviceSerial)
-            return throw new NotFoundException(__('lang.unauthorized_device'));
+        // $userDeviceSerial = $user->deviceSerials()->where('device_serial', $deviceSerial)->first();
+        // if(!$userDeviceSerial)
+        //     return throw new NotFoundException(__('lang.unauthorized_device'));
         return $user;
     }
 
