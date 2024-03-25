@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Enum\TaskStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\TaskRequest;
+use App\Http\Requests\Api\TaskRescheduleRequest;
 use App\Http\Resources\CallsResource;
 use App\Http\Resources\HomeResource;
 use App\Http\Resources\MeetingsResource;
@@ -65,14 +66,14 @@ class HomeController extends Controller
         }
     }
 
-    public function doneUndoTask(TaskRequest $request)
+    public function doneUndoTask(TaskRequest $request, $id)
     {
         try{
             $model = match ((string)$request->task_table) {
-                'visit'          => Visit::find($request->id),
-                'call'           => Call::find($request->id),
-                'meeitng'        => Meeting::find($request->id),
-                'client_service' => ClientService::find($request->id),
+                'visit'          => Visit::find($id),
+                'call'           => Call::find($id),
+                'meeitng'        => Meeting::find($id),
+                'client_service' => ClientService::find($id),
             };
 
             $status = $model->update(['is_done'=>!$model->is_done]);
@@ -84,6 +85,27 @@ class HomeController extends Controller
             return apiResponse(message: __('lang.something_went_wrong'), code: 442);
         }
         
-    }//end of store
+    }//end of doneUndoTask
+
+    public function taskReschedule(TaskRescheduleRequest $request, $id)
+    {
+        try{
+            $model = match ((string)$request->task_table) {
+                'visit'          => Visit::find($id),
+                'call'           => Call::find($id),
+                'meeitng'        => Meeting::find($id),
+                'client_service' => ClientService::find($id),
+            };
+
+            $status = $model->update(['next_action_date'=>$request->date]);
+            if(!$status)
+                return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+            return apiResponse(message: __('lang.success_operation'));
+    
+        }catch(Exception $e){
+            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        }
+        
+    }//end of taskReschedule
 
 }

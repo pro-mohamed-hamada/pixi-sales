@@ -8,7 +8,7 @@ use App\Enum\CallTypeEnum;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskRequest extends FormRequest
+class TaskRescheduleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,6 +27,7 @@ class TaskRequest extends FormRequest
     {
         return [
             'task_table'=>'required|string|in:visit,call,meeting,client_service',
+            'date'=>'required|date|after:'.Carbon::now(),
         ];
     }
 }
