@@ -27,6 +27,8 @@ class TasksResource extends JsonResource
             "next_action"=>$this->next_action,
             "next_action_date"=>$this->next_action_date,
             "comment"=>$this->comment,
+            "is_done"=>$this->is_done,
+            "task_table"=>$this->task_table,
         ];
     }
 }

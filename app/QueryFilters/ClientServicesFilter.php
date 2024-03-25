@@ -32,6 +32,11 @@ class ClientServicesFilter extends QueryFilter
         return $this->builder->where('next_action',$term);
     }
 
+    public function is_done($term)
+    {
+        return $this->builder->where('is_done',$term);
+    }
+
     public function next_action_date($term)
     {
         return $this->builder->where('next_action_date',$term);

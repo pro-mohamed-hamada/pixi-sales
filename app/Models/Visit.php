@@ -19,6 +19,7 @@ class Visit extends Model
         'next_action_date',
         'comment',
         'added_by',
+        'is_done',
     ];
 
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo

@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enum\TaskStatusEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\TaskRequest;
 use App\Http\Resources\CallsResource;
 use App\Http\Resources\HomeResource;
 use App\Http\Resources\MeetingsResource;
 use App\Http\Resources\TasksResource;
 use App\Http\Resources\VisitsResource;
+use App\Models\Call;
+use App\Models\ClientService;
+use App\Models\Meeting;
+use App\Models\Visit;
 use App\Services\CallService;
 use App\Services\ClientServiceService;
 use App\Services\MeetingService;
@@ -58,5 +64,26 @@ class HomeController extends Controller
             return  apiResponse(message: $e->getMessage(), code: 442);  
         }
     }
+
+    public function doneUndoTask(TaskRequest $request)
+    {
+        try{
+            $model = match ((string)$request->task_table) {
+                'visit'          => Visit::find($request->id),
+                'call'           => Call::find($request->id),
+                'meeitng'        => Meeting::find($request->id),
+                'client_service' => ClientService::find($request->id),
+            };
+
+            $status = $model->update(['is_done'=>!$model->is_done]);
+            if(!$status)
+                return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+            return apiResponse(message: __('lang.success_operation'));
+    
+        }catch(Exception $e){
+            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        }
+        
+    }//end of store
 
 }

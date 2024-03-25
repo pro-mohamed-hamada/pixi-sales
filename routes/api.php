@@ -36,6 +36,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::post('profile-logo', [AuthController::class, 'updateProfileLogo']);
     Route::get('home', [HomeController::class, 'index']);
     Route::get('user/tasks', [HomeController::class, 'tasks']);
+    Route::put('task/done-undo', [HomeController::class, 'doneUndoTask']);
     Route::get('governorates', [GovernoratesController::class, 'index']);
     Route::get('cities', [CitiesController::class, 'index']);
     Route::resource('clients', ClientsController::class);

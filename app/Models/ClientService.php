@@ -19,6 +19,7 @@ class ClientService extends Model
         'next_action',
         'next_action_date',
         'added_by',
+        'is_done',
     ];
 
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo
