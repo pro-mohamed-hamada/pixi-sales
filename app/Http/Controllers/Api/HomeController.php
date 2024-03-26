@@ -38,7 +38,7 @@ class HomeController extends Controller
     public function index()
     {
         try{
-            $user = auth()->user()->load(['latestStatus', 'targets', 'visits', 'calls', 'clients', 'meetings']);
+            $user = auth()->user()->load(['latestStatus', 'targets', 'visits', 'calls', 'addedByClients', 'assignedClients', 'meetings']);
 
             return  apiResponse(data: new HomeResource($user));  
         }catch(Exception $e){

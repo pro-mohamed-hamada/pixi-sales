@@ -44,7 +44,7 @@ class ClientService extends BaseService
         $user = Auth::user();
         $data['added_by'] = $user->id;
         $data['assigned_to'] = isset($data['assigned_to']) ? $data['assigned_to']:$data['added_by'];
-        
+
         // create the client
         $client = $this->getModel()->create($data);
         $user->increaseUserTarget(TargetsEnum::CLIENT);
@@ -118,6 +118,7 @@ class ClientService extends BaseService
         if (!$client)
             return false;
         DB::beginTransaction();
+        $data['assigned_to'] = isset($data['assigned_to']) ? $data['assigned_to']:$client->assigned_to;
         $client->update($data);
         //start add the client status
         $statusData = $this->prepareStatusData(data: $data);

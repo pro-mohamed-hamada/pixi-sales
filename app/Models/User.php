@@ -100,9 +100,14 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Meeting::class, 'added_by');
     }
 
-    public function clients(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function addedByClients(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Client::class, 'added_by');
+    }
+
+    public function assignedClients(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Client::class, 'assigned_to');
     }
 
     public function whatsappMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -149,7 +154,7 @@ class User extends Authenticatable implements HasMedia
         $meetings = $this->meetings()->select('id', DB::raw("'meeting' as action_type"), 'comment', 'created_at')->latest()->take(5)->get();
         $calls = $this->calls()->select('id', DB::raw("'call' as action_type"), 'comment', 'status', 'created_at')->latest()->take(5)->get();
         $whatsapp_messages = $this->whatsappMessages()->select('id', DB::raw("'whatsapp_message' as action_type"), 'created_at')->latest()->take(5)->get();
-        $clients = $this->clients()->select('id', DB::raw("'client' as action_type"), 'company_name', 'created_at')->latest()->take(5)->get();
+        $clients = $this->addedByClients()->select('id', DB::raw("'client' as action_type"), 'company_name', 'created_at')->latest()->take(5)->get();
 
         $data = collect($visits)
                     ->merge($meetings)

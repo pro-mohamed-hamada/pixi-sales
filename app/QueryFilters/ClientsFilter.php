@@ -49,4 +49,14 @@ class ClientsFilter extends QueryFilter
         return $this->builder->where('city_id', $term);
     }
 
+    public function added_by($term)
+    {
+        return $this->builder->where('added_by', $term);
+    }
+
+    public function assigned_to($term)
+    {
+        return $this->builder->where('assigned_to', $term);
+    }
+
 }
