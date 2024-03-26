@@ -26,6 +26,7 @@ class ClientsSeeder extends Seeder
             'facebook_url'=>"http://ww.facebook.com",
             'source_id'=>1,
             'added_by'=>1,
+            'assigned_to'=>1,
         ]);
 
         $client->history()->create([
