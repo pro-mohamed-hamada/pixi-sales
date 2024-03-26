@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Enum\ActivationStatusEnum;
+use App\Enum\UserTypeEnum;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,7 @@ use App\Services\IndustryService;
 use App\Services\ReasonService;
 use App\Services\ServiceService;
 use App\Services\SourceService;
+use App\Services\UserService;
 
 class ClientsController extends Controller
 {
@@ -24,7 +26,8 @@ class ClientsController extends Controller
     private SourceService $sourceService,
     private IndustryService $industryService,
     private ServiceService $serviceService,
-    private ClientServiceService $clientServiceService)
+    private ClientServiceService $clientServiceService,
+    private UserService $userService)
     {
 
     }
@@ -53,7 +56,8 @@ class ClientsController extends Controller
         $sources = $this->sourceService->getAll();
         $industries = $this->industryService->getAll();
         $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
-        return view('Dashboard.Clients.edit', compact('governorates', 'client', 'reasons', 'services', 'sources', 'industries'));
+        $employees = $this->userService->getAll(filters: ['type'=>UserTypeEnum::EMPLOYEE]);
+        return view('Dashboard.Clients.edit', compact('governorates', 'client', 'reasons', 'services', 'sources', 'industries', 'employees'));
     }//end of create
 
     public function create(Request $request)
@@ -63,7 +67,8 @@ class ClientsController extends Controller
         $sources = $this->sourceService->getAll();
         $industries = $this->industryService->getAll();
         $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
-        return view('Dashboard.Clients.create', compact('governorates', 'reasons', 'services', 'sources', 'industries'));
+        $employees = $this->userService->getAll(filters: ['type'=>UserTypeEnum::EMPLOYEE]);
+        return view('Dashboard.Clients.create', compact('governorates', 'reasons', 'services', 'sources', 'industries', 'employees'));
     }//end of create
 
     public function store(ClientStoreRequest $request)

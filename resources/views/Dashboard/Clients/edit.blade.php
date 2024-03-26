@@ -99,6 +99,18 @@
                                             @endforeach
                                         <select>
                                     </div>
+                                    <div class="col-lg-4">
+                                        <label>{{ __('lang.assigned_to') }} *</label>
+                                        <select name="assigned_to" class="form-control">
+                                            <option value="" selected disabled>{{ __("lang.choose") }}</option>
+                                            @foreach ($employees as $employee)
+                                                <option value="{{ $employee->id }}" {{ $employee->id == $client->assigned_to ? "selected":"" }}>{{ $employee->name }}</option>
+                                            @endforeach
+                                        <select>
+                                        @error('assigned_to')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror    
+                                    </div>
 
                                 </div>
                             {{-- end update form --}}

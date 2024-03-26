@@ -36,6 +36,7 @@ class ClientStoreRequest extends FormRequest
             'other_person_position'=>'required|string',
             'facebook_url'=>'nullable|url',
             'source_id'=>'required|integer|exists:sources,id',
+            'assigned_to'=>'required|integer|exists:users,id',
 
             'status'=>'required|integer|in:'.ClientStatusEnum::NEW.','.ClientStatusEnum::CONTACTED.','.ClientStatusEnum::INTERESTED.','.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::PROPOSAL.','.ClientStatusEnum::MEETING.','.ClientStatusEnum::CLOSED.','.ClientStatusEnum::LOST,
             'reason_id'=>'nullable|exists:reasons,id|required_if:status,'.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::LOST,

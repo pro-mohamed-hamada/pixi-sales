@@ -27,6 +27,7 @@ class Client extends Model
         'facebook_url',
         'source_id',
         'added_by',
+        'assigned_to',
     ];
 
     public function city(): \Illuminate\Database\Eloquent\Relations\belongsTo

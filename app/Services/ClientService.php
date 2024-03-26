@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enum\ClientStatusEnum;
 use App\Enum\TargetsEnum;
+use App\Enum\UserTypeEnum;
 use App\Exceptions\NotFoundException;
 use App\Models\Client;
 use App\QueryFilters\ClientsFilter;
@@ -42,6 +43,8 @@ class ClientService extends BaseService
         DB::beginTransaction();
         $user = Auth::user();
         $data['added_by'] = $user->id;
+        $data['assigned_to'] = isset($data['assigned_to']) ? $data['assigned_to']:$data['added_by'];
+        
         // create the client
         $client = $this->getModel()->create($data);
         $user->increaseUserTarget(TargetsEnum::CLIENT);
