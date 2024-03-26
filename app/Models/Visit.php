@@ -27,6 +27,11 @@ class Visit extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function getTaskTableAttribute()
+    {
+        return 'visit';
+    }
+
     public function getLatestActionTypeAttribute()
     {
         return __('lang.visit');

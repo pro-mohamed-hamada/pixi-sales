@@ -28,6 +28,12 @@ class Meeting extends Model
         return __('lang.meeting');
     }
 
+    public function getTaskTableAttribute()
+    {
+        return 'meeting';
+    }
+
+
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
         return $this->belongsTo(Client::class);

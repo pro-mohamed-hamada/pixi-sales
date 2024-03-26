@@ -26,4 +26,10 @@ class ClientService extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function getTaskTableAttribute()
+    {
+        return 'client_service';
+    }
+
 }

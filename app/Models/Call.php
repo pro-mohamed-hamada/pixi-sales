@@ -35,6 +35,11 @@ class Call extends Model
         return __('lang.call');
     }
 
+    public function getTaskTableAttribute()
+    {
+        return 'call';
+    }
+
     public function getTypeAttribute()
     {
         switch($this->getRawOriginal('type'))
