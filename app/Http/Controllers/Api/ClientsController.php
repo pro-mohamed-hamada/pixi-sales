@@ -7,6 +7,7 @@ use App\Http\Requests\Api\ClientHistoryStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\ClientStoreRequest;
 use App\Http\Requests\Api\ClientUpdateRequest;
+use App\Http\Requests\Api\ReassignClientRequest;
 use App\Http\Resources\ClientOnCallResource;
 use App\Http\Resources\ClientsResource;
 use App\Services\ClientService;
@@ -74,6 +75,20 @@ class ClientsController extends Controller
         }
         
     }//end of update
+
+    public function reassignClient(ReassignClientRequest $request, string $id)
+    {
+        try{
+            $status = $this->clientService->reassignClient(id: $id, data: $request->Validated());
+            if(!$status)
+                return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+            return apiResponse(message: __('lang.success_operation'));
+    
+        }catch(Exception $e){
+            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        }
+        
+    }//end of reassignClient
 
     public function show($id)
     {

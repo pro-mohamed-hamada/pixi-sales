@@ -137,6 +137,12 @@ class ClientService extends BaseService
         return $client;
     }
 
+    public function reassignClient($id, array $data)
+    {
+        $client = $this->findById(id: $id);
+        $status =$client->update(['assigned_to'=>$data['assigned_to']]);
+        return $status;
+    }
     /**
      * @throws NotFoundException
      */
