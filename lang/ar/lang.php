@@ -137,5 +137,6 @@
                 "edit_whatsapp_template"=>'تعديل نموذج واتساب',
                 "profile"=>'الملف الشخصى',
                 "logout"=>'تسجيل خروج',
+                "assigned_to"=>'تعيين الى',
 	]
 ?>

@@ -137,6 +137,7 @@
                 "edit_whatsapp_template"=>'Edit whatsapp template',
                 "profile"=>'Profile',
                 "logout"=>'Logout',
+                "assigned_to"=>'Assign to',
 
 	]
 ?>
