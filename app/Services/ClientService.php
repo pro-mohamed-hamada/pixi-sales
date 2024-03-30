@@ -99,7 +99,7 @@ class ClientService extends BaseService
     {
         $client = $this->findById($id);
         // $this->checkClientLatestStatus(client: $client, newStatus: $data['status']);
-        $client->clientHistory()->create($data);
+        $client->history()->create($data);
         if (!$client)
             return false ;
         return true;
