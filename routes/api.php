@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\VisitsController;
 use App\Http\Controllers\Api\ReasonsController;
 use App\Http\Controllers\Api\SourcesController;
+use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\WhatsappMessagesController;
 use App\Http\Controllers\Api\WhatsappTemplatesController;
 
@@ -36,6 +37,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::post('profile-logo', [AuthController::class, 'updateProfileLogo']);
     Route::get('home', [HomeController::class, 'index']);
     Route::get('user/tasks', [HomeController::class, 'tasks']);
+    Route::get('users', [UsersController::class, 'index']);
     Route::put('task/done-undo/{id}', [HomeController::class, 'doneUndoTask']);
     Route::put('task/reschedule/{id}', [HomeController::class, 'taskReschedule']);
     Route::get('governorates', [GovernoratesController::class, 'index']);
