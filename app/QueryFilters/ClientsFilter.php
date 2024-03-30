@@ -44,6 +44,13 @@ class ClientsFilter extends QueryFilter
             });
     }
 
+    public function status($term)
+    {
+        return $this->builder->whereHas('latestStatus', function ($query) use ($term) {
+            $query->where('status', $term);
+        });
+    }
+
     public function city_id($term)
     {
         return $this->builder->where('city_id', $term);
@@ -57,6 +64,11 @@ class ClientsFilter extends QueryFilter
     public function assigned_to($term)
     {
         return $this->builder->where('assigned_to', $term);
+    }
+
+    public function created_at($term)
+    {
+        return $this->builder->where('created_at', $term);
     }
 
 }
