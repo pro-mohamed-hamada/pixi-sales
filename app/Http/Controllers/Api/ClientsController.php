@@ -36,15 +36,15 @@ class ClientsController extends Controller
 
     public function getClientOnCall(Request $request)
     {
-        // try{
+        try{
             $filters = $request->all();
             $withRelations = ['visits', 'calls', 'meetings', 'whatsappMessages'];
             $clients = $this->clientService->getAll(filters: $filters, withRelations: $withRelations);
             return apiResponse(data: ClientOnCallResource::collection($clients), message: __('lang.success_operation'));
     
-        // }catch(Exception $e){
-        //     return apiResponse(message: __('lang.something_went_wrong'), code: 442);
-        // }
+        }catch(Exception $e){
+            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        }
         
     }//end of getClientOnCall
 

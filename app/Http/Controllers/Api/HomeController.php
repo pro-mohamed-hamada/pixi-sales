@@ -94,7 +94,7 @@ class HomeController extends Controller
             $model = match ((string)$request->task_table) {
                 'visit'          => Visit::find($id),
                 'call'           => Call::find($id),
-                'meeitng'        => Meeting::find($id),
+                'meeting'        => Meeting::find($id),
                 'client_service' => ClientService::find($id),
             };
 

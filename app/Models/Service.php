@@ -14,7 +14,7 @@ class Service extends Model
 
     public function clients(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Client::class, ClientService::class)->withPivot('price');
+        return $this->belongsToMany(Client::class, ClientService::class)->withPivot('price', 'next_action', 'next_action_date', 'comment');
     }
 
     public function getISActiveAttribute()
