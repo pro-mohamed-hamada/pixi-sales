@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\WhatsappTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class ClientsResource extends JsonResource
 {
@@ -15,6 +16,7 @@ class ClientsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = $this->assignedTo;
         return [
             "id"=>$this->id,
             "name"=>$this->name,
@@ -29,6 +31,7 @@ class ClientsResource extends JsonResource
             "source"=>$this->whenLoaded('source', $this->source->title),
             "whatsapp_messages_count"=>$this->whenLoaded('whatsappMessages', $this->whatsappMessages->count()),
             "latest_status"=>$this->whenLoaded("latestStatus", $this->latestStatus),
+            "user"=>new UserResource($user),
             "services"=>$this->whenLoaded("services",
             [
                 'client_services'=>ClientServicesResource::collection($this->services),

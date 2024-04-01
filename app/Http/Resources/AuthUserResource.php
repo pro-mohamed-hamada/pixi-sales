@@ -21,12 +21,7 @@ class AuthUserResource extends JsonResource
        return [
            "token"=>$request->bearerToken()?? $this->getToken(),
            "token_type"=>'Bearer',
-           "user"=>[
-                "id"=> $this->id,
-                "name"=> $this->name,
-                "email"=> $this->email,
-                'profile_image' =>$this->getFirstMediaUrl('users') !=""?$this->getFirstMediaUrl('users') : asset('images/default-image.jpg'),
-            ],
+           "user"=>new UserResource($this),
        ];
     }
 

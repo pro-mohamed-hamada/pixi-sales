@@ -45,6 +45,11 @@ class Client extends Model
         return $this->belongsTo(Industry::class);
     }
 
+    public function assignedTo(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
+    }
+
     public function visits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Visit::class,  'client_id');
