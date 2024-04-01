@@ -60,7 +60,7 @@ class ClientsFilter extends QueryFilter
             ->whereDate('next_action_date', '>=', Carbon::now()->format('Y-m-d'));
         })->orWhereHas('services', function ($query) use ($term) {
             $query->where('client_services.next_action', $term)
-            ->whereDate('client_servicesnext_action_date', '>=', Carbon::now()->format('Y-m-d'));
+            ->whereDate('client_services.next_action_date', '>=', Carbon::now()->format('Y-m-d'));
         });
     }
 
