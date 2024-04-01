@@ -77,7 +77,8 @@ class HomeController extends Controller
             };
 
             if(!$model)
-                return apiResponse(message: __('lang.not_found'), code: 442);            $status = $model->update(['is_done'=>!$model->is_done]);
+                return apiResponse(message: __('lang.not_found'), code: 442);
+            $status = $model->update(['is_done'=>!$model->is_done]);
             if(!$status)
                 return apiResponse(message: __('lang.something_went_wrong'), code: 442);
             return apiResponse(message: __('lang.success_operation'));
