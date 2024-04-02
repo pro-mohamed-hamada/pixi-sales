@@ -58,6 +58,7 @@
         <script src="{{asset('js/rtl.js')}}"></script>
         @endif
         <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
+        @stack('scripts')
 </body>
 <script>
         $(document).ready(function () {

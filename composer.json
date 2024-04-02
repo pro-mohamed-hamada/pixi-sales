@@ -12,7 +12,8 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
         "spatie/laravel-medialibrary": "11.0.0",
-        "spatie/laravel-translatable": "^6.5"
+        "spatie/laravel-translatable": "^6.5",
+        "yajra/laravel-datatables": "10.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -21,7 +21,7 @@ class SourcesController extends Controller
             $filters = $request->all();
             $withRelations = [];
             $sources = $this->sourceService->getAll(filters: $filters, withRelations: $withRelations);
-            return Sourcesresource::collection($sources);
+            return SourcesResource::collection($sources);
     
         }catch(Exception $e){
             return apiResponse(message: __('lang.something_went_wrong'), code: 442);

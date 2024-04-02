@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\DataTables\SourcesDataTable;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
@@ -17,15 +18,14 @@ class SourcesController extends Controller
 
     }
 
-    public function index(Request $request)
+    public function index(SourcesDataTable $dataTable, Request $request)
     {
         
         $filters = array_filter($request->get('filters', []), function ($value) {
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = [];
-        $sources = $this->sourceService->getAll(filters: $filters, withRelations: $withRelations);
-        return View('Dashboard.Sources.index', compact(['sources']));
+        return $dataTable->render('Dashboard.Sources.index');
     }//end of index
 
     public function edit(Request $request, $id)
