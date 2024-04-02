@@ -142,6 +142,9 @@
                 "whatsapp"=>'واتساب',
                 "visit"=>'زيارة',
                 "answered"=>'تم الرد',
-                "not_answered"=>'لم يتم الرد'
+                "not_answered"=>'لم يتم الرد',
+                "incoming"=>'وارده',
+                "outgoing"=>'صادرة'
+
 	]
 ?>

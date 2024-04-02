@@ -142,7 +142,9 @@
                 "whatsapp"=>'Whatsapp',
                 "visit"=>'Visit',
                 "answered"=>'Answered',
-                "not_answered"=>'Not nswered'
+                "not_answered"=>'Not nswered',
+                "incoming"=>'Incoming',
+                "outgoing"=>'Outgoing'
 
 	]
 ?>
