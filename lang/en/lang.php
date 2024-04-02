@@ -138,6 +138,11 @@
                 "profile"=>'Profile',
                 "logout"=>'Logout',
                 "assigned_to"=>'Assign to',
+                "call"=>'Call',
+                "whatsapp"=>'Whatsapp',
+                "visit"=>'Visit',
+                "answered"=>'Answered',
+                "not_answered"=>'Not nswered'
 
 	]
 ?>
