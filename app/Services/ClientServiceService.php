@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ClientActivityActionEnum;
 use App\Exceptions\NotFoundException;
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,6 +43,13 @@ class ClientServiceService extends BaseService
         // start add the client services
         $servicesData = $this->prepareServicesData(data: $data);
         $client->services()->sync($servicesData);
+        foreach($client->services as $service)
+        {
+            $clientService = ClientService::where('client_id', $client->id)
+            ->where('service_id', $service->id)->first();
+            if($clientService)
+                $clientService->activities()->create([ 'client_id'=>$client->id, 'action'=>ClientActivityActionEnum::UPDATED]);
+        }
         return $client;
     } //end of store
 

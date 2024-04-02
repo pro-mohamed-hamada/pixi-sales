@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ClientActivityActionEnum;
 use App\Enum\TargetsEnum;
 use App\Exceptions\NotFoundException;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,6 +43,7 @@ class CallService extends BaseService
         DB::beginTransaction();
         $call = $this->getModel()->create($data);
         $user->increaseUserTarget(TargetsEnum::CALL);
+        $call->activities()->create([ 'client_id'=>$call->client->id, 'action'=>ClientActivityActionEnum::ADDED]);
         DB::commit();
         if (!$call)
             return false ;
@@ -52,6 +54,7 @@ class CallService extends BaseService
     {
         $call = $this->findById(id: $id);
         $call->update($data);
+        $call->activities()->create([ 'client_id'=>$call->client->id, 'action'=>ClientActivityActionEnum::UPDATED]);
         return $call;
     }
 

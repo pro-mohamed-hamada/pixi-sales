@@ -21,6 +21,11 @@ class WhatsappMessage extends Model
         'added_by',
     ];
 
+    public function activities(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(ClientActivity::class, 'activity');
+    }
+
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
         return $this->belongsTo(Client::class);

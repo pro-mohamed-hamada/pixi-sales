@@ -22,6 +22,11 @@ class Visit extends Model
         'is_done',
     ];
 
+    public function activities(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(ClientActivity::class, 'activity');
+    }
+
     public function client(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
         return $this->belongsTo(Client::class);

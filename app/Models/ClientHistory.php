@@ -12,6 +12,11 @@ class ClientHistory extends Model
 
     protected $fillable = ['client_id', 'status', 'reason_id', 'comment'];
 
+    public function activities(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(ClientActivity::class, 'activity');
+    }
+
     public function reason(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
         return $this->belongsTo(Reason::class);

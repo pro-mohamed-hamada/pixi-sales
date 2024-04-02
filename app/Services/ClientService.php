@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ClientActivityActionEnum;
 use App\Enum\ClientStatusEnum;
 use App\Enum\TargetsEnum;
 use App\Enum\UserTypeEnum;
@@ -11,6 +12,7 @@ use App\QueryFilters\ClientsFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\BadRequestHttpException;
+use App\Models\ClientService as ModelsClientService;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -55,7 +57,17 @@ class ClientService extends BaseService
         
         // start add the client services
         $servicesData = $this->prepareServicesData(data: $data);
-        $client->services()->sync($servicesData);
+        if($servicesData)
+        {
+            $client->services()->sync($servicesData);
+            foreach($client->services as $service)
+            {
+                $clientService = ModelsClientService::where('client_id', $client->id)
+                ->where('service_id', $service->id)->first();
+                if($clientService)
+                    $clientService->activities()->create([ 'client_id'=>$client->id, 'action'=>ClientActivityActionEnum::ADDED]);
+            }
+        }
         // end add the client services
         DB::commit();
         if (!$client)
@@ -129,7 +141,17 @@ class ClientService extends BaseService
         // start add the client services
         $servicesData = $this->prepareServicesData(data: $data);
         if($servicesData)
+        {
             $client->services()->sync($servicesData);
+            foreach($client->services as $service)
+            {
+                $clientService = ModelsClientService::where('client_id', $client->id)
+                ->where('service_id', $service->id)->first();
+                if($clientService)
+                    $clientService->activities()->create([ 'client_id'=>$client->id, 'action'=>ClientActivityActionEnum::UPDATED]);
+            }
+        }
+    
         // end add the client services
         DB::commit();
         if (!$client)

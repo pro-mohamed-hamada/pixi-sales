@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ClientActivityActionEnum;
 use App\Exceptions\NotFoundException;
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Builder;
@@ -55,6 +56,7 @@ class WhatsappMessageService extends BaseService
         $whatsappMessage = $this->getModel()->create($data);
         if (!$whatsappMessage)
             return false ;
+        $whatsappMessage->activities()->create([ 'client_id'=>$whatsappMessage->client->id, 'action'=>ClientActivityActionEnum::ADDED]);
 
         return $whatsappMessage;
     } //end of store

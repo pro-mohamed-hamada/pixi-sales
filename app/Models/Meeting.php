@@ -23,6 +23,11 @@ class Meeting extends Model
         'is_done',
     ];
 
+    public function activities(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(ClientActivity::class, 'activity');
+    }
+
     public function getLatestActionTypeAttribute()
     {
         return __('lang.meeting');
