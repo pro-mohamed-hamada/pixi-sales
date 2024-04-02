@@ -145,6 +145,5 @@
                 "not_answered"=>'Not nswered',
                 "incoming"=>'Incoming',
                 "outgoing"=>'Outgoing'
-
 	]
 ?>

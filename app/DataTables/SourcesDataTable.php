@@ -63,8 +63,8 @@ class SourcesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('lang.id'),
-            Column::make('title')->title('lang.title'),
+            Column::make('id')->title(__('lang.id')),
+            Column::make('title')->title(__('lang.title')),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
