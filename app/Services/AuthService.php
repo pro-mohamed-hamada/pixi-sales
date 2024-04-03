@@ -16,7 +16,7 @@ class AuthService extends BaseService
 
     public function loginWithEmail(string $email, string $password, string $deviceSerial, bool $remember = false) :User|Model
     {
-        $credential = ['email'=>$email,'password'=>$password, 'type'=>UserTypeEnum::EMPLOYEE];
+        $credential = ['email'=>$email,'password'=>$password, 'type'=>[UserTypeEnum::SUPERADMIN, UserTypeEnum::EMPLOYEE]];
         if (!auth()->attempt(credentials: $credential, remember: $remember))
             return throw new NotFoundException(__('lang.login_failed'));
         $user = User::where('email', $email)->first();
