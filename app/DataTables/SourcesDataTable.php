@@ -32,7 +32,7 @@ class SourcesDataTable extends DataTable
      */
     public function query(SourceService $service): QueryBuilder
     {
-        return $service->queryGet();
+        return $service->queryGet(filters: $this->filters);
     }
 
     /**

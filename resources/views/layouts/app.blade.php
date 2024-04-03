@@ -53,12 +53,11 @@
             </div>
         @endif
         <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+        <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
         <script src="{{asset('js/js.js')}}"></script>
         @if(app()->isLocale('ar'))
         <script src="{{asset('js/rtl.js')}}"></script>
         @endif
-        <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
-        @stack('scripts')
 </body>
 <script>
         $(document).ready(function () {

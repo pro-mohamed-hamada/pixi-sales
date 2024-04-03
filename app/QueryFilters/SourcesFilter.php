@@ -12,6 +12,11 @@ class SourcesFilter extends QueryFilter
         parent::__construct($params);
     }
 
+    public function id($term)
+    {
+        return $this->builder->where('id',$term);
+    }
+
     public function title($term)
     {
         return $this->builder->where('title',$term);

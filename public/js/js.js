@@ -1,4 +1,4 @@
-$(document).ready(function(){
+// $(document).ready(function(){
     $(".sideBar-button").click(function(){
         $(".sideBar").toggle(300);
     });
@@ -97,7 +97,7 @@ $(document).ready(function(){
             }
         });
     });
-});
+// });
 
 
 

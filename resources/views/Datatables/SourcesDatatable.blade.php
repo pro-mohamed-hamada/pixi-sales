@@ -8,13 +8,9 @@
             </div>
 
             <div class="datatable table-responsive">
-                
-                {{ $dataTable->table() }}
+                {!! $dataTable->table(['class' => 'table-data table table-bordered text-nowrap border-bottom']) !!}
             </div>
             
         </div>
     </div>
 </div>
-    @push('scripts')
-        {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-    @endpush

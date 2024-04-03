@@ -25,7 +25,7 @@ class SourcesController extends Controller
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = [];
-        return $dataTable->render('Dashboard.Sources.index');
+        return $dataTable->with(['filters'=>$filters])->render('Dashboard.Sources.index');
     }//end of index
 
     public function edit(Request $request, $id)

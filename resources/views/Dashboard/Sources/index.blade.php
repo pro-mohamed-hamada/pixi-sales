@@ -8,25 +8,22 @@
                     <div class="card-header">{{ __('lang.sources_filters') }}</div>
 
                     <div class="card-body">
-                        
-                        <div class="filters">
-                            <div class="row mb-3 g-3">
-                                <div class="col-lg-4">
-                                    <label>fdfd</label>
-                                    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>fdfd</label>
-                                    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        <form class="datatables_parameters">
+                            <div class="filters">
+                                <div class="row mb-3 g-3">
+                                    <div class="col-lg-4">
+                                        <label>fdfd</label>
+                                        <input type="text" name="id" class="form-control" placeholder="Id" aria-label="First name">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div  class="filters-buttons">
-                            <div class="">
-                                <button class="btn btn-primary"><i class="fa fa-search"></i> {{__('lang.search')}}</button>
-                                <button class="btn btn-primary"><i class="fa fa-plus"></i> {{__('lang.reset')}}</button>
+                            <div  class="filters-buttons">
+                                <div class="">
+                                    <button class="search_datatable btn btn-primary"><i class="fa fa-search"></i> {{__('lang.search')}}</button>
+                                    <button class="reset_form_data btn btn-primary"><i class="fa fa-plus"></i> {{__('lang.reset')}}</button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
 
                     </div>
                 </div>
@@ -36,5 +33,8 @@
             @include('Datatables.SourcesDatatable');
             {{-- end Datatable --}}
         </div>
+        @endsection
+        @section("script")
+        @include('layouts.datatables-scripts')
         @endsection
    
