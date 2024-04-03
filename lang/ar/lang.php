@@ -144,7 +144,8 @@
                 "answered"=>'تم الرد',
                 "not_answered"=>'لم يتم الرد',
                 "incoming"=>'وارده',
-                "outgoing"=>'صادرة'
+                "outgoing"=>'صادرة',
+                "logo"=>'الشعار',
 
 	]
 ?>

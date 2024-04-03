@@ -144,6 +144,7 @@
                 "answered"=>'Answered',
                 "not_answered"=>'Not nswered',
                 "incoming"=>'Incoming',
-                "outgoing"=>'Outgoing'
+                "outgoing"=>'Outgoing',
+                "logo"=>'Logo',
 	]
 ?>

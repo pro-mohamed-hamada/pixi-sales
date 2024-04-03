@@ -48,6 +48,11 @@ class UserService extends BaseService
         $user = $this->getModel()->create($data);
         if (!$user)
             return false ;
+
+        if (isset($data['logo']))
+        {
+            $user->addMediaFromRequest('logo')->toMediaCollection('users');
+        }
         $userTargetsData = $this->prepareTargetsData($data);
         
         $user->targets()->createMany($userTargetsData);
@@ -110,6 +115,7 @@ class UserService extends BaseService
     public function destroy($id)
     {
         $user = $this->findById($id);
+        $user->clearMediaCollection('users');
         return $user->delete();
     } //end of delete
 

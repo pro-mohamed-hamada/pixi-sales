@@ -27,6 +27,7 @@ class UserStoreRequest extends FormRequest
             'email'=>'required|email',
             'password'=>'required|string|min:8|confirmed',
             'is_active'=>'nullable|string',
+            'logo'=>'nullable|file|image',
             
             'userDevices_device_serial'=>'nullable|array',
             'userDevices_device_serial.*'=>'required|string',

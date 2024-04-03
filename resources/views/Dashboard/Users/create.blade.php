@@ -10,7 +10,7 @@
                     <div class="card-body">
                         {{ session('message') }}
                         {{-- start create form --}}
-                        <form method="POST" action="{{ route('users.store') }}">
+                        <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3 g-3">
                                 
@@ -39,6 +39,13 @@
                                     <label>{{ __('lang.password_confirmation') }} *</label>
                                     <input type="password" name="password_confirmation" class="form-control">
                                     @error('password')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.logo') }} *</label>
+                                    <input type="file" name="logo" class="form-control">
+                                    @error('logo')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
