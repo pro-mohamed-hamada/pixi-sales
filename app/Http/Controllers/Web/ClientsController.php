@@ -11,6 +11,7 @@ use App\Http\Requests\Web\ClientStoreRequest;
 use App\Http\Requests\Web\ClientHistoryRequest;
 use App\Http\Requests\Web\ClientUpdateRequest;
 use App\Services\ClientServiceService;
+use App\Services\CountryService;
 use App\Services\GovernorateService;
 use App\Services\IndustryService;
 use App\Services\ReasonService;
@@ -21,7 +22,7 @@ use App\Services\UserService;
 class ClientsController extends Controller
 {
     public function __construct(private ClientService $clientService,
-    private GovernorateService $governorateService,
+    private CountryService $countryService,
     private ReasonService $reasonService,
     private SourceService $sourceService,
     private IndustryService $industryService,
@@ -51,24 +52,24 @@ class ClientsController extends Controller
         {
             return redirect()->back()->with("message", __('lang.not_found'));
         }
-        $governorates = $this->governorateService->getAll();//TODO: get only the active governorates
+        $countries = $this->countryService->getAll(filters: ['is_active'=>ActivationStatusEnum::ACTIVE]);
         $reasons = $this->reasonService->getAll();
         $sources = $this->sourceService->getAll();
         $industries = $this->industryService->getAll();
         $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
         $employees = $this->userService->getAll(filters: ['type'=>UserTypeEnum::EMPLOYEE]);
-        return view('Dashboard.Clients.edit', compact('governorates', 'client', 'reasons', 'services', 'sources', 'industries', 'employees'));
+        return view('Dashboard.Clients.edit', compact('countries', 'client', 'reasons', 'services', 'sources', 'industries', 'employees'));
     }//end of create
 
     public function create(Request $request)
     {
-        $governorates = $this->governorateService->getAll();//TODO: get only the active governorates
+        $countries = $this->countryService->getAll(filters: ['is_active'=>ActivationStatusEnum::ACTIVE]);
         $reasons = $this->reasonService->getAll();
         $sources = $this->sourceService->getAll();
         $industries = $this->industryService->getAll();
         $services = $this->serviceService->getAll(filters:['is_active'=>ActivationStatusEnum::ACTIVE]);
         $employees = $this->userService->getAll(filters: ['type'=>UserTypeEnum::EMPLOYEE]);
-        return view('Dashboard.Clients.create', compact('governorates', 'reasons', 'services', 'sources', 'industries', 'employees'));
+        return view('Dashboard.Clients.create', compact('countries', 'reasons', 'services', 'sources', 'industries', 'employees'));
     }//end of create
 
     public function store(ClientStoreRequest $request)

@@ -152,5 +152,6 @@
                 "slug"=>'Slug',
                 "code"=>'Code',
                 "edit_country"=>'Edit country',
+                "country"=>'Country',
 	]
 ?>

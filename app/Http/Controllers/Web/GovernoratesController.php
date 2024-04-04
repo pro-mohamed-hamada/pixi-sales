@@ -7,7 +7,9 @@ use App\Services\ClientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\GovernorateStoreRequest;
 use App\Http\Requests\Web\GovernorateUpdateRequest;
+use App\Http\Resources\GovernoratesResource;
 use App\Services\GovernorateService;
+use Exception;
 
 class GovernoratesController extends Controller
 {
@@ -25,6 +27,20 @@ class GovernoratesController extends Controller
         $withRelations = [];
         $governorates = $this->governorateService->getAll(filters: $filters, withRelations: $withRelations, perPage: 25);
         return View('Dashboard.Governorates.index', compact(['governorates']));
+    }//end of index
+
+    public function governoratesAjax(Request $request)
+    {
+        try{
+            $filters = $request->all();
+            $withRelations = [];
+            $cities = $this->governorateService->getAll(filters: $filters, withRelations: $withRelations);
+            return GovernoratesResource::collection($cities);
+    
+        }catch(Exception $e){
+            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        }
+        
     }//end of index
 
     public function edit(Request $request, $id)

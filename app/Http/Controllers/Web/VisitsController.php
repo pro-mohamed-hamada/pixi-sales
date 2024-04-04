@@ -9,12 +9,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\VisitStoreRequest;
 use App\Http\Requests\Web\VisitUpdateRequest;
 use App\Services\ClientService;
+use App\Services\CountryService;
 use App\Services\GovernorateService;
 use Exception;
 
 class VisitsController extends Controller
 {
-    public function __construct(private VisitService $visitService, private ClientService $clientService, private GovernorateService $governorateService)
+    public function __construct(private VisitService $visitService, private ClientService $clientService, private CountryService $countryService)
     {
 
     }
@@ -35,8 +36,8 @@ class VisitsController extends Controller
         try{
             $visit = $this->visitService->findById(id: $id);
             $clients = $this->clientService->getAll();
-            $governorates = $this->governorateService->getAll();
-            return view('Dashboard.Visits.edit', compact('visit', 'clients', 'governorates'));
+            $countries = $this->countryService->getAll(filters: ['is_active'=>ActivationStatusEnum::ACTIVE]);
+            return view('Dashboard.Visits.edit', compact('visit', 'clients', 'countries'));
         }catch(Exception $e){
             return redirect()->back()->with("message", $e->getMessage());
         }
@@ -45,8 +46,8 @@ class VisitsController extends Controller
     public function create(Request $request)
     {
         $clients = $this->clientService->getAll();//TODO: get only the active clients
-        $governorates = $this->governorateService->getAll();
-        return view('Dashboard.Visits.create', compact('clients', 'governorates'));
+        $countries = $this->countryService->getAll(filters: ['is_active'=>ActivationStatusEnum::ACTIVE]);
+        return view('Dashboard.Visits.create', compact('clients', 'countries'));
     }//end of create
 
     public function store(VisitStoreRequest $request)

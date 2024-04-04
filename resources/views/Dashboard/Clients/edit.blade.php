@@ -23,17 +23,25 @@
                                 @csrf
                                 <div class="row mb-3 g-3">
                                     <div class="col-lg-4">
+                                        <label>{{ __('lang.country') }} *</label>
+                                        <select id="countries" name="country_id" class="form-control">
+                                            <option selected disabled>{{ __("lang.choose") }}</option>
+                                            @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}" {{ $country->id == $client->city->governorate->country_id ? "selected":"" }}>{{ $country->name }}</option>
+                                            @endforeach
+                                        <select>
+                                    </div>
+                                    <div class="col-lg-4">
                                         <label>{{ __('lang.governorate') }} *</label>
                                         <select id="governorates" name="governorate_id" class="form-control">
-                                            <option selected disabled>{{ __("lang.choose") }}</option>
-                                            @foreach ($governorates as $governorate)
-                                                <option value="{{ $governorate->id }}">{{ $governorate->name }}</option>
+                                            @foreach ($client->city->governorate->country->governorates as $governorate)
+                                            <option value="{{ $governorate->id }}" {{ $governorate->id == $client->city->governorate_id ? "selected":"" }}>{{ $governorate->name }}</option>
                                             @endforeach
                                         <select>
                                     </div>
                                     <div class="col-lg-4">
                                         <label>{{ __('lang.city') }} *</label>
-                                        <select id="governorate_cities" name="city_id" class="form-control">
+                                        <select id="cities" name="city_id" class="form-control">
                                             @foreach($client->city->governorate->cities as $city)
                                                 <option value="{{ $city->id }}" {{ $city->id == $client->city_id ? "selected":"" }}>{{$city->name}}</option>
                                             @endforeach

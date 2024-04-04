@@ -53,6 +53,7 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('countries', CountriesController::class);
     Route::resource('governorates', GovernoratesController::class);
     Route::resource('cities', CitiesController::class);
+    Route::get('governorates-ajax', [GovernoratesController::class, 'governoratesAjax'])->name('governorates.ajax');
     Route::get('cities-ajax', [CitiesController::class, 'citiesAjax'])->name('cities.ajax');
     Route::resource('services', ServicesController::class);
     Route::resource('reasons', ReasonsController::class);

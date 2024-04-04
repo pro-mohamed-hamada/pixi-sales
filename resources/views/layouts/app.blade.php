@@ -60,10 +60,31 @@
         @endif
 </body>
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
+    $("#countries").change(function () {
+         var country_id = $(this).val();
+         $('#governorates').html('');
+        $.ajax({
+            url: '{{ route("governorates.ajax") }}',
+            type: 'get',
+            data:{'country_id': country_id},
+            success: function (res) {
+                if (res.data != null)
+                {
+                    $('#governorates').html('<option>please select</option>');
+                    $.each(res.data, function (key, value) {
+                        $('#governorates').append('<option value="' + value
+                            .id + '">' + value.name + '</option>');
+                    });
+                }else
+                $('#governorates').html('<option>please select</option>');
+
+            }
+        });
+    });
     $("#governorates").change(function () {
          var governorate_id = $(this).val();
-         $('#governorate_cities').html('');
+         $('#cities').html('');
         $.ajax({
             url: '{{ route("cities.ajax") }}',
             type: 'get',
@@ -71,13 +92,13 @@
             success: function (res) {
                 if (res.data != null)
                 {
-                    $('#governorate_cities').html('<option>please select</option>');
+                    $('#cities').html('<option>please select</option>');
                     $.each(res.data, function (key, value) {
-                        $('#governorate_cities').append('<option value="' + value
+                        $('#cities').append('<option value="' + value
                             .id + '">' + value.name + '</option>');
                     });
                 }else
-                $('#governorate_cities').html('<option>please select</option>');
+                $('#cities').html('<option>please select</option>');
 
             }
         });

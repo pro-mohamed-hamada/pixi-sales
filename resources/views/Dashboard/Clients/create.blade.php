@@ -22,17 +22,22 @@
                                 @csrf
                                 <div class="row mb-3 g-3">
                                     <div class="col-lg-4">
-                                        <label>{{ __('lang.governorate') }} *</label>
-                                        <select id="governorates" name="governorate_id" class="form-control">
+                                        <label>{{ __('lang.country') }} *</label>
+                                        <select id="countries" name="country_id" class="form-control">
                                             <option selected disabled>{{ __("lang.choose") }}</option>
-                                            @foreach ($governorates as $governorate)
-                                                <option value="{{ $governorate->id }}">{{ $governorate->name }}</option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
                                         <select>
                                     </div>
                                     <div class="col-lg-4">
+                                        <label>{{ __('lang.governorate') }} *</label>
+                                        <select id="governorates" name="governorate_id" class="form-control">
+                                        <select>
+                                    </div>
+                                    <div class="col-lg-4">
                                         <label>{{ __('lang.city') }} *</label>
-                                        <select id="governorate_cities" name="city_id" class="form-control">
+                                        <select id="cities" name="city_id" class="form-control">
                                             
                                         <select>
                                     </div>
