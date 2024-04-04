@@ -16,4 +16,9 @@ class Governorate extends Model
     {
         return $this->hasMany(City::class,  'governorate_id');
     }
+
+    public function country(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
 }
