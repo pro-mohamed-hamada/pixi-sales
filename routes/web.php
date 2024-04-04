@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\ClientsController;
 use App\Http\Controllers\Web\ActivityLogsController;
 use App\Http\Controllers\Web\CallsController;
+use App\Http\Controllers\Web\CountriesController;
 use App\Http\Controllers\Web\IndustriesController;
 use App\Http\Controllers\Web\LocalizationController;
 use App\Http\Controllers\Web\MeetingsController;
@@ -42,6 +43,7 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::post('clients/change-status/{id}', [ClientsController::class, 'changeStatus'])->name("clients.changeStatus");
     Route::resource('visits', VisitsController::class);
     Route::resource('activity-logs', ActivityLogsController::class);
+    Route::resource('countries', CountriesController::class);
     Route::resource('governorates', GovernoratesController::class);
     Route::resource('cities', CitiesController::class);
     Route::get('cities-ajax', [CitiesController::class, 'citiesAjax'])->name('cities.ajax');

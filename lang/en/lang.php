@@ -146,5 +146,11 @@
                 "incoming"=>'Incoming',
                 "outgoing"=>'Outgoing',
                 "logo"=>'Logo',
+                "countries"=>'Countries',
+                "countries_filters"=>'Countries filters',
+                "create_country"=>'Create country',
+                "slug"=>'Slug',
+                "code"=>'Code',
+                "edit_country"=>'Edit country',
 	]
 ?>

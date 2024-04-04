@@ -2,19 +2,20 @@
 
 namespace App\Services;
 
+use App\Enum\ActivationStatusEnum;
 use App\Exceptions\NotFoundException;
 use App\Models\Client;
 use App\QueryFilters\ClientsFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\BadRequestHttpException;
-use App\Models\Governorate;
-use App\QueryFilters\GovernoratesFilter;
+use App\Models\Country;
+use App\QueryFilters\CountriesFilter;
 use Illuminate\Database\Eloquent\Model;
 
-class GovernorateService extends BaseService
+class CountryService extends BaseService
 {
-    public function __construct(private Governorate $model){
+    public function __construct(private Country $model){
 
     }
 
@@ -25,8 +26,8 @@ class GovernorateService extends BaseService
 
     public function queryGet(array $filters = [] , array $withRelations = []) :builder
     {
-        $governorates = $this->getModel()->query()->with($withRelations);
-        return $governorates->filter(new GovernoratesFilter($filters));
+        $countries = $this->getModel()->query()->with($withRelations);
+        return $countries->filter(new CountriesFilter($filters));
     }
 
     public function getAll(array $filters = [] , array $withRelations =[], $perPage = null ): \Illuminate\Contracts\Pagination\CursorPaginator|\Illuminate\Database\Eloquent\Collection
@@ -39,19 +40,21 @@ class GovernorateService extends BaseService
 
     public function store(array $data = [])
     {
-        $governorate = $this->getModel()->create($data);
-        if (!$governorate)
+        $data['is_active'] = isset($data['is_active']) ? ActivationStatusEnum::ACTIVE:ActivationStatusEnum::NOT_ACTIVE;
+        $country = $this->getModel()->create($data);
+        if (!$country)
             return false ;
-        return $governorate;
+        return $country;
     } //end of store
 
     public function update($id, array $data = [])
     {
-        $governorate = $this->findById($id);
-        if (!$governorate)
+        $country = $this->findById($id);
+        if (!$country)
             return false ;
-        $governorate = $governorate->update($data);
-        return $governorate;
+        $data['is_active'] = isset($data['is_active']) ? ActivationStatusEnum::ACTIVE:ActivationStatusEnum::NOT_ACTIVE;
+        $country = $country->update($data);
+        return $country;
     } //end of update
 
     /**
@@ -59,8 +62,8 @@ class GovernorateService extends BaseService
      */
     public function destroy($id)
     {
-        $governorate = $this->findById($id);
-        return $governorate->delete();
+        $country = $this->findById($id);
+        return $country->delete();
     } //end of delete
 
     // public function status($id)

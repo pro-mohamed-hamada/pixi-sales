@@ -10,7 +10,7 @@ class Governorate extends Model
 {
     use HasFactory, Filterable;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'country_id'];
 
     public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

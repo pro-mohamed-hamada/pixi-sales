@@ -146,6 +146,12 @@
                 "incoming"=>'وارده',
                 "outgoing"=>'صادرة',
                 "logo"=>'الشعار',
+                "countries"=>'الدول',
+                "countries_filters"=>'فلترة الدول',
+                "create_country"=>'إنشاء دولة',
+                "slug"=>'Slug',
+                "code"=>'الكود',
+                "edit_country"=>'تعديل الدولة',
 
 	]
 ?>
