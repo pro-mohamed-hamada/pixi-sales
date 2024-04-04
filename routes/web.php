@@ -17,6 +17,7 @@ use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Web\VisitsController;
 use App\Http\Controllers\Web\WhatsappTemplatesController;
 use App\Http\Controllers\Web\WhatsappMessagesController;
+use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -31,6 +32,12 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Auth::routes(['register' => false]);
+
+Route::get('/test', function(){
+    $client = Client::first();
+    return formatPhone(phone: $client->phone, slug: $client?->city?->governorate?->country?->slug);
+
+});
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

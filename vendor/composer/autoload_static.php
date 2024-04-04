@@ -48,6 +48,10 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         array (
             'voku\\' => 5,
         ),
+        'l' => 
+        array (
+            'libphonenumber\\' => 15,
+        ),
         'Z' => 
         array (
             'ZipStream\\' => 10,
@@ -164,6 +168,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
             'GrahamCampbell\\ResultType\\' => 26,
+            'Giggsey\\Locale\\' => 15,
         ),
         'F' => 
         array (
@@ -205,17 +210,21 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
         ),
+        'libphonenumber\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src',
+        ),
         'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
         'Yajra\\DataTables\\' => 
         array (
-            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
-            1 => __DIR__ . '/..' . '/yajra/laravel-datatables-html/src',
+            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-buttons/src',
+            1 => __DIR__ . '/..' . '/yajra/laravel-datatables-editor/src',
             2 => __DIR__ . '/..' . '/yajra/laravel-datatables-fractal/src',
-            3 => __DIR__ . '/..' . '/yajra/laravel-datatables-editor/src',
-            4 => __DIR__ . '/..' . '/yajra/laravel-datatables-buttons/src',
+            3 => __DIR__ . '/..' . '/yajra/laravel-datatables-html/src',
+            4 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
         ),
         'Whoops\\' => 
         array (
@@ -536,6 +545,10 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
         ),
+        'Giggsey\\Locale\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/giggsey/locale/src',
+        ),
         'Fruitcake\\Cors\\' => 
         array (
             0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
@@ -604,6 +617,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
     public static $classMap = array (
         'App\\Abstracts\\QueryFilter' => __DIR__ . '/../..' . '/app/Abstracts/QueryFilter.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\DataTables\\SourcesDataTable' => __DIR__ . '/../..' . '/app/DataTables/SourcesDataTable.php',
         'App\\Enum\\ActionTypeEnum' => __DIR__ . '/../..' . '/app/Enum/ActionTypeEnum.php',
         'App\\Enum\\ActivationStatusEnum' => __DIR__ . '/../..' . '/app/Enum/ActivationStatusEnum.php',
         'App\\Enum\\CallStatusEnum' => __DIR__ . '/../..' . '/app/Enum/CallStatusEnum.php',
@@ -646,6 +660,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Http\\Controllers\\Web\\CitiesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/CitiesController.php',
         'App\\Http\\Controllers\\Web\\ClientServicesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/ClientServicesController.php',
         'App\\Http\\Controllers\\Web\\ClientsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/ClientsController.php',
+        'App\\Http\\Controllers\\Web\\CountriesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/CountriesController.php',
         'App\\Http\\Controllers\\Web\\GovernoratesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/GovernoratesController.php',
         'App\\Http\\Controllers\\Web\\IndustriesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/IndustriesController.php',
         'App\\Http\\Controllers\\Web\\LocalizationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/LocalizationController.php',
@@ -696,6 +711,8 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Http\\Requests\\Web\\ClientServiceUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Web/ClientServiceUpdateRequest.php',
         'App\\Http\\Requests\\Web\\ClientStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Web/ClientStoreRequest.php',
         'App\\Http\\Requests\\Web\\ClientUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Web/ClientUpdateRequest.php',
+        'App\\Http\\Requests\\Web\\CountryStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Web/CountryStoreRequest.php',
+        'App\\Http\\Requests\\Web\\CountryUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Web/CountryUpdateRequest.php',
         'App\\Http\\Requests\\Web\\GovernorateStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Web/GovernorateStoreRequest.php',
         'App\\Http\\Requests\\Web\\GovernorateUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Web/GovernorateUpdateRequest.php',
         'App\\Http\\Requests\\Web\\IndustryStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Web/IndustryStoreRequest.php',
@@ -726,6 +743,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Http\\Resources\\ClientResource' => __DIR__ . '/../..' . '/app/Http/Resources/ClientResource.php',
         'App\\Http\\Resources\\ClientServicesResource' => __DIR__ . '/../..' . '/app/Http/Resources/ClientServicesResource.php',
         'App\\Http\\Resources\\ClientsResource' => __DIR__ . '/../..' . '/app/Http/Resources/ClientsResource.php',
+        'App\\Http\\Resources\\CountriesResource' => __DIR__ . '/../..' . '/app/Http/Resources/CountriesResource.php',
         'App\\Http\\Resources\\GovernoratesResource' => __DIR__ . '/../..' . '/app/Http/Resources/GovernoratesResource.php',
         'App\\Http\\Resources\\HomeResource' => __DIR__ . '/../..' . '/app/Http/Resources/HomeResource.php',
         'App\\Http\\Resources\\IndustriesResource' => __DIR__ . '/../..' . '/app/Http/Resources/IndustriesResource.php',
@@ -753,6 +771,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Models\\ClientActivity' => __DIR__ . '/../..' . '/app/Models/ClientActivity.php',
         'App\\Models\\ClientHistory' => __DIR__ . '/../..' . '/app/Models/ClientHistory.php',
         'App\\Models\\ClientService' => __DIR__ . '/../..' . '/app/Models/ClientService.php',
+        'App\\Models\\Country' => __DIR__ . '/../..' . '/app/Models/Country.php',
         'App\\Models\\DeviceSerial' => __DIR__ . '/../..' . '/app/Models/DeviceSerial.php',
         'App\\Models\\Governorate' => __DIR__ . '/../..' . '/app/Models/Governorate.php',
         'App\\Models\\Industry' => __DIR__ . '/../..' . '/app/Models/Industry.php',
@@ -776,6 +795,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\QueryFilters\\CitiesFilter' => __DIR__ . '/../..' . '/app/QueryFilters/CitiesFilter.php',
         'App\\QueryFilters\\ClientServicesFilter' => __DIR__ . '/../..' . '/app/QueryFilters/ClientServicesFilter.php',
         'App\\QueryFilters\\ClientsFilter' => __DIR__ . '/../..' . '/app/QueryFilters/ClientsFilter.php',
+        'App\\QueryFilters\\CountriesFilter' => __DIR__ . '/../..' . '/app/QueryFilters/CountriesFilter.php',
         'App\\QueryFilters\\GovernoratesFilter' => __DIR__ . '/../..' . '/app/QueryFilters/GovernoratesFilter.php',
         'App\\QueryFilters\\IndustriesFilter' => __DIR__ . '/../..' . '/app/QueryFilters/IndustriesFilter.php',
         'App\\QueryFilters\\MeetingsFilter' => __DIR__ . '/../..' . '/app/QueryFilters/MeetingsFilter.php',
@@ -794,6 +814,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Services\\CityService' => __DIR__ . '/../..' . '/app/Services/CityService.php',
         'App\\Services\\ClientService' => __DIR__ . '/../..' . '/app/Services/ClientService.php',
         'App\\Services\\ClientServiceService' => __DIR__ . '/../..' . '/app/Services/ClientServiceService.php',
+        'App\\Services\\CountryService' => __DIR__ . '/../..' . '/app/Services/CountryService.php',
         'App\\Services\\GovernorateService' => __DIR__ . '/../..' . '/app/Services/GovernorateService.php',
         'App\\Services\\IndustryService' => __DIR__ . '/../..' . '/app/Services/IndustryService.php',
         'App\\Services\\MeetingService' => __DIR__ . '/../..' . '/app/Services/MeetingService.php',
@@ -923,6 +944,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'Database\\Seeders\\ActivityLogsSeeder' => __DIR__ . '/../..' . '/database/seeders/ActivityLogsSeeder.php',
         'Database\\Seeders\\CitiesSeeder' => __DIR__ . '/../..' . '/database/seeders/CitiesSeeder.php',
         'Database\\Seeders\\ClientsSeeder' => __DIR__ . '/../..' . '/database/seeders/ClientsSeeder.php',
+        'Database\\Seeders\\CountriesSeeder' => __DIR__ . '/../..' . '/database/seeders/CountriesSeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
         'Database\\Seeders\\DeviceSerialsSeeder' => __DIR__ . '/../..' . '/database/seeders/DeviceSerialsSeeder.php',
         'Database\\Seeders\\GovernoratesSeeder' => __DIR__ . '/../..' . '/database/seeders/GovernoratesSeeder.php',
@@ -1652,6 +1674,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'Faker\\ValidGenerator' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/ValidGenerator.php',
         'Fruitcake\\Cors\\CorsService' => __DIR__ . '/..' . '/fruitcake/php-cors/src/CorsService.php',
         'Fruitcake\\Cors\\Exceptions\\InvalidOptionException' => __DIR__ . '/..' . '/fruitcake/php-cors/src/Exceptions/InvalidOptionException.php',
+        'Giggsey\\Locale\\Locale' => __DIR__ . '/..' . '/giggsey/locale/src/Locale.php',
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',
         'GrahamCampbell\\ResultType\\Result' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Result.php',
         'GrahamCampbell\\ResultType\\Success' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Success.php',
@@ -7331,6 +7354,46 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'ZipStream\\Zip64\\ExtendedInformationExtraField' => __DIR__ . '/..' . '/maennchen/zipstream-php/src/Zip64/ExtendedInformationExtraField.php',
         'ZipStream\\ZipStream' => __DIR__ . '/..' . '/maennchen/zipstream-php/src/ZipStream.php',
         'ZipStream\\Zs\\ExtendedInformationExtraField' => __DIR__ . '/..' . '/maennchen/zipstream-php/src/Zs/ExtendedInformationExtraField.php',
+        'libphonenumber\\AlternateFormatsCountryCodeSet' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/AlternateFormatsCountryCodeSet.php',
+        'libphonenumber\\AsYouTypeFormatter' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/AsYouTypeFormatter.php',
+        'libphonenumber\\CountryCodeSource' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/CountryCodeSource.php',
+        'libphonenumber\\CountryCodeToRegionCodeMap' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/CountryCodeToRegionCodeMap.php',
+        'libphonenumber\\DefaultMetadataLoader' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/DefaultMetadataLoader.php',
+        'libphonenumber\\Leniency' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/Leniency.php',
+        'libphonenumber\\Leniency\\AbstractLeniency' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/Leniency/AbstractLeniency.php',
+        'libphonenumber\\Leniency\\ExactGrouping' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/Leniency/ExactGrouping.php',
+        'libphonenumber\\Leniency\\Possible' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/Leniency/Possible.php',
+        'libphonenumber\\Leniency\\StrictGrouping' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/Leniency/StrictGrouping.php',
+        'libphonenumber\\Leniency\\Valid' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/Leniency/Valid.php',
+        'libphonenumber\\MatchType' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/MatchType.php',
+        'libphonenumber\\Matcher' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/Matcher.php',
+        'libphonenumber\\MatcherAPIInterface' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/MatcherAPIInterface.php',
+        'libphonenumber\\MetadataLoaderInterface' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/MetadataLoaderInterface.php',
+        'libphonenumber\\MetadataSourceInterface' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/MetadataSourceInterface.php',
+        'libphonenumber\\MultiFileMetadataSourceImpl' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/MultiFileMetadataSourceImpl.php',
+        'libphonenumber\\NumberFormat' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/NumberFormat.php',
+        'libphonenumber\\NumberParseException' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/NumberParseException.php',
+        'libphonenumber\\PhoneMetadata' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneMetadata.php',
+        'libphonenumber\\PhoneNumber' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneNumber.php',
+        'libphonenumber\\PhoneNumberDesc' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneNumberDesc.php',
+        'libphonenumber\\PhoneNumberFormat' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneNumberFormat.php',
+        'libphonenumber\\PhoneNumberMatch' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneNumberMatch.php',
+        'libphonenumber\\PhoneNumberMatcher' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneNumberMatcher.php',
+        'libphonenumber\\PhoneNumberToCarrierMapper' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneNumberToCarrierMapper.php',
+        'libphonenumber\\PhoneNumberToTimeZonesMapper' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneNumberToTimeZonesMapper.php',
+        'libphonenumber\\PhoneNumberType' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneNumberType.php',
+        'libphonenumber\\PhoneNumberUtil' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/PhoneNumberUtil.php',
+        'libphonenumber\\RegexBasedMatcher' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/RegexBasedMatcher.php',
+        'libphonenumber\\RegionCode' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/RegionCode.php',
+        'libphonenumber\\ShortNumberCost' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/ShortNumberCost.php',
+        'libphonenumber\\ShortNumberInfo' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/ShortNumberInfo.php',
+        'libphonenumber\\ShortNumbersRegionCodeSet' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/ShortNumbersRegionCodeSet.php',
+        'libphonenumber\\ValidationResult' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/ValidationResult.php',
+        'libphonenumber\\geocoding\\PhoneNumberOfflineGeocoder' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/geocoding/PhoneNumberOfflineGeocoder.php',
+        'libphonenumber\\prefixmapper\\MappingFileProvider' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/prefixmapper/MappingFileProvider.php',
+        'libphonenumber\\prefixmapper\\PhonePrefixMap' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/prefixmapper/PhonePrefixMap.php',
+        'libphonenumber\\prefixmapper\\PrefixFileReader' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/prefixmapper/PrefixFileReader.php',
+        'libphonenumber\\prefixmapper\\PrefixTimeZonesMap' => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src/prefixmapper/PrefixTimeZonesMap.php',
         'voku\\helper\\ASCII' => __DIR__ . '/..' . '/voku/portable-ascii/src/voku/helper/ASCII.php',
     );
 

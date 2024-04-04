@@ -47,6 +47,16 @@ if (!function_exists('getLocale')) {
     }
 }
 
+if (!function_exists('formatPhone')) {
+
+    function formatPhone(string $phone, string $slug): string
+    {
+        $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+        $swissNumberProto = $phoneUtil->parse($phone, $slug);
+        return $phoneUtil->format($swissNumberProto, \libphonenumber\PhoneNumberFormat::E164);
+    }
+}
+
 if (!function_exists('userCan')) {
 
     function userCan(Request $request, string $permission)
