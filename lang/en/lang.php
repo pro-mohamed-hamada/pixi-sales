@@ -153,5 +153,8 @@
                 "code"=>'Code',
                 "edit_country"=>'Edit country',
                 "country"=>'Country',
+                "are_you_sure"=>'Are you sure',
+                "yes"=>'Yes',
+                "no"=>'No',
 	]
 ?>
