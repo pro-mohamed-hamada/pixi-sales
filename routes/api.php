@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ClientHistoriesController;
 use App\Http\Controllers\Api\GovernoratesController;
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\ClientServicesController;
+use App\Http\Controllers\Api\CountriesController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\IndustriesController;
 use App\Http\Controllers\Api\MeetingsController;
@@ -40,6 +41,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::get('users', [UsersController::class, 'index']);
     Route::put('task/done-undo/{id}', [HomeController::class, 'doneUndoTask']);
     Route::put('task/reschedule/{id}', [HomeController::class, 'taskReschedule']);
+    Route::get('countries', [CountriesController::class, 'index']);
     Route::get('governorates', [GovernoratesController::class, 'index']);
     Route::get('cities', [CitiesController::class, 'index']);
     Route::resource('clients', ClientsController::class);
