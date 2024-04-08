@@ -106,7 +106,11 @@ class UserService extends BaseService
             $user->clearMediaCollection('users');
             $user->addMediaFromRequest('logo')->toMediaCollection('users');
         }
-        return $user->update(Arr::except($data, 'logo'));
+        $status = $user->update(Arr::except($data, 'logo'));
+        $userDeviceSerialsData = $this->prepareDeviceSerialsData($data);
+        $user->deviceSerials()->delete();
+        $user->deviceSerials()->createMany($userDeviceSerialsData);
+        return$status;
     } //end of store
 
     /**
