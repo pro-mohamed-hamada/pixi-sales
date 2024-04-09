@@ -164,5 +164,6 @@
                 "service"=>'Service',
                 "added"=>'Added',
                 "updated"=>'Updated',
+                "activity_id"=>'Activity id',
 	]
 ?>
