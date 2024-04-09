@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\DataTables\CountriesDataTable;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
@@ -16,15 +17,15 @@ class CountriesController extends Controller
 
     }
 
-    public function index(Request $request)
+    public function index(CountriesDataTable $dataTable, Request $request)
     {
         
         $filters = array_filter($request->get('filters', []), function ($value) {
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = [];
-        $countries = $this->countryService->getAll(filters: $filters, withRelations: $withRelations, perPage: 25);
-        return View('Dashboard.Countries.index', compact(['countries']));
+        return $dataTable->with(['filters'=>$filters, 'withRelations'=>$withRelations])->render('Dashboard.Countries.index');
+
     }//end of index
 
     public function edit(Request $request, $id)
@@ -63,15 +64,15 @@ class CountriesController extends Controller
         }
     }//end of update
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         try {
             $result = $this->countryService->destroy($id);
-            if (!$result)
-                return redirect()->back()->with("message", __('lang.not_found'));
-            return redirect()->back()->with("message", __('lang.success_operation'));
+            if(!$result)
+                return apiResponse(message: trans('lang.not_found'),code: 404);
+            return apiResponse(message: trans('lang.success_operation'));
         } catch (\Exception $e) {
-            return redirect()->back()->with("message", $e->getMessage());
+            return apiResponse(message: $e->getMessage(),code: 422);
         }
     } //end of destroy
 

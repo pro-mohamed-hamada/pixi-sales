@@ -57,9 +57,11 @@
                                     <label>{{ __('lang.status') }} *</label>
                                     <select name="status" class="form-control">
                                         <option selected disabled>{{ __("lang.choose") }}</option>
-                                        @foreach ($clients as $client)
-                                            <option value="{{ \App\Enum\CallStatusEnum::ANSWERED }}">{{ __('lang.answered') }}</option>
-                                        @endforeach
+                                        <option value="{{ \App\Enum\CallStatusEnum::ANSWERED }}">{{ __('lang.answered') }}</option>
+                                        <option value="{{ \App\Enum\CallStatusEnum::NOT_ANSWERED }}">{{ __('lang.not_answered') }}</option>
+                                        <option value="{{ \App\Enum\CallStatusEnum::NOT_AVAILABLE }}">{{ __('lang.not_available') }}</option>
+                                        <option value="{{ \App\Enum\CallStatusEnum::PHONE_CLOSED }}">{{ __('lang.phone_closed') }}</option>
+                                        <option value="{{ \App\Enum\CallStatusEnum::ERROR_NUMBER }}">{{ __('lang.error_number') }}</option>
                                     <select>
                                     @error('status')
                                         <span class="error">{{ $message }}</span>

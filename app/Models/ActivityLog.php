@@ -11,7 +11,7 @@ class ActivityLog extends Model
     use HasFactory, Filterable;
 
     protected $fillable = [
-        'user_id'=>2,
+        'user_id',
         'start_work_time',
         'end_work_time',
         'hours',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\DataTables\CallsDataTable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ClientService;
@@ -20,11 +21,15 @@ class CallsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(CallsDataTable $dataTable, Request $request)
     {
-        $filters = $request->all();
-        $calls = $this->callService->getAll(filters: $filters, perPage: 10);
-        return View('Dashboard.Calls.index', compact(['calls']));
+
+        $filters = array_filter($request->get('filters', []), function ($value) {
+            return ($value !== null && $value !== false && $value !== '');
+        });
+        $withRelations = [];
+        return $dataTable->with(['filters'=>$filters, 'withRelations'=>$withRelations])->render('Dashboard.Calls.index');
+
     }
 
     /**
@@ -80,15 +85,15 @@ class CallsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, $id)
     {
         try {
             $result = $this->callService->destroy($id);
-            if (!$result)
-                return redirect()->back()->with("message", __('lang.not_found'));
-            return redirect()->back()->with("message", __('lang.success_operation'));
+            if(!$result)
+                return apiResponse(message: trans('lang.not_found'),code: 404);
+            return apiResponse(message: trans('lang.success_operation'));
         } catch (\Exception $e) {
-            return redirect()->back()->with("message", $e->getMessage());
+            return apiResponse(message: $e->getMessage(),code: 422);
         }
-    }
+    } //end of destroy
 }

@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Filterable;
+use App\Traits\IsActiveTrait;
+
 class Service extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, Filterable, IsActiveTrait;
 
     protected $fillable = ['name', 'is_active'];
 
@@ -17,8 +19,4 @@ class Service extends Model
         return $this->belongsToMany(Client::class, ClientService::class)->withPivot('price', 'next_action', 'next_action_date', 'comment');
     }
 
-    public function getISActiveAttribute()
-    {
-        return $this->getRawOriginal('is_active') ? __('lang.active'):__('lang.not_active');
-    }
 }

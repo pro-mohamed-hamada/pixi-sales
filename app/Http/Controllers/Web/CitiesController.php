@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\DataTables\CitiesDataTable;
 use App\Enum\ActivationStatusEnum;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
@@ -20,15 +21,15 @@ class CitiesController extends Controller
 
     }
 
-    public function index(Request $request)
+    public function index(CitiesDataTable $dataTable, Request $request)
     {
         
         $filters = array_filter($request->get('filters', []), function ($value) {
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = [];
-        $cities = $this->cityService->getAll(filters: $filters, withRelations: $withRelations, perPage: 100);
-        return View('Dashboard.Cities.index', compact(['cities']));
+        return $dataTable->with(['filters'=>$filters, 'withRelations'=>$withRelations])->render('Dashboard.Cities.index');
+
     }//end of index
 
     public function citiesAjax(Request $request)
@@ -83,15 +84,15 @@ class CitiesController extends Controller
         }
     }//end of update
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         try {
             $result = $this->cityService->destroy($id);
-            if (!$result)
-                return redirect()->back()->with("message", __('lang.not_found'));
-            return redirect()->back()->with("message", __('lang.success_operation'));
+            if(!$result)
+                return apiResponse(message: trans('lang.not_found'),code: 404);
+            return apiResponse(message: trans('lang.success_operation'));
         } catch (\Exception $e) {
-            return redirect()->back()->with("message", $e->getMessage());
+            return apiResponse(message: $e->getMessage(),code: 422);
         }
     } //end of destroy
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\DataTables\ClientsDataTable;
 use App\Enum\ActivationStatusEnum;
 use App\Enum\UserTypeEnum;
 use Illuminate\Http\Request;
@@ -33,16 +34,26 @@ class ClientsController extends Controller
 
     }
 
-    public function index(Request $request)
+    public function index(ClientsDataTable $dataTable, Request $request)
     {
         
         $filters = array_filter($request->get('filters', []), function ($value) {
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = ['latestStatus'];
-        $clients = $this->clientService->getAll(['filters'=>$filters, 'withRelations'=>$withRelations, 'perPage'=>25]);
-        return View('Dashboard.Clients.index', compact(['clients']));
+        return $dataTable->with(['filters'=>$filters, 'withRelations'=>$withRelations])->render('Dashboard.Clients.index');
+
     }//end of index
+
+    public function clientVisits(Request $request, $id)
+    {
+        $client = $this->clientService->findById(id: $id, withRelations:['visits']);
+        if (!$client)
+        {
+            return redirect()->back()->with("message", __('lang.not_found'));
+        }
+        return view('Datatables.ClientVisitsDatatable', compact('client'));
+    }//end of create
 
     public function edit(Request $request, $id)
     {
@@ -111,15 +122,15 @@ class ClientsController extends Controller
         }
     } //end of cleint services
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         try {
             $result = $this->clientService->destroy($id);
-            if (!$result)
-                return redirect()->back()->with("message", __('lang.not_found'));
-            return redirect()->back()->with("message", __('lang.success_operation'));
+            if(!$result)
+                return apiResponse(message: trans('lang.not_found'),code: 404);
+            return apiResponse(message: trans('lang.success_operation'));
         } catch (\Exception $e) {
-            return redirect()->back()->with("message", $e->getMessage());
+            return apiResponse(message: $e->getMessage(),code: 422);
         }
     } //end of destroy
 

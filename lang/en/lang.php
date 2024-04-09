@@ -156,5 +156,6 @@
                 "are_you_sure"=>'Are you sure',
                 "yes"=>'Yes',
                 "no"=>'No',
+                "targets"=>'Targets',
 	]
 ?>

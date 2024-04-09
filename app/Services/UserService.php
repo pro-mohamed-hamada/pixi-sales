@@ -100,16 +100,22 @@ class UserService extends BaseService
     {
         $data['is_active'] = isset($data['is_active']) ? ActivationStatusEnum::ACTIVE:ActivationStatusEnum::NOT_ACTIVE;
         $user = $this->findById(id: $id);
-        
+        DB::beginTransaction();
         if (isset($data['logo']))
         {
             $user->clearMediaCollection('users');
             $user->addMediaFromRequest('logo')->toMediaCollection('users');
         }
         $status = $user->update(Arr::except($data, 'logo'));
+        $userTargetsData = $this->prepareTargetsData($data);
+        
+        $user->targets()->delete();
+        $user->targets()->createMany($userTargetsData);
+
         $userDeviceSerialsData = $this->prepareDeviceSerialsData($data);
         $user->deviceSerials()->delete();
         $user->deviceSerials()->createMany($userDeviceSerialsData);
+        DB::commit();
         return$status;
     } //end of store
 

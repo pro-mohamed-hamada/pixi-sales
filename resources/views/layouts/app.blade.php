@@ -41,6 +41,7 @@
         <div class="load_content form-group text-center">
             <img class="load_image" src="{{asset('images/load_image.jpg')}}">
         </div>
+
         <div class="confirm_content form-group text-center">
             <div class="confirm_alert panel panel-primary">
                 <div class="panel-body">
@@ -50,13 +51,21 @@
                 </div>
               </div>
         </div>
-            {{-- start show photo section --}}
-            <div id="show_photo" class="text-center col-xs-12">
+        {{-- start show photo section --}}
+        <div id="show_photo" class="text-center col-xs-12">
+        
+        </div>
+        {{-- end update section --}}
+       
+        <div style="display: none" class="alert_message alert alert-success" role="alert">
             
-            </div>
-            <div style="display: none" class="alert_message alert alert-success" role="alert">
+        </div>
+        <div class=" displayView">
+            <div class="displayViewContent">
                 
             </div>
+            <button class="close btn btn-danger">X</button>     
+        </div>
     </div>
         {{-- end update section --}}
         

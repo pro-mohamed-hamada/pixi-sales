@@ -11,12 +11,13 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\EscapeUnicodeJson;
 use App\Traits\Filterable;
+use App\Traits\IsActiveTrait;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, InteractsWithMedia, HasFactory, Notifiable, Filterable, EscapeUnicodeJson;
+    use HasApiTokens, InteractsWithMedia, HasFactory, Notifiable, Filterable, EscapeUnicodeJson, IsActiveTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -118,11 +119,6 @@ class User extends Authenticatable implements HasMedia
     public function clientServices(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ClientService::class, 'added_by');
-    }
-
-    public function getISActiveAttribute()
-    {
-        return $this->getRawOriginal('is_active') ? __('lang.active'):__('lang.not_active');
     }
 
     public function increaseUserTarget(string $target)

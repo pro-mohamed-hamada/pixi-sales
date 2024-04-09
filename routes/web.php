@@ -45,6 +45,7 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::get('profile', [UsersController::class, 'profileView'])->name('profile.view');
     Route::put('profile', [UsersController::class, 'profile'])->name('profile.update');
     Route::resource('clients', ClientsController::class);
+    Route::get('client-visits/{id}', [ClientsController::class, 'clientVisits'])->name('client.visits');
     Route::resource('calls', CallsController::class)->except('show');
     Route::resource('meetings', MeetingsController::class)->except('show');
     Route::post('clients/change-status/{id}', [ClientsController::class, 'changeStatus'])->name("clients.changeStatus");
@@ -60,6 +61,7 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::resource('industries', IndustriesController::class);
     Route::resource('sources', SourcesController::class);
     Route::resource('users', UsersController::class);
+    Route::get('user-targets/{id}', [UsersController::class, 'userTargets'])->name('user.targets');
     Route::post('user-targets', [UsersController::class, 'userTargets'])->name('users.target');
     Route::resource('whatsapp-templates', WhatsappTemplatesController::class);
     Route::resource('whatsapp-messages', WhatsappMessagesController::class)->except(['update', 'edit', 'show']);

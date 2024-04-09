@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\DataTables\VisitsDataTable;
 use App\Enum\ActivationStatusEnum;
 use Illuminate\Http\Request;
 use App\Services\VisitService;
@@ -20,15 +21,15 @@ class VisitsController extends Controller
 
     }
 
-    public function index(Request $request)
+    public function index(VisitsDataTable $dataTable, Request $request)
     {
         
         $filters = array_filter($request->get('filters', []), function ($value) {
             return ($value !== null && $value !== false && $value !== '');
         });
         $withRelations = [];
-        $visits = $this->visitService->getAll(['filters'=>$filters, 'withRelations'=>$withRelations, 'perPage'=>1]);
-        return View('Dashboard.Visits.index', compact(['visits']));
+        return $dataTable->with(['filters'=>$filters, 'withRelations'=>$withRelations])->render('Dashboard.Visits.index');
+
     }//end of index
 
     public function edit(Request $request, $id)
@@ -73,15 +74,15 @@ class VisitsController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         try {
             $result = $this->visitService->destroy($id);
-            if (!$result)
-                return redirect()->back()->with("message", __('lang.not_found'));
-            return redirect()->back()->with("message", __('lang.success_operation'));
+            if(!$result)
+                return apiResponse(message: trans('lang.not_found'),code: 404);
+            return apiResponse(message: trans('lang.success_operation'));
         } catch (\Exception $e) {
-            return redirect()->back()->with("message", $e->getMessage());
+            return apiResponse(message: $e->getMessage(),code: 422);
         }
     } //end of destroy
 

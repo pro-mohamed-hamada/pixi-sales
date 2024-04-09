@@ -74,12 +74,12 @@
                                                         <label>{{ __('lang.target') }} *</label>
                                                         <select name="userTargets_target[]" class="form-control">
                                                             <option>{{ __('lang.choose_one') }}</option>
-                                                            <option value="{{ \App\Enum\TargetsEnum::VISIT }}" {{ $user_target->target ==  \App\Enum\TargetsEnum::VISIT ? "selected":""}}>{{ __('lang.visit') }}</option>
-                                                            <option value="{{ \App\Enum\TargetsEnum::PROPOSAL }}" {{ $user_target->target ==  \App\Enum\TargetsEnum::PROPOSAL ? "selected":""}}>{{ __('lang.proposal') }}</option>
-                                                            <option value="{{ \App\Enum\TargetsEnum::MEETING }}" {{ $user_target->target ==  \App\Enum\TargetsEnum::MEETING ? "selected":""}}>{{ __('lang.meeting') }}</option>
-                                                            <option value="{{ \App\Enum\TargetsEnum::CALL }}" {{ $user_target->target ==  \App\Enum\TargetsEnum::CALL ? "selected":""}}>{{ __('lang.call') }}</option>
-                                                            <option value="{{ \App\Enum\TargetsEnum::WHATSAPP_MESSAGE }}" {{ $user_target->target ==  \App\Enum\TargetsEnum::WHATSAPP_MESSAGE ? "selected":""}}>{{ __('lang.whatsapp_message') }}</option>
-                                                            <option value="{{ \App\Enum\TargetsEnum::CLIENT }}" {{ $user_target->target ==  \App\Enum\TargetsEnum::CLIENT ? "selected":""}}>{{ __('lang.client') }}</option>
+                                                            <option value="{{ \App\Enum\TargetsEnum::VISIT }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::VISIT ? "selected":""}}>{{ __('lang.visit') }}</option>
+                                                            <option value="{{ \App\Enum\TargetsEnum::PROPOSAL }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::PROPOSAL ? "selected":""}}>{{ __('lang.proposal') }}</option>
+                                                            <option value="{{ \App\Enum\TargetsEnum::MEETING }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::MEETING ? "selected":""}}>{{ __('lang.meeting') }}</option>
+                                                            <option value="{{ \App\Enum\TargetsEnum::CALL }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::CALL ? "selected":""}}>{{ __('lang.call') }}</option>
+                                                            <option value="{{ \App\Enum\TargetsEnum::WHATSAPP_MESSAGE }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::WHATSAPP_MESSAGE ? "selected":""}}>{{ __('lang.whatsapp_message') }}</option>
+                                                            <option value="{{ \App\Enum\TargetsEnum::CLIENT }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::CLIENT ? "selected":""}}>{{ __('lang.client') }}</option>
                                                         </select>
                                                         @error("userTargets_target[]")
                                                             <span class="error">{{ $message }}</span>
