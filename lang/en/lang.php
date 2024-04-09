@@ -157,5 +157,12 @@
                 "yes"=>'Yes',
                 "no"=>'No',
                 "targets"=>'Targets',
+                "activity"=>'Activity',
+                "activities"=>'Activities',
+                "created_at"=>'Created at',
+                "whatsapp_message"=>'Whatsapp message',
+                "service"=>'Service',
+                "added"=>'Added',
+                "updated"=>'Updated',
 	]
 ?>

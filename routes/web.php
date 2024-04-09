@@ -46,6 +46,7 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::put('profile', [UsersController::class, 'profile'])->name('profile.update');
     Route::resource('clients', ClientsController::class);
     Route::get('client-visits/{id}', [ClientsController::class, 'clientVisits'])->name('client.visits');
+    Route::get('client-activities/{id}', [ClientsController::class, 'clientActivities'])->name('client.activities');
     Route::resource('calls', CallsController::class)->except('show');
     Route::resource('meetings', MeetingsController::class)->except('show');
     Route::post('clients/change-status/{id}', [ClientsController::class, 'changeStatus'])->name("clients.changeStatus");

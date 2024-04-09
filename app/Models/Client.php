@@ -54,6 +54,12 @@ class Client extends Model
     {
         return $this->hasMany(Visit::class,  'client_id');
     }
+
+    public function activities(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ClientActivity::class,  'client_id');
+    }
+    
     public function History(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ClientHistory::class,  'client_id');

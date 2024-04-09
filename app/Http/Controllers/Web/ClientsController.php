@@ -55,6 +55,16 @@ class ClientsController extends Controller
         return view('Datatables.ClientVisitsDatatable', compact('client'));
     }//end of create
 
+    public function clientActivities(Request $request, $id)
+    {
+        $client = $this->clientService->findById(id: $id, withRelations:['activities']);
+        if (!$client)
+        {
+            return redirect()->back()->with("message", __('lang.not_found'));
+        }
+        return view('Datatables.ClientActivitiesDatatable', compact('client'));
+    }//end of create
+
     public function edit(Request $request, $id)
     {
 

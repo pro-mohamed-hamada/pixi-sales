@@ -157,5 +157,12 @@
                 "yes"=>'نعم',
                 "no"=>'لا',
                 "targets"=>'الاهداف',
+                "activity"=>'النشاط',
+                "activities"=>'الأنشطه',
+                "created_at"=>'إنشاء فى',
+                "whatsapp_message"=>'رسالة واتساب',
+                "service"=>'خدمه',
+                "added"=>'اضافة',
+                "updated"=>'تعديل',
 	]
 ?>

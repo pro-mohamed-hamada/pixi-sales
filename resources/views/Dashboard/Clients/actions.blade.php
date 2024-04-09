@@ -9,4 +9,5 @@
     <li class="list-group-item"><a href="{{ route('clients.edit', $model->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a></li>
     <li class="list-group-item"><a href="{{ route('clients.show', $model->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></li>
     <li class="list-group-item"><a href="{{ route('client.visits', $model->id) }}" class="has-data btn btn-primary">{{__('lang.visits')}}</a></li>
+    <li class="list-group-item"><a href="{{ route('client.activities', $model->id) }}" class="has-data btn btn-primary">{{__('lang.activities')}}</a></li>
 </ul>
