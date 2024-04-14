@@ -46,6 +46,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::get('governorates', [GovernoratesController::class, 'index']);
     Route::get('cities', [CitiesController::class, 'index']);
     Route::resource('clients', ClientsController::class);
+    Route::get('client-activities/{id}', [ClientsController::class, 'clientActivities']);
     Route::get('clients-on-call', [ClientsController::class, 'getClientOnCall']);
     Route::put('client-reassign/{id}', [ClientsController::class, 'reassignClient']);
     Route::post('clients/change-status/{id}', [ClientsController::class, 'changeStatus']);

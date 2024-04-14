@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Api\ClientStoreRequest;
 use App\Http\Requests\Api\ClientUpdateRequest;
 use App\Http\Requests\Api\ReassignClientRequest;
+use App\Http\Resources\ClientActivitiesResource;
 use App\Http\Resources\ClientOnCallResource;
 use App\Http\Resources\ClientsResource;
 use App\Services\ClientService;
@@ -33,6 +34,23 @@ class ClientsController extends Controller
         }
         
     }//end of index
+
+    public function clientActivities(Request $request, $id)
+    {
+        try{
+            $client = $this->clientService->findById(id: $id);
+            if(!$client)
+                return apiResponse(message: __('lang.not_founs'), code: 404);
+            $clientActivites = $client->activities()->orderBy('created_at', 'desc')->get();
+            if(!$clientActivites)
+                return apiResponse(message: __('lang.no_activities'), code: 404);
+            return ClientActivitiesResource::collection($clientActivites);
+    
+        }catch(Exception $e){
+            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+        }
+        
+    }//end of clientActivities
 
     public function getClientOnCall(Request $request)
     {
