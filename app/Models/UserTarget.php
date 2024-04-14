@@ -48,22 +48,22 @@ class UserTarget extends Model
         switch($this->getRawOriginal('target'))
         {
             case TargetsEnum::CALL:
-                return asset('images/call.jpg');
+                return asset('targets/calls.jpeg');
                 break;
             case TargetsEnum::CLIENT:
-                return asset('images/client.jpg');
+                return asset('targets/clients.jpeg');
                 break;
             case TargetsEnum::MEETING:
-                return asset('images/meeting.jpg');
+                return asset('targets/meetings.png');
                 break;
             case TargetsEnum::PROPOSAL:
-                return asset('images/proposal.jpg');
+                return asset('targets/proposals.png');
                 break;
             case TargetsEnum::VISIT:
-                return asset('images/visit.jpg');
+                return asset('targets/visits.jpeg');
                 break;
             case TargetsEnum::WHATSAPP_MESSAGE:
-                return asset('images/whatsapp_message.jpg');
+                return asset('targets/whatsapp_messages.jpeg');
                 break;
             default:
                 return "";

@@ -46,7 +46,7 @@ class Meeting extends Model
 
     public function getIconAttribute()
     {
-        return asset('images/meeting.jpg');
+        return asset('targets/meetings.png');
     }
 
 

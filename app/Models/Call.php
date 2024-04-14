@@ -87,7 +87,7 @@ class Call extends Model
     }
     public function getIconAttribute()
     {
-        return asset('images/call.jpg');
+        return asset('targets/calls.jpeg');
     }
         
 }

@@ -116,7 +116,7 @@ class Client extends Model
 
     public function getIconAttribute()
     {
-        return asset('images/client.jpg');
+        return asset('targets/clients.jpeg');
     }
 
     public function checkStatus(int $status)

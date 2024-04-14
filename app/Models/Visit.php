@@ -49,7 +49,7 @@ class Visit extends Model
 
     public function getIconAttribute()
     {
-        return asset('images/visit.jpg');
+        return asset('targets/visits.jpeg');
     }
 
 }
