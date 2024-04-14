@@ -39,6 +39,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::get('home', [HomeController::class, 'index']);
     Route::get('user/tasks', [HomeController::class, 'tasks']);
     Route::get('users', [UsersController::class, 'index']);
+    Route::get('user-recent-activities', [UsersController::class, 'recentActivities']);
     Route::put('task/done-undo/{id}', [HomeController::class, 'doneUndoTask']);
     Route::put('task/reschedule/{id}', [HomeController::class, 'taskReschedule']);
     Route::get('countries', [CountriesController::class, 'index']);
