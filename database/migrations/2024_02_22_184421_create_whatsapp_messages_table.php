@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->string('phone');
             $table->foreignId('added_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('person_position')->nullable();
             $table->timestamps();
         });
     }

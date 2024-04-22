@@ -21,6 +21,7 @@ class WhatsappMessagesResource extends JsonResource
             'title'=>$this->title,
             'content'=>$this->content,
             'phone'=>$this->phone,
+            'person_position'=>$this->person_position,
             'whatsapp_url'=>"https://wa.me/".formatPhone(phone: $this->phone, slug: $this->client?->city?->governorate?->country?->slug)."?text=".$this->content,
         ];
     }

@@ -20,6 +20,7 @@ class ClientService extends Model
         'next_action_date',
         'added_by',
         'is_done',
+        'person_position',
     ];
 
     public function activities(): \Illuminate\Database\Eloquent\Relations\MorphMany

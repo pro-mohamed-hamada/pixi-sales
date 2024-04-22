@@ -30,6 +30,7 @@ class VisitUpdateRequest extends FormRequest
             'next_action'=>'nullable|required_with:next_action_date|integer|in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::MEETING.','.ActionTypeEnum::WHATSAPP.','.ActionTypeEnum::VISIT,
             'next_action_date'=>'nullable|required_with:next_action|date|after:'.Carbon::now(),
             'comment'=>'nullable|string',
+            'person_position'=>'nullable|string',
         ];
     }
 }

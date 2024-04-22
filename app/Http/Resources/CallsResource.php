@@ -23,6 +23,7 @@ class CallsResource extends JsonResource
             'comment'=>$this->comment,
             'next_action'=>$this->next_action,
             'next_action_date'=>$this->next_action_date,
+            'person_position'=>$this->person_position,
             'whatsapp_templates'=>WhatsappTemplate::where('action', 'CALL')->select('id', 'title', 'content')->get(),
         ];
     }

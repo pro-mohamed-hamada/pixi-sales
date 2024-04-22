@@ -36,6 +36,13 @@
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.person_position') }} *</label>
+                                    <input type="text" name="person_position" class="form-control">
+                                    @error('person_position')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="row mb-3 g-3">
                                 <div class="">

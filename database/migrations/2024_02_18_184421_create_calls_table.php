@@ -25,6 +25,7 @@ return new class extends Migration
             $table->dateTime('next_action_date')->nullable();
             $table->foreignId('added_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->boolean('is_done')->default(TaskStatusEnum::NOT_DONE);
+            $table->string('person_position')->nullable();
             $table->timestamps();
         });
     }

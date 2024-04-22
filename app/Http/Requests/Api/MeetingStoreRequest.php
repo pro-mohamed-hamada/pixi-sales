@@ -31,6 +31,7 @@ class MeetingStoreRequest extends FormRequest
             'next_action_date'=>'nullable|required_with:next_action|date|after:'.Carbon::now(),
             'client_id'=>'required|integer|exists:clients,id',
             'comment'=>'nullable|string',
+            'person_position'=>'nullable|string',
         ];
     }
 }

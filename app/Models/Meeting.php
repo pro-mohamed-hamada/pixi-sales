@@ -21,6 +21,7 @@ class Meeting extends Model
         'comment',
         'added_by',
         'is_done',
+        'person_position',
     ];
 
     public function activities(): \Illuminate\Database\Eloquent\Relations\MorphMany

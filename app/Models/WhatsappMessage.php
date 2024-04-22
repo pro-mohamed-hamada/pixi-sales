@@ -19,6 +19,7 @@ class WhatsappMessage extends Model
         'content',
         'phone',
         'added_by',
+        'person_position',
     ];
 
     public function activities(): \Illuminate\Database\Eloquent\Relations\MorphMany

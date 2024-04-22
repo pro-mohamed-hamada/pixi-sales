@@ -35,7 +35,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/test', function(){
     $client = Client::first();
-    return formatPhone(phone: $client->phone, slug: $client?->city?->governorate?->country?->slug);
+    return formatPhone(phone: "+21152204422", slug: $client?->city?->governorate?->country?->slug);
 
 });
 

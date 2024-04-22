@@ -15,7 +15,7 @@ class CountriesSeeder extends Seeder
     {
         Country::create([
             'name'=>'مصر',
-            'slug'=>'ُEG',
+            'slug'=>'EG',
             'code'=>'20',
         ]);
         

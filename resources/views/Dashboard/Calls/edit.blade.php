@@ -77,6 +77,13 @@
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.person_position') }} *</label>
+                                    <input type="text" name="person_position" value="{{ $call->person_position }}" class="form-control">
+                                    @error('person_position')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 <div class="col-lg-12">
                                     <label>{{ __('lang.comment') }} *</label>
                                     <textarea name="comment" class="form-control">{{ $call->comment }}</textarea>

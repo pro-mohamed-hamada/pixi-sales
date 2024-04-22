@@ -26,6 +26,7 @@ class WhatsappMessageStoreRequest extends FormRequest
         return [
             'whatsapp_template_id'=>'nullable|integer|exists:whatsapp_templates,id',
             'client_id'=>'required|integer|exists:clients,id',
+            'person_position'=>'nullable|string',
         ];
     }
 }

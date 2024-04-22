@@ -22,6 +22,7 @@ class VisitsResource extends JsonResource
             "next_action"=>$this->next_action,
             "next_action_date"=>$this->next_action_date,
             "comment"=>$this->comment,
+            "person_position"=>$this->person_position,
             'whatsapp_templates'=>WhatsappTemplate::where('action', 'VISIT')->select('id', 'title', 'content')->get(),
         ];
     }

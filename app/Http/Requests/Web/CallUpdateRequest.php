@@ -33,6 +33,7 @@ class CallUpdateRequest extends FormRequest
             'status'=>'required|in:'.CallStatusEnum::ANSWERED.','.CallStatusEnum::NOT_ANSWERED.','.CallStatusEnum::NOT_AVAILABLE.','.CallStatusEnum::PHONE_CLOSED.','.CallStatusEnum::ERROR_NUMBER,
             'comment'=>'nullable|string',
             'client_id'=>'required|integer|exists:clients,id',
+            'person_position'=>'nullable|string',
         ];
     }
 }
