@@ -25,7 +25,7 @@ class UserUpdateRequest extends FormRequest
         return [
             'name'=>'required|string',
             'email'=>'required|email',
-            'password'=>'required|string|min:8|confirmed',
+            'password'=>'nullable|string|min:8|confirmed',
             'is_active'=>'nullable|string',
             'logo'=>'nullable|file|image',
 

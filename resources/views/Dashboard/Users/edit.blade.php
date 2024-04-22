@@ -30,21 +30,21 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>{{ __('lang.password') }} *</label>
+                                    <label>{{ __('lang.password') }}</label>
                                     <input type="password" name="password" class="form-control">
                                     @error('password')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>{{ __('lang.password_confirmation') }} *</label>
+                                    <label>{{ __('lang.password_confirmation') }}</label>
                                     <input type="password" name="password_confirmation" class="form-control">
                                     @error('password')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>{{ __('lang.logo') }} *</label>
+                                    <label>{{ __('lang.logo') }}</label>
                                     <input type="file" name="logo" class="form-control">
                                     @error('logo')
                                         <span class="error">{{ $message }}</span>

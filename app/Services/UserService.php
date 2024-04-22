@@ -106,6 +106,7 @@ class UserService extends BaseService
             $user->clearMediaCollection('users');
             $user->addMediaFromRequest('logo')->toMediaCollection('users');
         }
+        $data = isset($data['password']) ? $data:Arr::except($data, 'password');
         $status = $user->update(Arr::except($data, 'logo'));
         $userTargetsData = $this->prepareTargetsData($data);
         

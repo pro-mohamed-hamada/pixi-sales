@@ -43,7 +43,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>{{ __('lang.logo') }} *</label>
+                                    <label>{{ __('lang.logo') }}</label>
                                     <input type="file" name="logo" class="form-control">
                                     @error('logo')
                                         <span class="error">{{ $message }}</span>
