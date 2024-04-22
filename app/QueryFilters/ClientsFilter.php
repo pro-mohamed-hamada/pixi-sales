@@ -15,12 +15,12 @@ class ClientsFilter extends QueryFilter
 
     public function phone($term)
     {
-        return $this->builder->where('phone', $term);
+        return $this->builder->where('phone', 'like', '%'.$term);
     }
 
     public function other_person_phone($term)
     {
-        return $this->builder->where('other_person_phone', $term);
+        return $this->builder->where('other_person_phone', 'like', '%'.$term);
     }
 
     public function keyword($term)
