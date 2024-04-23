@@ -58,18 +58,18 @@ class AuthController extends Controller
             return apiResponse(message: __('lang.something_went_wrong'), code:442);
         }
     }
-    public function userTarget()
-    {
-        try {
+    // public function userTarget()
+    // {
+    //     try {
             
-            $user = $this->authService->userTarget();
-            if(!$user)
-                return apiResponse(message: __('lang.something_went_wrong'), code: 442);
-            return apiResponse(data: new AuthUserResource($user), message: __('lang.success_operation'));
-        } catch (Exception|NotFoundException $e) {
-            return apiResponse(message: $e->getMessage(), code:442);
-        }
-    }
+    //         $user = $this->authService->userTarget();
+    //         if(!$user)
+    //             return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+    //         return apiResponse(data: new AuthUserResource($user), message: __('lang.success_operation'));
+    //     } catch (Exception|NotFoundException $e) {
+    //         return apiResponse(message: $e->getMessage(), code:442);
+    //     }
+    // }
 
     public function updateProfileLogo(UpdateProfileLogoRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {

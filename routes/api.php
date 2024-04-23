@@ -61,7 +61,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::post('start-work',      [AuthController::class, 'startWork']);
     Route::post('end-work',      [AuthController::class, 'endWork']);
     Route::get('authuser',      [AuthController::class, 'authUser']);
-    Route::get('user/target',  [AuthController::class, 'userTarget']);
+    // Route::get('user/target',  [AuthController::class, 'userTarget']);
     Route::get('reasons', [ReasonsController::class, 'index']);
     Route::get('sources', [SourcesController::class, 'index']);
     Route::get('industries', [IndustriesController::class, 'index']);
