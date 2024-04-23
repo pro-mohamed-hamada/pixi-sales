@@ -16,7 +16,7 @@
                         
                     </thead>
                     <tbody>
-                        @foreach ($user->targets as $target)
+                        @foreach ($user->targets->where('created_at', '>=', \Carbon\Carbon::now()->subMonth()) as $target)
                         <tr>
                             <td>{{ $target->id }}</td>
                             <td>{{ $target->target }}</td>

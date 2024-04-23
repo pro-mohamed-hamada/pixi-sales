@@ -64,7 +64,7 @@
                                     <div class="mb-3">
                                         <button id="add-target" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('lang.add_target')}}</button>
                                     </div>
-                                    @foreach ($user->targets as $user_target)
+                                    @foreach ($user->targets->where('created_at', '>=', \Carbon\Carbon::now()->subMonth()) as $user_target)
                                     <div class="mb-3 target">
                                         <div class="card">
                                             <div class="card-body">

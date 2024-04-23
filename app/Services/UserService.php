@@ -110,7 +110,7 @@ class UserService extends BaseService
         $status = $user->update(Arr::except($data, 'logo'));
         $userTargetsData = $this->prepareTargetsData($data);
         
-        $user->targets()->delete();
+        $user->targets()->where('created_at', '>=', Carbon::now()->subMonth())->delete();
         $user->targets()->createMany($userTargetsData);
 
         $userDeviceSerialsData = $this->prepareDeviceSerialsData($data);

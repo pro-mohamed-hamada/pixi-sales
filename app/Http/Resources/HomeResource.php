@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Enum\TargetsEnum;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,7 +23,7 @@ class HomeResource extends JsonResource
                  "email"=> $this->email,
                  "latest_status"=>$this->whenLoaded('latestStatus', new UserLatestStatusResource($this->latestStatus), null)
              ],
-             "user_target"=>$this->whenLoaded("targets", UserTargetsResource::collection($this->targets)),
+             "user_target"=>$this->whenLoaded("targets", UserTargetsResource::collection($this->targets->where('created_at', '>=', Carbon::now()->subMonth()))),
              "personal_achievements"=>$this->whenLoaded("targets",
              [
                  "visits"=>[

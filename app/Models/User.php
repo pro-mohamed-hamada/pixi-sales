@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Traits\EscapeUnicodeJson;
 use App\Traits\Filterable;
 use App\Traits\IsActiveTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -123,7 +124,7 @@ class User extends Authenticatable implements HasMedia
 
     public function increaseUserTarget(string $target)
     {
-        $target = $this->targets()->where('target', $target)->first();
+        $target = $this->targets()->where('created_at', '>=', Carbon::now()->subMonth())->where('target', $target)->first();
         if($target)
         {
             $target->target_done = $target->target_done + 1;
@@ -134,7 +135,7 @@ class User extends Authenticatable implements HasMedia
     public function decreaseUserTarget(string $target)
     {
 
-        $target = $this->targets()->where('target', $target)->first();
+        $target = $this->targets()->where('created_at', '>=', Carbon::now()->subMonth())->where('target', $target)->first();
         if($target)
         {
             $target->target_done = $target->target_done - 1;

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\NotFoundException;
 use App\Enum\UserTypeEnum;
+use App\QueryFilters\ClientsFilter;
 use Carbon\Carbon;
 
 class AuthService extends BaseService
@@ -16,7 +17,7 @@ class AuthService extends BaseService
 
     public function loginWithEmail(string $email, string $password, string $deviceSerial, bool $remember = false) :User|Model
     {
-        $credential = ['email'=>$email,'password'=>$password, 'type'=>[UserTypeEnum::SUPERADMIN, UserTypeEnum::EMPLOYEE]];
+        $credential = ['email'=>$email,'password'=>$password, 'type'=>[UserTypeEnum::MANAGER, UserTypeEnum::EMPLOYEE]];
         if (!auth()->attempt(credentials: $credential, remember: $remember))
             return throw new NotFoundException(__('lang.login_failed'));
         $user = User::where('email', $email)->first();
@@ -63,7 +64,7 @@ class AuthService extends BaseService
         $user = auth::user();
         if(!$user)
             return false;
-        return $user->load('targets');
+        return $user->load('targets')->where('created_at', '>=', Carbon::now()->subMonth());
     }
 
     public function updateProfileLogo(array $data)
