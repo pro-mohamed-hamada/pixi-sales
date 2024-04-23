@@ -17,6 +17,10 @@ class ClientsFilter extends QueryFilter
     {
         return $this->builder->where('phone', 'like', '%'.$term);
     }
+    public function call_phone($term)
+    {
+        return $this->builder->where('phone', 'like', '%'.$term)->orWhere('other_person_phone', 'like', '%'.$term);
+    }
 
     public function other_person_phone($term)
     {
