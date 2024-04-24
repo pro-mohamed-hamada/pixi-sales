@@ -50,6 +50,10 @@ class HomeResource extends JsonResource
                      "target_value" => $this->targets()->where('target', (string)TargetsEnum::WHATSAPP_MESSAGE)->sum('target_value'),
                      "target_done" => $this->targets()->where('target', (string)TargetsEnum::WHATSAPP_MESSAGE)->sum('target_done'),
                  ],
+                 "amounts"=>[
+                     "target_value" => $this->targets()->where('target', (string)TargetsEnum::AMOUNT)->sum('target_value'),
+                     "target_done" => $this->targets()->where('target', (string)TargetsEnum::AMOUNT)->sum('target_done'),
+                 ],
              ]
              , null),
             'recent_activities'=>$this->getRecentActivities()

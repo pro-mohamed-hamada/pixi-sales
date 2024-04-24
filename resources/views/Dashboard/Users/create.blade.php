@@ -106,6 +106,7 @@
                                     <option value="{{ \App\Enum\TargetsEnum::CALL }}">{{ __('lang.call') }}</option>
                                     <option value="{{ \App\Enum\TargetsEnum::WHATSAPP_MESSAGE }}">{{ __('lang.whatsapp_message') }}</option>
                                     <option value="{{ \App\Enum\TargetsEnum::CLIENT }}">{{ __('lang.client') }}</option>
+                                    <option value="{{ \App\Enum\TargetsEnum::AMOUNT }}">{{ __('lang.amount') }}</option>
                                 </select>
                                 @error("userTargets_target[]")
                                     <span class="error">{{ $message }}</span>

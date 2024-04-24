@@ -80,6 +80,7 @@
                                                             <option value="{{ \App\Enum\TargetsEnum::CALL }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::CALL ? "selected":""}}>{{ __('lang.call') }}</option>
                                                             <option value="{{ \App\Enum\TargetsEnum::WHATSAPP_MESSAGE }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::WHATSAPP_MESSAGE ? "selected":""}}>{{ __('lang.whatsapp_message') }}</option>
                                                             <option value="{{ \App\Enum\TargetsEnum::CLIENT }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::CLIENT ? "selected":""}}>{{ __('lang.client') }}</option>
+                                                            <option value="{{ \App\Enum\TargetsEnum::AMOUNT }}" {{ $user_target->getRawOriginal('target') ==  \App\Enum\TargetsEnum::AMOUNT ? "selected":""}}>{{ __('lang.amount') }}</option>
                                                         </select>
                                                         @error("userTargets_target[]")
                                                             <span class="error">{{ $message }}</span>
@@ -177,6 +178,7 @@
                                     <option value="{{ \App\Enum\TargetsEnum::CALL }}">{{ __('lang.call') }}</option>
                                     <option value="{{ \App\Enum\TargetsEnum::WHATSAPP_MESSAGE }}">{{ __('lang.whatsapp_message') }}</option>
                                     <option value="{{ \App\Enum\TargetsEnum::CLIENT }}">{{ __('lang.client') }}</option>
+                                    <option value="{{ \App\Enum\TargetsEnum::AMOUNT }}">{{ __('lang.amount') }}</option>
                                 </select>
                                 @error("userTargets_target[]")
                                     <span class="error">{{ $message }}</span>

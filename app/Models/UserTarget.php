@@ -39,6 +39,9 @@ class UserTarget extends Model
             case TargetsEnum::WHATSAPP_MESSAGE:
                 return __('lang.whatsapp_messages');
                 break;
+            case TargetsEnum::AMOUNT:
+                return __('lang.amounts');
+                break;
             default:
                 return "";
         }
@@ -64,6 +67,9 @@ class UserTarget extends Model
                 break;
             case TargetsEnum::WHATSAPP_MESSAGE:
                 return asset('targets/whatsapp_messages.jpeg');
+                break;
+            case TargetsEnum::AMOUNT:
+                return asset('targets/amounts.png');
                 break;
             default:
                 return "";

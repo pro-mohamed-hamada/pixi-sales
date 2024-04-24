@@ -53,6 +53,17 @@ class ClientService extends BaseService
         //start add the client status
         $statusData = $this->prepareStatusData(data: $data);
         $client->history()->create($statusData);
+        $clientStatus = $statusData == ClientStatusEnum::CLOSED ? 1:0;
+        if($clientStatus)
+        {
+            $clientServicesTotalPrice = 0;
+            foreach($client->services as $service)
+            {
+                $clientServicesTotalPrice += $service->pivot->price;
+            }
+            $user = auth('sanctum')->user();
+            $user->increaseUserTarget(TargetsEnum::AMOUNT, $clientServicesTotalPrice);
+        }
         //end add the client status
         
         // start add the client services
@@ -112,6 +123,20 @@ class ClientService extends BaseService
         $client = $this->findById($id);
         // $this->checkClientLatestStatus(client: $client, newStatus: $data['status']);
         $client->history()->create($data);
+        
+        
+        $clientStatus = $data['status'] == ClientStatusEnum::CLOSED ? 1:0;
+        if($clientStatus)
+        {
+            $clientServicesTotalPrice = 0;
+            foreach($client->services as $service)
+            {
+                $clientServicesTotalPrice += $service->pivot->price;
+            }
+            $user = auth('sanctum')->user();
+            $user->increaseUserTarget(TargetsEnum::AMOUNT, $clientServicesTotalPrice);
+        }
+
         if (!$client)
             return false ;
         return true;
@@ -135,7 +160,20 @@ class ClientService extends BaseService
         //start add the client status
         $statusData = $this->prepareStatusData(data: $data);
         if($statusData)
+        {
             $client->history()->create($statusData);
+            $clientStatus = $statusData == ClientStatusEnum::CLOSED ? 1:0;
+            if($clientStatus)
+            {
+                $clientServicesTotalPrice = 0;
+                foreach($client->services as $service)
+                {
+                    $clientServicesTotalPrice += $service->pivot->price;
+                }
+                $user = auth('sanctum')->user();
+                $user->increaseUserTarget(TargetsEnum::AMOUNT, $clientServicesTotalPrice);
+            }
+        }
         //end add the client status
         
         // start add the client services

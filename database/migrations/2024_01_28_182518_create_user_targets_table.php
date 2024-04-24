@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('user_targets', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('target', [TargetsEnum::CALL, TargetsEnum::VISIT, TargetsEnum::MEETING, TargetsEnum::PROPOSAL, TargetsEnum::WHATSAPP_MESSAGE, TargetsEnum::CLIENT]);
+            $table->enum('target', [TargetsEnum::CALL, TargetsEnum::VISIT, TargetsEnum::MEETING, TargetsEnum::PROPOSAL, TargetsEnum::WHATSAPP_MESSAGE, TargetsEnum::CLIENT, TargetsEnum::AMOUNT]);
             $table->integer('target_value');
             $table->integer('target_done')->default(0);
             $table->timestamps();

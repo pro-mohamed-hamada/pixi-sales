@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enum\TargetsEnum;
+use App\Enum\UserTypeEnum;
 use App\Http\Resources\RecentActivitiesResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -122,14 +124,24 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(ClientService::class, 'added_by');
     }
 
-    public function increaseUserTarget(string $target)
+    public function increaseUserTarget(string $target, $clientServicesTotalPrice = 0)
     {
-        $target = $this->targets()->where('created_at', '>=', Carbon::now()->subMonth())->where('target', $target)->first();
-        if($target)
+        if($this->getRawOriginal('type') == UserTypeEnum::EMPLOYEE)
         {
-            $target->target_done = $target->target_done + 1;
-            $target->save();
+            $target = $this->targets()->where('created_at', '>=', Carbon::now()->subMonth())->where('target', $target)->first();
+            if($target)
+            {
+                if($target->getRawOriginal('target') == TargetsEnum::AMOUNT)
+                {
+                    $target->target_done = $target->target_done + $clientServicesTotalPrice;
+                    $target->save();
+                }else{
+                    $target->target_done = $target->target_done + 1;
+                    $target->save();
+                }
+            }
         }
+        
     }
 
     public function decreaseUserTarget(string $target)

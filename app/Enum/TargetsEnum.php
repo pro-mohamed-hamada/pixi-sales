@@ -10,4 +10,5 @@ class TargetsEnum
     const CALL = 4;
     const WHATSAPP_MESSAGE = 5;
     const CLIENT = 6;
+    const AMOUNT = 7;
 }
