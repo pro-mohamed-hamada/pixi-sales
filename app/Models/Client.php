@@ -28,6 +28,8 @@ class Client extends Model
         'source_id',
         'added_by',
         'assigned_to',
+        'lat',
+        'lng',
     ];
 
     public function city(): \Illuminate\Database\Eloquent\Relations\belongsTo
