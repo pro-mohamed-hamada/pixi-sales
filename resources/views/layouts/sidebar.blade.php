@@ -27,5 +27,8 @@
                 <li><a class="list-group-item" href="{{route('meetings.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.meetings") }}</a></li>
                 <li><a class="list-group-item" href="{{route('whatsapp-templates.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.whatsapp_templates") }}</a></li>
                 <li><a class="list-group-item" href="{{route('whatsapp-messages.index')}}"></span> <span class="fa fa-users"></span> <span>{{ __("lang.whatsapp_messages") }}</a></li>
+                <li><a class="list-group-item" href="{{route('fcm-messages.index')}}"></span> <span class="fa fa-comment"></span> <span>{{ __("lang.fcm_messages") }}</a></li>
+                <li><a class="list-group-item" href="{{route('fcm.liveFcmMessageView')}}"></span> <span class="fa fa-send"></span> <span>{{ __("lang.live_fcm") }}</a></li>
+                <li><a class="list-group-item" href="{{route('schedule-fcm.index')}}"></span> <span class="fa fa-regular fa-bell"></span> <span>{{ __("lang.schedule_fcm") }}</a></li>
         </ul>
 </section>

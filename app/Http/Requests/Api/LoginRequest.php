@@ -26,6 +26,7 @@ class LoginRequest extends FormRequest
             'password'=>'required',
             'remember' =>'nullable|boolean:in:[0,1]',
             'device_serial'=>'required|string',
+            'device_token'=>'required|string',
         ];
     }
 }

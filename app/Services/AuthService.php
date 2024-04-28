@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class AuthService extends BaseService
 {
 
-    public function loginWithEmail(string $email, string $password, string $deviceSerial, bool $remember = false) :User|Model
+    public function loginWithEmail(string $email,string $deviceToken = null, string $password, string $deviceSerial, bool $remember = false) :User|Model
     {
         $credential = ['email'=>$email,'password'=>$password, 'type'=>[UserTypeEnum::MANAGER, UserTypeEnum::EMPLOYEE]];
         if (!auth()->attempt(credentials: $credential, remember: $remember))
@@ -24,6 +24,13 @@ class AuthService extends BaseService
         // $userDeviceSerial = $user->deviceSerials()->where('device_serial', $deviceSerial)->first();
         // if(!$userDeviceSerial)
         //     return throw new NotFoundException(__('lang.unauthorized_device'));
+        $user->device_token = $deviceToken;
+        $user->save();
+        
+        //notify the users the complaint created
+        $users[0] = $user;
+        event(new PushEvent( users: $users, action: FcmMessage::CLIENT_LOGIN));
+
         return $user;
     }
 

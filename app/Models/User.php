@@ -4,9 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enum\FcmEventsNames;
 use App\Enum\TargetsEnum;
 use App\Enum\UserTypeEnum;
 use App\Http\Resources\RecentActivitiesResource;
+use App\Services\NotificationService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -175,6 +177,33 @@ class User extends Authenticatable implements HasMedia
                     ->values() // Reset the keys to ensure a 0-indexed array
                     ->all(); 
         return RecentActivitiesResource::collection($data);
+
+    }
+
+    public static function SendNotification(ScheduleFcm|FcmMessage $fcm, $users)
+    {
+
+        //prepare data
+        $title = $fcm->title ;
+        $body = $fcm->content ;
+        foreach($users as $user)
+        {
+            $replaced_values = [
+                '@USER_NAME@'=>$user->name,
+                '@USER_EMAIL@'=>$user->email,
+            ];
+            $body = replaceFlags($body,$replaced_values);
+            $tokens[0] = $user->device_token;
+
+            // check the notification channel
+            if($fcm->notification_via == FcmEventsNames::$CHANNELS['fcm'])
+                app()->make(NotificationService::class)->sendToTokens(title: $title,body: $body,tokens: $tokens);
+            else
+                $user->notify(new \App\Notifications\AlraqiahEmail(title: $title, content: $body));
+            
+            $user->notify(new \App\Notifications\GeneralNotification(title: $title, content: $body));
+
+        }
 
     }
 }

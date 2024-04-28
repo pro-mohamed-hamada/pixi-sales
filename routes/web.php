@@ -8,10 +8,12 @@ use App\Http\Controllers\Web\ClientsController;
 use App\Http\Controllers\Web\ActivityLogsController;
 use App\Http\Controllers\Web\CallsController;
 use App\Http\Controllers\Web\CountriesController;
+use App\Http\Controllers\Web\FcmMessagesController;
 use App\Http\Controllers\Web\IndustriesController;
 use App\Http\Controllers\Web\LocalizationController;
 use App\Http\Controllers\Web\MeetingsController;
 use App\Http\Controllers\Web\ReasonsController;
+use App\Http\Controllers\Web\ScheduleFcmController;
 use App\Http\Controllers\Web\ServicesController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Web\VisitsController;
@@ -66,6 +68,11 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::post('user-targets', [UsersController::class, 'userTargets'])->name('users.target');
     Route::resource('whatsapp-templates', WhatsappTemplatesController::class);
     Route::resource('whatsapp-messages', WhatsappMessagesController::class)->except(['update', 'edit', 'show']);
+
+    Route::resource('fcm-messages', FcmMessagesController::class)->except('show');
+    Route::get('live-fcm', [FcmMessagesController::class, 'liveFcmMessageView'])->name('fcm.liveFcmMessageView');
+    Route::post('live-fcm', [FcmMessagesController::class, 'liveFcmMessage'])->name('fcm.liveFcmMessage');
+    Route::resource('schedule-fcm', ScheduleFcmController::class)->except('show');
 
     Route::get('lang/{locale}',LocalizationController::class)->name('lang');
 });

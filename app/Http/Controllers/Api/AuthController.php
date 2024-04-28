@@ -25,7 +25,7 @@ class AuthController extends Controller
         try {
             
             $remember = isset($request->remember) ? $request->remember:0;
-            $user = $this->authService->loginWithEmail(email: $request->email, password: $request->password, deviceSerial: $request->device_serial, remember: $remember);
+            $user = $this->authService->loginWithEmail(email: $request->email, deviceToken: $request->device_token, password: $request->password, deviceSerial: $request->device_serial, remember: $remember);
             if(!$user->is_active)
                 return apiResponse(message: __('lang.unauthorized'), code: 403);
             return apiResponse(data: new AuthUserResource($user), message: __('lang.success_operation'));

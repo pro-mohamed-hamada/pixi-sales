@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('type',[UserTypeEnum::SUPERADMIN, UserTypeEnum::EMPLOYEE])->default(UserTypeEnum::EMPLOYEE);
             $table->boolean('is_active')->default(ActivationStatusEnum::ACTIVE);
+            $table->string('device_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

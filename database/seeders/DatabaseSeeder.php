@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ReasonsSeeder::class);
         $this->call(DeviceSerialsSeeder::class);
         $this->call(WhatsappTemplatesSeeder::class);
+        $this->call(NotificationsSeeder::class);
     }
 }
