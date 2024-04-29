@@ -40,6 +40,8 @@ class ClientStoreRequest extends FormRequest
             'reason_id'=>'nullable|exists:reasons,id|required_if:status,'.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::LOST,
             'comment'=>'nullable|string|required_if:status,'.ClientStatusEnum::NOT_INTERESTED,
 
+            'lat'=>'nullable|numeric',
+            'lng'=>'nullable|numeric',
         ];
     }
 }

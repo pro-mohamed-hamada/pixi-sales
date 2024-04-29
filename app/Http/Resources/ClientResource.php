@@ -25,6 +25,8 @@ class ClientResource extends JsonResource
             "other_person_phone"=>$this->other_person_phone,
             "other_person_position"=>$this->other_person_position,
             "facebook_url"=>$this->facebook_url,
+            "lat"=>$this->lat,
+            "lng"=>$this->lng,
         ];
     }
 }
