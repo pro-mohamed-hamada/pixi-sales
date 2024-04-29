@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\CountriesController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\IndustriesController;
 use App\Http\Controllers\Api\MeetingsController;
+use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\VisitsController;
 use App\Http\Controllers\Api\ReasonsController;
@@ -69,4 +70,9 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::resource('meetings', MeetingsController::class)->except('edit', 'show');
     Route::get('whatsapp-templates', WhatsappTemplatesController::class);
     Route::resource('whatsapp-messages', WhatsappMessagesController::class)->except(['show', 'update', 'edit', 'create']);
+
+    Route::get('notifications', [NotificationsController::class, 'index']);
+    Route::delete('notifications/{id}', [NotificationsController::class, 'destroy']);
+    Route::put('notifications-read/{id}', [NotificationsController::class, 'markAsRead']);
+
 });

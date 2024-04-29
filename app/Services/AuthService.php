@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\NotFoundException;
 use App\Enum\UserTypeEnum;
+use App\Events\PushEvent;
+use App\Models\FcmMessage;
 use App\QueryFilters\ClientsFilter;
 use Carbon\Carbon;
 
@@ -94,16 +96,16 @@ class AuthService extends BaseService
     }
 
 
-    /**
-     * @param array $data
-     * @return mixed
-     */
-    public function register(array $data=[]): mixed
-    {
-        $user = User::create($data);
-        ResetCodePassword::sendCode(phone: $data['phone']);
-        return $user;
-    }
+    // /**
+    //  * @param array $data
+    //  * @return mixed
+    //  */
+    // public function register(array $data=[]): mixed
+    // {
+    //     $user = User::create($data);
+    //     ResetCodePassword::sendCode(phone: $data['phone']);
+    //     return $user;
+    // }
 
     public function getAuthUser()
     {
