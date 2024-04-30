@@ -29,10 +29,6 @@ class AuthService extends BaseService
         $user->device_token = $deviceToken;
         $user->save();
         
-        //notify the users the complaint created
-        $users[0] = $user;
-        event(new PushEvent( users: $users, action: FcmMessage::CLIENT_LOGIN));
-
         return $user;
     }
 

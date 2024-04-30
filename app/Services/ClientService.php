@@ -121,7 +121,7 @@ class ClientService extends BaseService
     public function changeStatus(int $id, array $data):bool
     {
         $client = $this->findById($id);
-        // $this->checkClientLatestStatus(client: $client, newStatus: $data['status']);
+        $client->checkStatus($data['status']);
         $client->history()->create($data);
         
         
@@ -161,6 +161,7 @@ class ClientService extends BaseService
         $statusData = $this->prepareStatusData(data: $data);
         if($statusData)
         {
+            $client->checkStatus($statusData['status']);
             $client->history()->create($statusData);
             $clientStatus = $statusData == ClientStatusEnum::CLOSED ? 1:0;
             if($clientStatus)

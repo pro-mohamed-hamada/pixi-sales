@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Filterable;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Arr;
 
 class Client extends Model
 {
@@ -123,67 +124,96 @@ class Client extends Model
 
     public function checkStatus(int $status)
     {
-        // switch($status)
-        // {
-        //     case ClientStatusEnum::NEW:
-        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
-        //         if($currentStatus == $status);
-        //         {
-        //             throw new Exception(__('lang.the_current_status_is_new'));
-        //         }
-        //         break;
-        //     case ClientStatusEnum::INTERESTED:
-        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
-        //         if($currentStatus == $status || $status == ClientStatusEnum::NEW);
-        //         {
-        //             throw new Exception(__('lang.the_current_status_is_interested'));
-        //         }
-        //         break;
-        //     case ClientStatusEnum::NOT_INTERESTED:
-        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
-        //         if($currentStatus == $status || $status == ClientStatusEnum::NEW);
-        //         {
-        //             throw new Exception(__('lang.the_current_status_is_interested'));
-        //         }
-        //         break;
-        //     case ClientStatusEnum::CONTACTED:
-        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
-        //         if($currentStatus == $status || $status == );
-        //         {
-        //             throw new Exception(__('lang.the_current_status_is_interested'));
-        //         }
-        //         break;
-        //     case ClientStatusEnum::MEETING:
-        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
-        //         if($currentStatus == $status || $status == );
-        //         {
-        //             throw new Exception(__('lang.the_current_status_is_interested'));
-        //         }
-        //         break;
-        //     case ClientStatusEnum::PROPOSAL:
-        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
-        //         if($currentStatus == $status || $status == );
-        //         {
-        //             throw new Exception(__('lang.the_current_status_is_interested'));
-        //         }
-        //         break;
-        //     case ClientStatusEnum::CLOSED:
-        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
-        //         if($currentStatus == $status || $status == );
-        //         {
-        //             throw new Exception(__('lang.the_current_status_is_interested'));
-        //         }
-        //         break;
-        //     case ClientStatusEnum::LOST:
-        //         $currentStatus = $this->latestStatus->getRaworiginal('status');
-        //         if($currentStatus == $status || $status == );
-        //         {
-        //             throw new Exception(__('lang.the_current_status_is_interested'));
-        //         }
-        //         break;
-        //     default:
-        //         return true;
-        // }
+        $response = false;
+        $currentStatus = $this->latestStatus->getRaworiginal('status');
+        switch($status)
+        {
+            case ClientStatusEnum::NEW:
+                if(Arr::has([
+                    ClientStatusEnum::CONTACTED,
+                    ClientStatusEnum::INTERESTED,
+                    ClientStatusEnum::NOT_INTERESTED,
+                    ClientStatusEnum::PROPOSAL,
+                    ClientStatusEnum::MEETING,
+                    ClientStatusEnum::CLOSED,
+                    ClientStatusEnum::LOST
+                ], $currentStatus)){
+                    throw new Exception(__('lang.not_allowed'));
+                }
+                $response = true;
+
+                break;
+            case ClientStatusEnum::CONTACTED:
+                if(Arr::has([
+                    ClientStatusEnum::INTERESTED,
+                    ClientStatusEnum::NOT_INTERESTED,
+                    ClientStatusEnum::PROPOSAL,
+                    ClientStatusEnum::MEETING,
+                    ClientStatusEnum::CLOSED,
+                    ClientStatusEnum::LOST
+                ], $currentStatus)){
+                    throw new Exception(__('lang.not_allowed'));
+                }
+                $response = true;
+                break;
+            case ClientStatusEnum::INTERESTED:
+                if(Arr::has([
+                    ClientStatusEnum::NOT_INTERESTED,
+                    ClientStatusEnum::PROPOSAL,
+                    ClientStatusEnum::MEETING,
+                    ClientStatusEnum::CLOSED,
+                    ClientStatusEnum::LOST
+                ], $currentStatus)){
+                    throw new Exception(__('lang.not_allowed'));
+                }
+                $response = true;
+                break;
+            case ClientStatusEnum::NOT_INTERESTED:
+                if(Arr::has([
+                    ClientStatusEnum::PROPOSAL,
+                    ClientStatusEnum::MEETING,
+                    ClientStatusEnum::CLOSED,
+                    ClientStatusEnum::LOST
+                ], $currentStatus)){
+                    throw new Exception(__('lang.not_allowed'));
+                }
+                $response = true;
+                break;
+            case ClientStatusEnum::PROPOSAL:
+                if(Arr::has([
+                    ClientStatusEnum::MEETING,
+                    ClientStatusEnum::CLOSED,
+                    ClientStatusEnum::LOST
+                ], $currentStatus)){
+                    throw new Exception(__('lang.not_allowed'));
+                }
+                $response = true;
+                break;
+            case ClientStatusEnum::MEETING:
+                if(Arr::has([
+                    ClientStatusEnum::CLOSED,
+                    ClientStatusEnum::LOST
+                ], $currentStatus)){
+                    throw new Exception(__('lang.not_allowed'));
+                }
+                $response = true;
+                break;
+            case ClientStatusEnum::CLOSED:
+                if(Arr::has([
+                    ClientStatusEnum::LOST
+                ], $currentStatus)){
+                    throw new Exception(__('lang.not_allowed'));
+                }
+                $response = true;
+                break;
+            case ClientStatusEnum::LOST:
+                //TODO: check this
+                $response = true;
+                break;
+            default:
+                return true;
+        }
+        return $response;
     }
 
 }

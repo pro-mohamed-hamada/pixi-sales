@@ -89,7 +89,7 @@ class ClientsController extends Controller
             return apiResponse(data: new ClientsResource($client), message: __('lang.success_operation'));
     
         }catch(Exception $e){
-            return apiResponse(message: __('lang.something_went_wrong'), code: 442);
+            return apiResponse(message: $e->getMessage(), code: 442);
         }
         
     }//end of update

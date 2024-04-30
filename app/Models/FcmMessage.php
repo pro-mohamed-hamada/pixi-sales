@@ -11,9 +11,9 @@ class FcmMessage extends Model
 {
     use HasFactory, Filterable, IsActiveTrait;
 
-    public const CREAET_NEW_COMPLAINT            = 'CREAET_NEW_COMPLAINT';
-    public const SUPERVISOR_REPLIED_ON_COMPLAINT = 'SUPERVISOR_REPLIED_ON_COMPLAINT';
-    public const CLIENT_LOGIN = 'CLIENT_LOGIN';
+    public const CREATE_NEW_CLIENT            = 'CREATE_NEW_CLIENT';
+    public const REASSIGN_CLIENT = 'REASSIGN_CLIENT';
+    public const FULL_TARGET = 'FULL_TARGET';
 
     protected $fillable = [
         'title',
