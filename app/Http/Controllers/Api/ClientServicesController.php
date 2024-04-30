@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ClientServiceStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\ClientStoreRequest;
-use App\Http\Resources\ClientServicesResource;
+use App\Http\Resources\ClientServicesForClientResource;
 use App\Http\Resources\ClientsResource;
 use App\Http\Resources\ServicesResource;
 use App\Services\ClientService;
@@ -25,7 +25,7 @@ class ClientServicesController extends Controller
         try{
             $filters = $request->all();
             $services = $this->clientServiceService->getAll(filters: $filters);
-            return apiResponse(data: ClientServicesResource::collection($services), message: __('lang.success_operation'));
+            return apiResponse(data: ClientServicesForClientResource::collection($services), message: __('lang.success_operation'));
     
         }catch(Exception $e){
             return apiResponse(message: __('lang.something_went_wrong'), code: 442);

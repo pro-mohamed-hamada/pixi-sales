@@ -36,7 +36,7 @@ class ClientsResource extends JsonResource
             "user"=>new UserResource($user),
             "services"=>$this->whenLoaded("services",
             [
-                'client_services'=>ClientServicesResource::collection($this->services),
+                'client_services'=>ServicesForClientResource::collection($this->services),
                 'whatsapp_templates'=>WhatsappTemplate::where('action', 'Service')->select('id', 'title', 'content')->get(),
             ]
             , null),
