@@ -16,7 +16,7 @@ class ServicesForClientResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id"=>$this->pivot->id,
+            "id"=>$this->id,
             "name"=>$this->name,
             "price"=>$this->pivot->price,
             "next_action"=>$this->pivot->next_action,

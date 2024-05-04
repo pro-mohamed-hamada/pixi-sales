@@ -12,6 +12,7 @@ use App\QueryFilters\ClientsFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\BadRequestHttpException;
+use App\Models\City;
 use App\Models\ClientService as ModelsClientService;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -46,6 +47,14 @@ class ClientService extends BaseService
         $user = Auth::user();
         $data['added_by'] = $user->id;
         $data['assigned_to'] = isset($data['assigned_to']) ? $data['assigned_to']:$data['added_by'];
+
+        $city = City::find($data['city_id']);
+        if($city)
+        {
+            $data['phone'] = formatPhone(phone: $data['phone'], slug: $city?->governorate?->country?->slug);
+            $data['other_person_phone'] = formatPhone(phone: $data['other_person_phone'], slug: $city?->governorate?->country?->slug);
+
+        }
 
         // create the client
         $client = $this->getModel()->create($data);
@@ -156,6 +165,13 @@ class ClientService extends BaseService
             return false;
         DB::beginTransaction();
         $data['assigned_to'] = isset($data['assigned_to']) ? $data['assigned_to']:$client->assigned_to;
+        $city = City::find($data['city_id']);
+        if($city)
+        {
+            $data['phone'] = formatPhone(phone: $data['phone'], slug: $city?->governorate?->country?->slug);
+            $data['other_person_phone'] = formatPhone(phone: $data['other_person_phone'], slug: $city?->governorate?->country?->slug);
+
+        }
         $client->update($data);
         //start add the client status
         $statusData = $this->prepareStatusData(data: $data);
