@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Web;
 
 use App\Enum\ActivationStatusEnum;
+use App\Enum\UserTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserStoreRequest extends FormRequest
@@ -25,6 +26,7 @@ class UserStoreRequest extends FormRequest
         return [
             'name'=>'required|string',
             'email'=>'required|email',
+            'type'=>'required|integer|in:'.UserTypeEnum::MANAGER.','.UserTypeEnum::EMPLOYEE,
             'password'=>'required|string|min:8|confirmed',
             'is_active'=>'nullable|string',
             'logo'=>'nullable|file|image',

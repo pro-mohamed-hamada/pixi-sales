@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('type',[UserTypeEnum::SUPERADMIN, UserTypeEnum::EMPLOYEE])->default(UserTypeEnum::EMPLOYEE);
+            $table->enum('type',[UserTypeEnum::SUPERADMIN, UserTypeEnum::EMPLOYEE, UserTypeEnum::MANAGER])->default(UserTypeEnum::EMPLOYEE);
             $table->boolean('is_active')->default(ActivationStatusEnum::ACTIVE);
             $table->string('device_token')->nullable();
             $table->rememberToken();

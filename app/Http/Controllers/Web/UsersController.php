@@ -30,7 +30,7 @@ class UsersController extends Controller
         $filters = array_filter($request->get('filters', []), function ($value) {
             return ($value !== null && $value !== false && $value !== '');
         });
-        $filters['type'] = UserTypeEnum::EMPLOYEE;
+        $filters['type_in'] = [UserTypeEnum::EMPLOYEE, UserTypeEnum::MANAGER];
         $withRelations = [];
         return $dataTable->with(['filters'=>$filters, 'withRelations'=>$withRelations])->render('Dashboard.Users.index');
 

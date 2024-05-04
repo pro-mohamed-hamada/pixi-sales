@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             "id"=> $this->id,
             "name"=> $this->name,
             "email"=> $this->email,
-            "type"=> $this->type,
+            "type"=> $this->getRawOriginal('type'),
             'profile_image' =>$this->getFirstMediaUrl('users') !=""?$this->getFirstMediaUrl('users') : asset('images/default-image.jpg'),
         ];
     }

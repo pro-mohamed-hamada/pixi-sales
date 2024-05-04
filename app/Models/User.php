@@ -180,6 +180,24 @@ class User extends Authenticatable implements HasMedia
 
     }
 
+    public function getTypeAttribute()
+    {
+        switch($this->getRawOriginal('type'))
+        {
+            case UserTypeEnum::SUPERADMIN:
+                return __('lang.superadmin');
+                break;
+            case UserTypeEnum::MANAGER:
+                return __('lang.manager');
+                break;
+            case UserTypeEnum::EMPLOYEE:
+                return __('lang.employee');
+                break;
+            default:
+                return "";
+        }
+    }
+
     public static function SendNotification(ScheduleFcm|FcmMessage $fcm, $users)
     {
 

@@ -15,6 +15,17 @@
                             <div class="row mb-3 g-3">
                                 
                                 <div class="col-lg-4">
+                                    <label>{{ __('lang.type') }} *</label>
+                                    <select name="type" class="form-control">
+                                        <option value="">{{ __('lang.choose') }}</option>
+                                        <option value="{{ \App\Enum\UserTypeEnum::MANAGER }}">{{ __('lang.manager') }}</option>
+                                        <option value="{{ \App\Enum\UserTypeEnum::EMPLOYEE }}">{{ __('lang.employee') }}</option>
+                                    </select>
+                                    @error('type')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-4">
                                     <label>{{ __('lang.name') }} *</label>
                                     <input type="text" name="name" value="{{ old('name') }}" class="form-control">
                                     @error('name')
