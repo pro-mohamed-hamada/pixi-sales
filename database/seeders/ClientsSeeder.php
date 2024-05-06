@@ -30,7 +30,8 @@ class ClientsSeeder extends Seeder
         ]);
 
         $client->history()->create([
-            'status'=>ClientStatusEnum::NEW
+            'status'=>ClientStatusEnum::NEW,
+            'added_by'=>1,
         ]);
     }
 }

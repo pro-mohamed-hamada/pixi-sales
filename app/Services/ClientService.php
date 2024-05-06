@@ -107,6 +107,7 @@ class ClientService extends BaseService
         $statusData['status']    = Arr::get(array: $data, key: 'status', default: ClientStatusEnum::NEW);
         $statusData['reason_id'] = Arr::get(array: $data, key: 'reason_id', default: null);
         $statusData['comment']   = Arr::get(array: $data, key: 'comment', default: null);
+        $statusData['added_by']   = Auth::user()->id;
         $statusData['date_time'] = Arr::get(array: $data, key: 'date_time', default: null);
         return $statusData;
     }

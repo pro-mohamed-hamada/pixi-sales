@@ -10,7 +10,7 @@ class ClientHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['client_id', 'status', 'reason_id', 'comment'];
+    protected $fillable = ['client_id', 'status', 'reason_id', 'comment', 'added_by'];
 
     public function activities(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {

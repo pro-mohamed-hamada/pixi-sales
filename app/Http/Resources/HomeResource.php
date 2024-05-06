@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Enum\TargetsEnum;
+use App\Enum\ClientStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -27,31 +28,35 @@ class HomeResource extends JsonResource
              "personal_achievements"=>$this->whenLoaded("targets",
              [
                  "visits"=>[
-                     "target_value" => $this->targets()->where('target', (string)TargetsEnum::VISIT)->sum('target_value'),
+                     "clients" => $this->visits()->distinct()->count('client_id'),
                      "target_done" => $this->targets()->where('target', (string)TargetsEnum::VISIT)->sum('target_done'),
                  ],
                  "calls"=>[
-                     "target_value" => $this->targets()->where('target', (string)TargetsEnum::CALL)->sum('target_value'),
-                     "target_done" => $this->targets()->where('target', (string)TargetsEnum::CALL)->sum('target_done'),
+                    "clients" => $this->calls()->distinct()->count('client_id'),
+                    "target_done" => $this->targets()->where('target', (string)TargetsEnum::CALL)->sum('target_done'),
                  ],
                  "meetings"=>[
-                     "target_value" => $this->targets()->where('target', (string)TargetsEnum::MEETING)->sum('target_value'),
-                     "target_done" => $this->targets()->where('target', (string)TargetsEnum::MEETING)->sum('target_done'),
+                    "clients" => $this->meetings()->distinct()->count('client_id'),
+                    "target_done" => $this->targets()->where('target', (string)TargetsEnum::MEETING)->sum('target_done'),
                  ],
                  "proposals"=>[
-                     "target_value" => $this->targets()->where('target', (string)TargetsEnum::PROPOSAL)->sum('target_value'),
-                     "target_done" => $this->targets()->where('target', (string)TargetsEnum::PROPOSAL)->sum('target_done'),
+                    "clients" => $this->assignedClients()->whereHas('latestStatus', function($query){
+                        $query->where('added_by', $this->id)->where('status', ClientStatusEnum::PROPOSAL);
+                    })->count('id'),
+                    "target_done" => $this->targets()->where('target', (string)TargetsEnum::PROPOSAL)->sum('target_done'),
                  ],
                  "clients"=>[
-                     "target_value" => $this->targets()->where('target', (string)TargetsEnum::CLIENT)->sum('target_value'),
-                     "target_done" => $this->targets()->where('target', (string)TargetsEnum::CLIENT)->sum('target_done'),
+                    "clients" => $this->addedByClients()->distinct()->count('id'),
+                    "target_done" => $this->targets()->where('target', (string)TargetsEnum::CLIENT)->sum('target_done'),
                  ],
                  "whatsapp_messages"=>[
-                     "target_value" => $this->targets()->where('target', (string)TargetsEnum::WHATSAPP_MESSAGE)->sum('target_value'),
-                     "target_done" => $this->targets()->where('target', (string)TargetsEnum::WHATSAPP_MESSAGE)->sum('target_done'),
+                    "clients" => $this->whatsappMessages()->distinct()->count('client_id'),
+                    "target_done" => $this->targets()->where('target', (string)TargetsEnum::WHATSAPP_MESSAGE)->sum('target_done'),
                  ],
                  "amounts"=>[
-                     "target_value" => $this->targets()->where('target', (string)TargetsEnum::AMOUNT)->sum('target_value'),
+                    "clients" => $this->assignedClients()->whereHas('latestStatus', function($query){
+                        $query->where('added_by', $this->id)->where('status', ClientStatusEnum::CLOSED);
+                    })->count('id'),
                      "target_done" => $this->targets()->where('target', (string)TargetsEnum::AMOUNT)->sum('target_done'),
                  ],
              ]
