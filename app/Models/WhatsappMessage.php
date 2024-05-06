@@ -32,6 +32,11 @@ class WhatsappMessage extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function getIconAttribute()
+    {
+        return asset('targets/whatsapp_messages.jpeg');
+    }
+
     public function getTypeAttribute()
     {
         switch($this->getRawOriginal('type'))
@@ -44,7 +49,6 @@ class WhatsappMessage extends Model
                 break;
             default:
                 return null;
-
         }
     }
 
