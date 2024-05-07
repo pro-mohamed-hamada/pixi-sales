@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('one-hour-before-task-command')->everyMinute();
+        $schedule->command('app:one-hour-before-task-command')->everyMinute();
     }
 
     /**
