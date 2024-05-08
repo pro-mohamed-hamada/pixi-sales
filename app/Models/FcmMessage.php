@@ -11,9 +11,9 @@ class FcmMessage extends Model
 {
     use HasFactory, Filterable, IsActiveTrait;
 
-    public const CREATE_NEW_CLIENT            = 'CREATE_NEW_CLIENT';
     public const REASSIGN_CLIENT = 'REASSIGN_CLIENT';
     public const FULL_TARGET = 'FULL_TARGET';
+    public const CLIENT_NOT_REGISTER_AFTER_CALL = 'CLIENT_NOT_REGISTER_AFTER_CALL';
 
     protected $fillable = [
         'title',
