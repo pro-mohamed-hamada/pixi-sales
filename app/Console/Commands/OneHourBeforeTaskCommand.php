@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\User;
+use App\Models\ScheduleFcm;
+use App\Models\Visit;
+use Carbon\Carbon;
 class OneHourBeforeTaskCommand extends Command
 {
     /**
@@ -25,18 +28,17 @@ class OneHourBeforeTaskCommand extends Command
      */
     public function handle()
     {
-        $user = User::first();
-        $user->name ="test cron";
-        $user->save();
-        // $scheduleFcm = ScheduleFcm::where('action', 'ONE_HOUR_BEFORE_TASK')->first();
-        // if($scheduleFcm)
-        // {
-        //     $visits = Visit::where('next_action_date', Carbon::now()->addHour())->get();
-        //     foreach($visits as $visit)
-        //     {
-        //         $user = User::find($visit->assigned_to);
-        //     }
-        // }
+        $scheduleFcm = ScheduleFcm::where('trigger', 'ONE_HOUR_BEFORE_TASK')->first();
+        if($scheduleFcm)
+        {
+            $visits = Visit::whereDate('next_action_date',"=", Carbon::now('Africa/Cairo')->addHour()->format('Y-m-d'))
+            ->whereTime("next_action_date", Carbon::now('Africa/Cairo')->addHour()->format('H:i'))->get();
+            foreach($visits as $visit)
+            {
+                $user = User::find($visit->added_by);
+                User::SendNotification(fcm: $scheduleFcm, users: [$user]);
+            }
+        }
         
     }
 }
