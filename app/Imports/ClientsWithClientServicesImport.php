@@ -17,7 +17,7 @@ class ClientsWithClientServicesImport implements WithMultipleSheets
     {
         return [
             'Clients' => new ClientsImport(),
-            // 'ClientServices' => new ClientServicesImport(),
+            'Client_Services' => new ClientServicesImport(),
         ];
     }
 
