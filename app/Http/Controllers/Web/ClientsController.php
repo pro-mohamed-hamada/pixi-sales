@@ -11,14 +11,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\ClientStoreRequest;
 use App\Http\Requests\Web\ClientHistoryRequest;
 use App\Http\Requests\Web\ClientUpdateRequest;
+use App\Http\Requests\Web\ImportClientRequest;
 use App\Services\ClientServiceService;
 use App\Services\CountryService;
-use App\Services\GovernorateService;
 use App\Services\IndustryService;
 use App\Services\ReasonService;
 use App\Services\ServiceService;
 use App\Services\SourceService;
 use App\Services\UserService;
+use App\Imports\ClientsWithClientServicesImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Exception;
 
 class ClientsController extends Controller
 {
@@ -64,6 +67,31 @@ class ClientsController extends Controller
         }
         return view('Datatables.ClientActivitiesDatatable', compact('client'));
     }//end of create
+
+    public function importView(Request $request) 
+    {
+        return View('Dashboard.Clients.import');
+    }
+
+    public function import(ImportClientRequest $request) 
+    {
+        try{
+            $import = new ClientsWithClientServicesImport();
+
+            // Use the import object with the request data
+            Excel::import($import, $request->file('file'));
+        
+            return redirect()->route('clients.index')->with('message', __('lang.success_operation'));
+    
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            
+            return redirect()->back()->with(compact('failures'));
+       } catch (Exception $e) {
+            return redirect()->back()->with("message", $e->getMessage());
+        }
+
+    }
 
     public function edit(Request $request, $id)
     {

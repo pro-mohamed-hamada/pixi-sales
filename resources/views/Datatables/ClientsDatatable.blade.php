@@ -4,7 +4,9 @@
 
         <div class="card-body">
             <div class="">
-                <h5><a role="button" class="btn btn-primary " href="{{route('clients.create')}}"><i class="fa fa-plus"></i> {{__('lang.create_client')}}</a></h5>
+                <a role="button" class="btn btn-primary " href="{{route('clients.create')}}"><i class="fa fa-plus"></i> {{__('lang.create_client')}}</a>
+                <a role="button" class="btn btn-primary " href="{{route('clients.import_view')}}"><i class="fa fa-upload"></i> {{__('lang.import')}}</a>
+                <a role="button" target="_blanck" class="btn btn-primary " href="{{asset('imports/Clients_with_relatives.xlsx')}}"><i class="fa fa-download"></i> {{__('lang.download_template')}}</a>
             </div>
 
             <div class="datatable table-responsive">

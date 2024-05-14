@@ -12,7 +12,16 @@
                         <form method="POST" action="{{ route('governorates.store') }}">
                             @csrf
                             <div class="row mb-3 g-3">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>{{ __('lang.country') }} *</label>
+                                    <select id="countries" name="country_id" class="form-control">
+                                        <option selected disabled>{{ __("lang.choose") }}</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                        @endforeach
+                                    <select>
+                                </div>
+                                <div class="col-lg-4">
                                     <label>{{ __('lang.name') }} *</label>
                                     <input type="text" name="name" class="form-control">
                                     @error('name')
