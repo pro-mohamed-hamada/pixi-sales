@@ -23,7 +23,8 @@ class GovernorateUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string',
+            'country_id'=>'required|integer|exists:countries,id',
+            'name'=>'required|string|unique:governorates,id,'.$this->governorate,
         ];
     }
 }

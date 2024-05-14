@@ -23,6 +23,7 @@ class GovernorateStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'country_id'=>'required|integer|exists:countries,id',
             'name'=>'required|string',
         ];
     }

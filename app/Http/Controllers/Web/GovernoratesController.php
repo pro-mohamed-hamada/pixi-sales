@@ -10,11 +10,13 @@ use App\Http\Requests\Web\GovernorateStoreRequest;
 use App\Http\Requests\Web\GovernorateUpdateRequest;
 use App\Http\Resources\GovernoratesResource;
 use App\Services\GovernorateService;
+use App\Services\CountryService;
+use App\Enum\ActivationStatusEnum;
 use Exception;
 
 class GovernoratesController extends Controller
 {
-    public function __construct(private GovernorateService $governorateService)
+    public function __construct(private CountryService $countryService, private GovernorateService $governorateService)
     {
 
     }
@@ -52,12 +54,14 @@ class GovernoratesController extends Controller
         {
             return redirect()->back()->with("message", __('lang.not_found'));
         }
-        return view('Dashboard.Governorates.edit', compact('governorate'));
+        $countries = $this->countryService->getAll(filters: ['is_active'=>ActivationStatusEnum::ACTIVE]);
+        return view('Dashboard.Governorates.edit', compact('countries', 'governorate'));
     }//end of edit
 
     public function create(Request $request)
     {
-        return view('Dashboard.Governorates.create');
+        $countries = $this->countryService->getAll(filters: ['is_active'=>ActivationStatusEnum::ACTIVE]);
+        return view('Dashboard.Governorates.create', compact('countries'));
     }//end of create
 
     public function store(GovernorateStoreRequest $request)
