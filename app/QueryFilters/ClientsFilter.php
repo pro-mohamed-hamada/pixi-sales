@@ -105,5 +105,9 @@ class ClientsFilter extends QueryFilter
     {
         return $this->builder->where('source_id', $term);
     }
+    public function industry_id($term)
+    {
+        return $this->builder->where('industry_id', $term);
+    }
 
 }
