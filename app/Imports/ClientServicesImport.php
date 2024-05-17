@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Enum\ActionTypeEnum;
 use App\Enum\ActivationStatusEnum;
 use App\Enum\ClientActivityActionEnum;
+use App\Enum\CurrencyEnum;
 use App\Enum\UserTypeEnum;
 use App\Models\Client;
 use App\Models\User;
@@ -78,7 +79,7 @@ class ClientServicesImport implements ToModel, ToCollection, SkipsEmptyRows, Wit
             if($row['phone'] == $previousPhone)
             {
                 $previousPhone = $row['phone'];
-                $servicesData[$row['service_id']] = ['price'=> $row['price'], 'next_action'=>$row['next_action'],'next_action_date'=>$row['next_action_date'], 'comment'=>$row['comment'], 'added_by'=>$addedBy];
+                $servicesData[$row['service_id']] = ['price'=> $row['price'], 'currency'=> $row['currency'], 'next_action'=>$row['next_action'],'next_action_date'=>$row['next_action_date'], 'comment'=>$row['comment'], 'added_by'=>$addedBy];
                 $client = Client::where('phone','like', '%'.$row['phone'])->first();
                 if($client)
                 {
@@ -104,7 +105,8 @@ class ClientServicesImport implements ToModel, ToCollection, SkipsEmptyRows, Wit
     {
         return [
             'service_id'=>['required', 'integer', 'exists:services,id'],
-            'price'=>['nullable', 'required', 'numeric'],
+            'price'=>['required', 'numeric'],
+            'currency'=>['required', 'string', 'in:'.CurrencyEnum::EGP.','.CurrencyEnum::USD],
             'next_action'=>['nullable', 'required_with:next_action_date', 'integer', 'in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::MEETING.','.ActionTypeEnum::WHATSAPP.','.ActionTypeEnum::VISIT],
             'next_action_date'=>['nullable', 'required_with:next_action', 'date', 'after:'.Carbon::now()],
             'comment'=>['nullable', 'string'],

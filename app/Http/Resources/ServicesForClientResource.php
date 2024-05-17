@@ -19,6 +19,7 @@ class ServicesForClientResource extends JsonResource
             "id"=>$this->id,
             "name"=>$this->name,
             "price"=>$this->pivot->price,
+            "currency"=>$this->pivot->currency,
             "next_action"=>$this->pivot->next_action,
             "next_action_date"=>$this->pivot->next_action_date,
             "comment"=>$this->pivot->comment,

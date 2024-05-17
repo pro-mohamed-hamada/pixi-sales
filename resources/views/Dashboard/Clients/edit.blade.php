@@ -202,6 +202,11 @@
                                                     <input name="services[]" class="form-check-input mt-0" type="checkbox" value="{{ $service->id }}" checked>
                                                     </div>
                                                     <input name="prices[]" type="text" class="form-control" value="{{ $client->services->where('id', $service->id)->first()->pivot->price }}">
+                                                    <select name="currencies[]" type="text" aria-label="Currency" class="form-control">
+                                                        <option value="EGP" {{ $client->services->where('id', $service->id)->first()->pivot->currency == \App\enum\CurrencyEnum::EGP ? "selected":"" }}>EGP</option>
+                                                        <option value="USD" {{ $client->services->where('id', $service->id)->first()->pivot->currency == \App\enum\CurrencyEnum::USD ? "selected":"" }}>USD</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                         @else
@@ -212,6 +217,10 @@
                                                     <input name="services[]" class="form-check-input mt-0" type="checkbox" value="{{ $service->id }}">
                                                     </div>
                                                     <input name="prices[]" type="text" class="form-control" aria-label="Text input with checkbox">
+                                                    <select name="currencies[]" type="text" aria-label="Currency" class="form-control">
+                                                        <option value="EGP">EGP</option>
+                                                        <option value="USD">USD</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         @endif

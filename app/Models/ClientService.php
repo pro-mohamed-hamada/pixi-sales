@@ -15,6 +15,7 @@ class ClientService extends Model
         'client_id',
         'service_id',
         'price',
+        'currency',
         'comment',
         'next_action',
         'next_action_date',

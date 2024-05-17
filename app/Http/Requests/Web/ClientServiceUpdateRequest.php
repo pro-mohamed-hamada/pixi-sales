@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Web;
 
+use App\Enum\CurrencyEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -33,6 +34,7 @@ class ClientServiceUpdateRequest extends FormRequest
                 }),
             ],
             'price'=>'required|numeric',
+            'currency'=>'required|string|in:'.CurrencyEnum::EGP.','.CurrencyEnum::USD,
         ];
     }
 }

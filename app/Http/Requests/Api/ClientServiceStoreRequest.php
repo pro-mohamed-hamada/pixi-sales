@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api;
 
 use App\Enum\ActionTypeEnum;
+use App\Enum\CurrencyEnum;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -31,7 +32,8 @@ class ClientServiceStoreRequest extends FormRequest
             'services.*'=>'required|integer|exists:services,id',
             'prices'=>'nullable|array',
             'prices.*'=>'nullable|required_with:services.*|numeric',
-
+            'currencies'=>'nullable|array',
+            'currencies.*'=>'nullable|required_with:services.*|string|in:'.CurrencyEnum::EGP.','.CurrencyEnum::USD,
             'next_action'=>'nullable|required_with:next_action_date|integer|in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::MEETING.','.ActionTypeEnum::WHATSAPP.','.ActionTypeEnum::VISIT,
             'next_action_date'=>'nullable|required_with:next_action|date|after:'.Carbon::now(),
             'comment'=>'nullable|string',

@@ -64,7 +64,7 @@ class ClientServiceService extends BaseService
         {
             for($i=0; $i<count($data['services']); $i++)
             {
-                $servicesData[$data['services'][$i]] = ['price'=> $data['prices'][$i], 'next_action'=>$nextAction,'next_action_date'=>$nextActionDate, 'comment'=>$comment, 'added_by'=>$addedBy];
+                $servicesData[$data['services'][$i]] = ['price'=> $data['prices'][$i], 'currency'=> $data['currencies'][$i], 'next_action'=>$nextAction,'next_action_date'=>$nextActionDate, 'comment'=>$comment, 'added_by'=>$addedBy];
             }
         }
         return $servicesData;

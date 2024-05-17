@@ -195,7 +195,11 @@
                                                 <div class="input-group-text">
                                                 <input name="services[]" class="form-check-input mt-0" type="checkbox" value="{{ $service->id }}">
                                                 </div>
-                                                <input name="prices[]" type="text" class="form-control" aria-label="Text input with checkbox">
+                                                <input name="prices[]" type="text" class="form-control" placeholder="{{ __('lang.price') }}" aria-label="Text input with checkbox">
+                                                <select name="currencies[]" type="text" aria-label="Currency" class="form-control">
+                                                    <option value="EGP">EGP</option>
+                                                    <option value="USD">USD</option>
+                                                </select>
                                             </div>
                                             @error('prices')
                                                 <span class="error">{{ $message }}</span>
