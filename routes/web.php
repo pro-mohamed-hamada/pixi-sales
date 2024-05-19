@@ -1,5 +1,7 @@
 <?php
 
+use App\Exports\ClientsTemplate;
+use App\Exports\industriesExport;
 use App\Http\Controllers\Web\SourcesController;
 use App\Http\Controllers\Web\CitiesController;
 use App\Http\Controllers\Web\GovernoratesController;
@@ -35,18 +37,13 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes(['register' => false]);
 
-Route::get('/test', function(){
-    $client = Client::first();
-    return formatPhone(phone: "+21152204422", slug: $client?->city?->governorate?->country?->slug);
-
-});
-
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix'=>'dashboard','middleware'=>'auth'], function(){
     Route::get('profile', [UsersController::class, 'profileView'])->name('profile.view');
     Route::put('profile', [UsersController::class, 'profile'])->name('profile.update');
     Route::resource('clients', ClientsController::class);
+    Route::get('clients-import-template', [ClientsController::class, 'importTemplate'])->name('clients.import_template');
     Route::get('clients-import', [ClientsController::class, 'importView'])->name('clients.import_view');
     Route::post('clients-import', [ClientsController::class, 'import'])->name('clients.import');
     Route::get('client-visits/{id}', [ClientsController::class, 'clientVisits'])->name('client.visits');

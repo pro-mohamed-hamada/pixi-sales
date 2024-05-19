@@ -33,9 +33,12 @@ class ClientsImport implements ToModel, SkipsEmptyRows, WithValidation, WithHead
         DB::beginTransaction();
         $user = Auth::user();
         $row['added_by'] = $user->id;
-        $row['assigned_to'] = isset($row['assigned_to']) ? $row['assigned_to']:$row['added_by'];
+        $row['assigned_to'] = isset($row['assigned_to']) ? substr($row['assigned_to'], (strpos($row['assigned_to'], "#") + 1)) : null;
 
-        $city = City::find($row['city_id']);
+        $row['industry_id'] = isset($row['industry']) ? substr($row['industry'], (strpos($row['industry'], "#") + 1)) : null;
+        $row['source_id'] = isset($row['source']) ? substr($row['source'], (strpos($row['source'], "#") + 1)) : null;
+        $row['city_id'] = isset($row['city']) ? substr($row['city'], (strpos($row['city'], "#") + 1)) : null;
+        $city = City::find($row['city']);
         if($city)
         {
             $row['phone'] = formatPhone(phone: $row['phone'], slug: $city?->governorate?->country?->slug);
@@ -49,8 +52,10 @@ class ClientsImport implements ToModel, SkipsEmptyRows, WithValidation, WithHead
         //start add the client status
         // $statusData = app()->make(ClientService::class)->prepareStatusData(data: $row);
         $statusData = [];
-        $statusData['status']    = Arr::get(array: $row, key: 'status', default: ClientStatusEnum::NEW);
-        $statusData['reason_id'] = Arr::get(array: $row, key: 'reason_id', default: null);
+        $statusData['status'] = isset($row['status']) ? substr($row['status'], (strpos($row['status'], "#") + 1)) : null;
+        // $statusData['status']    = Arr::get(array: $row, key: 'status', default: ClientStatusEnum::NEW);
+        $statusData['reason'] = isset($row['reason']) ? substr($row['reason'], (strpos($row['reason'], "#") + 1)) : null;
+        // $statusData['reason_id'] = Arr::get(array: $row, key: 'reason_id', default: null);
         $statusData['comment']   = Arr::get(array: $row, key: 'comment', default: null);
         $statusData['added_by']   = Auth::user()->id;
         $statusData['date_time'] = Arr::get(array: $row, key: 'date_time', default: null);
@@ -69,19 +74,19 @@ class ClientsImport implements ToModel, SkipsEmptyRows, WithValidation, WithHead
         return [
             'name'=>['required', 'string'],
             'phone'=>['required', 'unique:clients,phone', 'unique:clients,other_person_phone'],
-            'industry_id'=>['required', 'integer', 'exists:industries,id'],
+            'industry'=>['required', 'string'],
             'company_name'=>['required', 'string'],
-            'city_id'=>['required', 'integer', 'exists:cities,id'],
+            'city'=>['required', 'string'],
             'other_person_name'=>['required', 'string'],
             'other_person_phone'=>['required', 'unique:clients,phone', 'unique:clients,other_person_phone'],
             'other_person_position'=>['required', 'string'],
             'facebook_url'=>['nullable', 'url'],
-            'source_id'=>'required', 'integer', 'exists:sources,id',
-            'assigned_to'=>'required', 'integer', 'exists:users,id',
+            'source'=>'required', 'string',
+            'assigned_to'=>'required', 'string',
 
-            'status'=>['required', 'integer', 'in:'.ClientStatusEnum::NEW.','.ClientStatusEnum::CONTACTED.','.ClientStatusEnum::INTERESTED.','.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::PROPOSAL.','.ClientStatusEnum::MEETING.','.ClientStatusEnum::CLOSED.','.ClientStatusEnum::LOST],
-            'reason_id'=>['nullable', 'exists:reasons,id', 'required_if:status,'.ClientStatusEnum::NOT_INTERESTED.','.ClientStatusEnum::LOST],
-            'comment'=>['nullable', 'string', 'required_if:status,'.ClientStatusEnum::NOT_INTERESTED],
+            'status'=>['required', 'string'],
+            'reason'=>['nullable'],
+            'comment'=>['nullable', 'string'],
 
 
 

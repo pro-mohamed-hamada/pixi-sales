@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\DataTables\ClientsDataTable;
 use App\Enum\ActivationStatusEnum;
 use App\Enum\UserTypeEnum;
+use App\Exports\ClientsTemplate;
 use Illuminate\Http\Request;
 use App\Services\ClientService;
 use App\Http\Controllers\Controller;
@@ -67,6 +68,12 @@ class ClientsController extends Controller
         }
         return view('Datatables.ClientActivitiesDatatable', compact('client'));
     }//end of create
+
+    public function importTemplate(Request $request) 
+    {
+        return Excel::download(new ClientsTemplate, 'Clients_template.xlsx');
+
+    }
 
     public function importView(Request $request) 
     {

@@ -74,12 +74,12 @@ class ClientServicesImport implements ToModel, ToCollection, SkipsEmptyRows, Wit
         $servicesData = [];
         foreach ($rows as $row) 
         {
-            
+            $service_id = isset($row['service']) ? substr($row['service'], (strpos($row['service'], "#") + 1)) : null;
             DB::beginTransaction();
             if($row['phone'] == $previousPhone)
             {
                 $previousPhone = $row['phone'];
-                $servicesData[$row['service_id']] = ['price'=> $row['price'], 'currency'=> $row['currency'], 'next_action'=>$row['next_action'],'next_action_date'=>$row['next_action_date'], 'comment'=>$row['comment'], 'added_by'=>$addedBy];
+                $servicesData[$service_id] = ['price'=> $row['price'], 'currency'=> $row['currency'], 'next_action'=>$row['next_action'],'next_action_date'=>$row['next_action_date'], 'comment'=>$row['comment'], 'added_by'=>$addedBy];
                 $client = Client::where('phone','like', '%'.$row['phone'])->first();
                 if($client)
                 {
@@ -93,7 +93,7 @@ class ClientServicesImport implements ToModel, ToCollection, SkipsEmptyRows, Wit
                 }
                 $previousPhone = $row['phone'];
                 $servicesData = [];
-                $servicesData[$row['service_id']] = ['price'=> $row['price'], 'next_action'=>$row['next_action'],'next_action_date'=>$row['next_action_date'], 'comment'=>$row['comment'], 'added_by'=>$addedBy];
+                $servicesData[$service_id] = ['price'=> $row['price'], 'next_action'=>$row['next_action'],'next_action_date'=>$row['next_action_date'], 'comment'=>$row['comment'], 'added_by'=>$addedBy];
             }
             
             DB::commit();
@@ -104,7 +104,7 @@ class ClientServicesImport implements ToModel, ToCollection, SkipsEmptyRows, Wit
     public function rules(): array
     {
         return [
-            'service_id'=>['required', 'integer', 'exists:services,id'],
+            'service'=>['required', 'string'],
             'price'=>['required', 'numeric'],
             'currency'=>['required', 'string', 'in:'.CurrencyEnum::EGP.','.CurrencyEnum::USD],
             'next_action'=>['nullable', 'required_with:next_action_date', 'integer', 'in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::MEETING.','.ActionTypeEnum::WHATSAPP.','.ActionTypeEnum::VISIT],
