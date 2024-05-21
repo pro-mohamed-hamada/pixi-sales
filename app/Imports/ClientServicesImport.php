@@ -70,7 +70,7 @@ class ClientServicesImport implements ToModel, ToCollection, SkipsEmptyRows, Wit
     public function collection(Collection $rows)
     {
         $addedBy = Auth::user()->id;
-        $previousPhone = $rows[0]['phone'];
+        $previousPhone = $rows[0]['phone'] ?? null;
         $servicesData = [];
         foreach ($rows as $row) 
         {
