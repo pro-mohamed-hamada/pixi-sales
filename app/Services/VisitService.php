@@ -43,7 +43,6 @@ class VisitService extends BaseService
         DB::beginTransaction();
         $visit = $this->getModel()->create($data);
         $user->increaseUserTarget(TargetsEnum::VISIT);
-        $visit->activities()->create([ 'client_id'=>$visit->client->id, 'action'=>ClientActivityActionEnum::ADDED]);
         DB::commit();
         if (!$visit)
             return false ;
@@ -54,7 +53,6 @@ class VisitService extends BaseService
     {
         $visit = $this->findById(id: $id);
         $visit->update($data);
-        $visit->activities()->create([ 'client_id'=>$visit->client->id, 'action'=>ClientActivityActionEnum::UPDATED]);
         return $visit;
     }
 

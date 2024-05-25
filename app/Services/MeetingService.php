@@ -41,7 +41,6 @@ class MeetingService extends BaseService
         DB::beginTransaction();
         $meeting = $this->getModel()->create($data);
         $user->increaseUserTarget(TargetsEnum::MEETING);
-        $meeting->activities()->create([ 'client_id'=>$meeting->client->id, 'action'=>ClientActivityActionEnum::ADDED]);
         DB::commit();
         if (!$meeting)
             return false ;
@@ -53,7 +52,6 @@ class MeetingService extends BaseService
     {
         $meeting = $this->findById(id: $id);
         $meeting->update($data);
-        $meeting->activities()->create([ 'client_id'=>$meeting->client->id, 'action'=>ClientActivityActionEnum::UPDATED]);
         return $meeting;
     }
 

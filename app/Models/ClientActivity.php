@@ -31,6 +31,9 @@ class ClientActivity extends Model
             case ClientActivityActionEnum::UPDATED:
                 return __('lang.updated');
                 break;
+            case ClientActivityActionEnum::DELETED:
+                return __('lang.deleted');
+                break;
             default:
                 return "";
         }

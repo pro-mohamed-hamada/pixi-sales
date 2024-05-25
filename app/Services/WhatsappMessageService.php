@@ -56,7 +56,6 @@ class WhatsappMessageService extends BaseService
         $whatsappMessage = $this->getModel()->create($data);
         if (!$whatsappMessage)
             return false ;
-        $whatsappMessage->activities()->create([ 'client_id'=>$whatsappMessage->client->id, 'action'=>ClientActivityActionEnum::ADDED]);
 
         return $whatsappMessage;
     } //end of store

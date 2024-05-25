@@ -110,4 +110,18 @@ class ClientsFilter extends QueryFilter
         return $this->builder->where('industry_id', $term);
     }
 
+    public function no_action_date($term)
+    {
+        return $this->builder->whereDoesntHave('visits', function ($query) use ($term) {
+            $query->whereDate('created_at', ">=", Carbon::parse($term)->format('Y-m-d'));
+        })->whereDoesntHave('calls', function ($query) use ($term) {
+            $query->whereDate('created_at', ">=", Carbon::parse($term)->format('Y-m-d'));
+        })->whereDoesntHave('meetings', function ($query) use ($term) {
+            $query->whereDate('created_at', ">=", Carbon::parse($term)->format('Y-m-d'));
+        })->whereDoesntHave('services', function ($query) use ($term) {
+            $query->whereDate('client_services.created_at', ">=", Carbon::parse($term)->format('Y-m-d'));
+        });
+    }
+
+
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Client::class)->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->morphs('activity');
-            $table->enum('action', [ClientActivityActionEnum::ADDED, ClientActivityActionEnum::UPDATED]);
+            $table->enum('action', [ClientActivityActionEnum::ADDED, ClientActivityActionEnum::UPDATED, ClientActivityActionEnum::DELETED]);
             $table->timestamps();
         });
     }
