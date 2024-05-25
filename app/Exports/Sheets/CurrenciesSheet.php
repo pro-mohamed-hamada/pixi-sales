@@ -10,6 +10,8 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
 class CurrenciesSheet implements FromArray, WithTitle, WithEvents
 {
     use RegistersEventListeners;
@@ -41,6 +43,10 @@ class CurrenciesSheet implements FromArray, WithTitle, WithEvents
             $objValidation->setPrompt('Please pick a value from list.');
             $objValidation->setFormula1('Currencies!$A$1:$A$2');
         }
+        $sheet = $event->sheet->getDelegate(); // Get the PhpSpreadsheet object
+
+        // Hide the sheet
+        $sheet->getParent()->getSheetByName($sheet->getTitle())->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
     }
 
     /**

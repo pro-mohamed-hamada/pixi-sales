@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ReasonsSheet implements FromCollection, WithTitle, WithEvents, WithMapping
 {
@@ -51,6 +52,10 @@ class ReasonsSheet implements FromCollection, WithTitle, WithEvents, WithMapping
             $objValidation->setPrompt('Please pick a value from list.');
             $objValidation->setFormula1('Reasons!$A$1:$A$100');
         }
+        $sheet = $event->sheet->getDelegate(); // Get the PhpSpreadsheet object
+
+        // Hide the sheet
+        $sheet->getParent()->getSheetByName($sheet->getTitle())->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
     }
 
     /**

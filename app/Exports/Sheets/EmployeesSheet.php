@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class EmployeesSheet implements FromCollection, WithTitle, WithEvents, WithMapping
 {
@@ -50,6 +51,10 @@ class EmployeesSheet implements FromCollection, WithTitle, WithEvents, WithMappi
             $objValidation->setPrompt('Please pick a value from list.');
             $objValidation->setFormula1('Employees!$A$1:$A$100');
         }
+        $sheet = $event->sheet->getDelegate(); // Get the PhpSpreadsheet object
+
+        // Hide the sheet
+        $sheet->getParent()->getSheetByName($sheet->getTitle())->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
     }
 
     /**

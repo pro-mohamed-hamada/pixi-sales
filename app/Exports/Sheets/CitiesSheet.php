@@ -6,12 +6,12 @@ use App\Models\City;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class CitiesSheet implements FromCollection, WithTitle, WithEvents, WithMapping
 {
@@ -48,7 +48,17 @@ class CitiesSheet implements FromCollection, WithTitle, WithEvents, WithMapping
             $objValidation->setPromptTitle('Pick from list');
             $objValidation->setPrompt('Please pick a value from list.');
             $objValidation->setFormula1('Cities!$A$1:$A$100');
+
+            // // Loop through each row and set the formula for the specific column (e.g., column C)
+            // for ($row = 1; $row <= 1000; $row++) {
+            //     $event->sheet->setCellValue("C{$row}", "=A{$row}+B{$row}"); // Set formula for column C
+            // }
+
         }
+        $sheet = $event->sheet->getDelegate(); // Get the PhpSpreadsheet object
+
+        // Hide the sheet
+        $sheet->getParent()->getSheetByName($sheet->getTitle())->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
     }
 
     /**
