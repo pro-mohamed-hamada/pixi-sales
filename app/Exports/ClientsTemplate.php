@@ -8,6 +8,7 @@ use App\Exports\Sheets\ClientsSheet;
 use App\Exports\Sheets\CurrenciesSheet;
 use App\Exports\Sheets\EmployeesSheet;
 use App\Exports\Sheets\IndustriesSheet;
+use App\Exports\Sheets\NextActionSheet;
 use App\Exports\Sheets\ReasonsSheet;
 use App\Exports\Sheets\ServicesSheet;
 use App\Exports\Sheets\SourcesSheet;
@@ -35,6 +36,7 @@ class ClientsTemplate implements WithMultipleSheets
         $sheets[] = new ServicesSheet();
         $sheets[] = new StatusSheet();
         $sheets[] = new CurrenciesSheet();
+        $sheets[] = new NextActionSheet();
 
         return $sheets;
     }

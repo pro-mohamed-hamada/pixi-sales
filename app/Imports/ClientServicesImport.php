@@ -75,6 +75,8 @@ class ClientServicesImport implements ToModel, ToCollection, SkipsEmptyRows, Wit
         foreach ($rows as $row) 
         {
             $service_id = isset($row['service']) ? substr($row['service'], (strpos($row['service'], "#") + 1)) : null;
+            $row['next_action'] = isset($row['next_action']) ? substr($row['next_action'], (strpos($row['next_action'], "#") + 1)) : null;
+            $row['next_action_date'] = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['next_action_date']));
             DB::beginTransaction();
             if($row['phone'] == $previousPhone)
             {
@@ -107,8 +109,14 @@ class ClientServicesImport implements ToModel, ToCollection, SkipsEmptyRows, Wit
             'service'=>['required', 'string'],
             'price'=>['required', 'numeric'],
             'currency'=>['required', 'string', 'in:'.CurrencyEnum::EGP.','.CurrencyEnum::USD],
-            'next_action'=>['nullable', 'required_with:next_action_date', 'integer', 'in:'.ActionTypeEnum::CALL.','.ActionTypeEnum::MEETING.','.ActionTypeEnum::WHATSAPP.','.ActionTypeEnum::VISIT],
-            'next_action_date'=>['nullable', 'required_with:next_action', 'date', 'after:'.Carbon::now()],
+            'next_action'=>['nullable', 'required_with:next_action_date', 'string'],
+            'next_action_date'=>['nullable', 'required_with:next_action'],
+            'next_action_date'=>function($attribute, $value, $onFailure) {
+                $date = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value))->format('Y-m-d');
+                if ($date < Carbon::now()->format('Y-m-d')) {
+                     $onFailure(__('lang.next_action_date_should_be_equal_or_greater_than: '.Carbon::now()->format('Y-m-d')));
+                }
+            },
             'comment'=>['nullable', 'string'],
         ];
     }
