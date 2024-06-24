@@ -52,7 +52,7 @@ class ClientService extends BaseService
         if($city)
         {
             $data['phone'] = formatPhone(phone: $data['phone'], slug: $city?->governorate?->country?->slug);
-            $data['other_person_phone'] = formatPhone(phone: $data['other_person_phone'], slug: $city?->governorate?->country?->slug);
+            $data['other_person_phone'] = isset($data['other_person_phone']) ? formatPhone(phone: $data['other_person_phone'], slug: $city?->governorate?->country?->slug):null;
 
         }
 
@@ -170,7 +170,7 @@ class ClientService extends BaseService
         if($city)
         {
             $data['phone'] = formatPhone(phone: $data['phone'], slug: $city?->governorate?->country?->slug);
-            $data['other_person_phone'] = formatPhone(phone: $data['other_person_phone'], slug: $city?->governorate?->country?->slug);
+            $data['other_person_phone'] = isset($data['other_person_phone']) ? formatPhone(phone: $data['other_person_phone'], slug: $city?->governorate?->country?->slug):null;
 
         }
         $client->update($data);
